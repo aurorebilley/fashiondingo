@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Doodle from "../components/Doodle";
 import CartoonDingo from "../components/CartoonDingo";
+import forestBg from "../components/fond/Front-Page-Forest-1920x1080.webp";
+import islandBg from "../components/fond/Front-Page-Island-1920x1080.webp";
+import partyBg from "../components/fond/Front-Page-Party-1920x1080.webp";
+import scoobyBg from "../components/fond/Front-Page-Scooby-1920x1080.webp";
+import streetBg from "../components/fond/Front-Page-Street-1920x1080.webp";
+
+const homeBackgrounds = [forestBg, islandBg, partyBg, scoobyBg, streetBg];
 
 export default function HomePage({ setPage, playing }) {
+  const background = useMemo(
+    () => homeBackgrounds[Math.floor(Math.random() * homeBackgrounds.length)],
+    []
+  );
+
   return (
     <>
-      <section className="page home-page">
+      <section className="page home-page" style={{ "--home-bg": `url(${background})` }}>
         <div className="desktop-room">
           <Doodle className="sun">✹</Doodle>
           <Doodle className="spiral">@@@</Doodle>
@@ -22,8 +34,22 @@ export default function HomePage({ setPage, playing }) {
         </div>
       </section>
       <style>{`
-        .desktop-room { min-height: calc(100vh - 150px); position: relative; border: 6px dashed #753BBD; background: rgba(206,180,126,.52); box-shadow: inset 0 0 0 8px rgba(234,218,36,.35), 12px 12px 0 #1E22AA; overflow: hidden; }
-        .desktop-room:before { content:""; position:absolute; inset: 8%; background: repeating-radial-gradient(circle, rgba(255,255,255,.25) 0 2px, transparent 3px 12px); }
+        .home-page {
+          height: 100vh;
+          min-height: 100vh;
+          overflow: hidden;
+          padding: 0;
+          background-image: var(--home-bg);
+          background-position: top center;
+          background-size: auto 100%;
+          background-repeat: no-repeat;
+          background-color: #171031;
+        }
+        main:has(.home-page) {
+          height: 100vh;
+          overflow: hidden;
+        }
+        .desktop-room { height: 100vh; min-height: 100vh; position: relative; overflow: hidden; }
         .hero-copy { position: relative; z-index: 2; max-width: 780px; padding: 9vh 5vw; transform: rotate(-1deg); }
         .hero-copy p { max-width: 620px; font-size: clamp(1.1rem, 2vw, 1.45rem); background: rgba(255,255,255,.54); border: 2px dashed #DA291C; padding: 10px; }
         .tiny-label { width: max-content; color: #1E22AA; }
@@ -35,7 +61,7 @@ export default function HomePage({ setPage, playing }) {
         .p1 { right: 7%; top: 35%; } .p2 { left: 16%; bottom: 12%; } .p3 { right: 30%; bottom: 5%; }
 
         @media (max-width: 900px) {
-          .desktop-room { min-height: 760px; }
+          .desktop-room { height: 100vh; min-height: 100vh; }
           .hero-copy { padding: 60px 18px; }
           .home-portal { position: relative; display:block; width:max-content; margin: 10px 18px; left:auto; right:auto; top:auto; bottom:auto; }
         }
