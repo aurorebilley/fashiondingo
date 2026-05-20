@@ -209,7 +209,7 @@ export default function HomePage() {
           .home-dancer { top: 45%; width: min(72vw, 340px); max-height: 62vh; }
           .home-boutique-button {
             top: auto;
-            bottom: 168px;
+            bottom: 204px;
             width: min(58vw, 230px);
           }
           .home-left-buttons {
