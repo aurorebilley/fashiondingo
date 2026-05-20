@@ -69,6 +69,7 @@ export default function HomePage() {
           background: transparent;
           box-shadow: none;
           padding: 0;
+          gap: 5px;
         }
         body:has(.home-page) .social-banner {
           display: block;
@@ -90,6 +91,10 @@ export default function HomePage() {
           min-height: 30px;
           color: #EADA24;
           filter: drop-shadow(2px 2px 0 #1E22AA) drop-shadow(-1px -1px 0 #DA291C);
+        }
+        body:has(.home-page) .social-strip a img {
+          width: 27px;
+          height: 27px;
         }
         body:has(.home-page) .winamp {
           width: 188px;
