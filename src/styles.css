@@ -51,6 +51,12 @@ h2 { font-size: clamp(3rem, 8vw, 7rem); margin: 16px 0; color: #753BBD; text-sha
   display: inline-flex; align-items: center; justify-content: center;
   min-width: 34px; min-height: 34px; border: 2px solid #1E22AA; background: #FF9425;
 }
+.social-strip img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  display: block;
+}
 .nav-stickers { display: flex; flex-wrap: wrap; gap: 8px; max-width: 840px; padding: 8px; background: rgba(234,218,36,.86); }
 .nav-stickers button {
   border: 3px solid #171031; border-radius: 43% 57% 51% 49% / 58% 34% 66% 42%;

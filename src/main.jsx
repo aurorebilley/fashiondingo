@@ -2,15 +2,15 @@ import React, { Component, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Instagram,
-  Mail,
   Minus,
   Pause,
   Play,
   SkipBack,
-  SkipForward,
-  Youtube
+  SkipForward
 } from "lucide-react";
+import instagramIcon from "./components/Instagram.svg";
+import mailIcon from "./components/Mail.svg";
+import youtubeIcon from "./components/Youtube.svg";
 import AboutPage from "./pages/AboutPage";
 import BuzzPage from "./pages/BuzzPage";
 import HomePage from "./pages/HomePage";
@@ -51,9 +51,9 @@ function Nav() {
     <header className="fixed left-0 right-0 top-0 z-30 px-3 py-3 md:px-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="social-strip">
-          <a aria-label="mail"><Mail size={19} /></a>
-          <a aria-label="instagram"><Instagram size={19} /></a>
-          <a aria-label="youtube"><Youtube size={20} /></a>
+          <a href="mailto:contact@fashiondingo.com" aria-label="envoyer un mail"><img src={mailIcon} alt="" /></a>
+          <a href="https://www.instagram.com/fashiondingo/" target="_blank" rel="noreferrer" aria-label="ouvrir Instagram"><img src={instagramIcon} alt="" /></a>
+          <a href="https://www.youtube.com/@fashiondingo" target="_blank" rel="noreferrer" aria-label="ouvrir YouTube"><img src={youtubeIcon} alt="" /></a>
         </div>
       </div>
     </header>
