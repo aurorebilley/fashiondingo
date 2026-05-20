@@ -5,7 +5,7 @@
 :root {
   color: #171031;
   background: #BBC7D6;
-  cursor: url("/cursors/GLOVES CURSOR1.cur"), auto;
+  cursor: url("/cursors/gloves-cursor1.png") 0 0, auto;
 }
 
 * { box-sizing: border-box; }
@@ -32,7 +32,7 @@ body:before {
     repeating-linear-gradient(90deg, transparent 0 14px, rgba(218,41,28,.12) 15px 16px);
 }
 button, a, select, input, textarea, [role="button"] {
-  cursor: url("/cursors/GLOVES CURSOR2.cur"), pointer;
+  cursor: url("/cursors/gloves-cursor2.png") 0 0, pointer;
 }
 button { font-family: inherit; }
 
