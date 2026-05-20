@@ -1,3 +1,4 @@
+import React from "react";
 import Doodle from "../components/Doodle";
 import CartoonDingo from "../components/CartoonDingo";
 

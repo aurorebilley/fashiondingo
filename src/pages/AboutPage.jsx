@@ -1,3 +1,4 @@
+import React from "react";
 import { motion } from "framer-motion";
 import Doodle from "../components/Doodle";
 import HomeButton from "../components/HomeButton";

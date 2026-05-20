@@ -1,3 +1,4 @@
+import React from "react";
 import HomeButton from "../components/HomeButton";
 
 export default function BuzzPage({ setPage }) {
