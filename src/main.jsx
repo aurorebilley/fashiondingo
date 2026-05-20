@@ -11,6 +11,7 @@ import {
 import instagramIcon from "./components/Instagram.svg";
 import mailIcon from "./components/Mail.svg";
 import youtubeIcon from "./components/Youtube.svg";
+import socialBanner from "./components/Bannière-réseau.webp";
 import AboutPage from "./pages/AboutPage";
 import BuzzPage from "./pages/BuzzPage";
 import HomePage from "./pages/HomePage";
@@ -51,6 +52,7 @@ function Nav() {
     <header className="fixed left-0 right-0 top-0 z-30 px-3 py-3 md:px-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="social-strip">
+          <img className="social-banner" src={socialBanner} alt="" />
           <a href="mailto:contact@fashiondingo.com" aria-label="envoyer un mail"><img src={mailIcon} alt="" /></a>
           <a href="https://www.instagram.com/fashiondingo/" target="_blank" rel="noreferrer" aria-label="ouvrir Instagram"><img src={instagramIcon} alt="" /></a>
           <a href="https://www.youtube.com/@fashiondingo" target="_blank" rel="noreferrer" aria-label="ouvrir YouTube"><img src={youtubeIcon} alt="" /></a>

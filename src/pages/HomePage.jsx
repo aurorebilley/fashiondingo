@@ -70,6 +70,19 @@ export default function HomePage() {
           box-shadow: none;
           padding: 0;
         }
+        body:has(.home-page) .social-banner {
+          display: block;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          z-index: 0;
+          width: 142px;
+          height: auto;
+          max-width: none;
+          object-fit: contain;
+          transform: translate(-50%, -50%);
+          pointer-events: none;
+        }
         body:has(.home-page) .social-strip a {
           background: transparent;
           border: 0;

@@ -46,11 +46,12 @@ h2 { font-size: clamp(3rem, 8vw, 7rem); margin: 16px 0; color: #753BBD; text-sha
   background: #EADA24;
   box-shadow: 5px 5px 0 #DA291C;
 }
-.social-strip { display: flex; gap: 8px; padding: 8px; transform: rotate(-2deg); }
+.social-strip { position: relative; display: flex; gap: 8px; padding: 8px; transform: rotate(-2deg); overflow: visible; }
 .social-strip a, .winamp-buttons button, .home-button {
-  display: inline-flex; align-items: center; justify-content: center;
+  position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center;
   min-width: 34px; min-height: 34px; border: 2px solid #1E22AA; background: #FF9425;
 }
+.social-banner { display: none; }
 .social-strip img {
   width: 22px;
   height: 22px;
