@@ -5,6 +5,11 @@ import partyBg from "../components/fond/Front-Page-Party-1920x1080.webp";
 import scoobyBg from "../components/fond/Front-Page-Scooby-1920x1080.webp";
 import streetBg from "../components/fond/Front-Page-Street-1920x1080.webp";
 import dancerImage from "../components/anim/perso fashion D DANSE rumba0001.png";
+import boutiqueButton from "../components/bouton/Boutique.svg";
+import portfolioButton from "../components/bouton/Portfolio.svg";
+import aboutButton from "../components/bouton/QuiSommesNous.svg";
+import cutiBuzzButton from "../components/bouton/CutiBuzz.svg";
+import inviteButton from "../components/bouton/NousInviter.svg";
 
 const homeBackgrounds = [forestBg, islandBg, partyBg, scoobyBg, streetBg];
 
@@ -22,6 +27,25 @@ export default function HomePage() {
             <h1>Fashion Dingo</h1>
           </div>
           <img className="home-dancer" src={dancerImage} alt="" />
+          <div className="home-left-buttons" aria-label="navigation secondaire">
+            <button className="home-image-button about-button" type="button" aria-label="qui sommes-nous">
+              <img src={aboutButton} alt="" />
+            </button>
+            <button className="home-image-button portfolio-button" type="button" aria-label="portfolio">
+              <img src={portfolioButton} alt="" />
+            </button>
+          </div>
+          <div className="home-right-buttons" aria-label="navigation secondaire">
+            <button className="home-image-button invite-button" type="button" aria-label="nous inviter">
+              <img src={inviteButton} alt="" />
+            </button>
+            <button className="home-image-button buzz-button" type="button" aria-label="cuti buzz">
+              <img src={cutiBuzzButton} alt="" />
+            </button>
+          </div>
+          <button className="home-boutique-button" type="button" aria-label="ouvrir la boutique">
+            <img src={boutiqueButton} alt="" />
+          </button>
         </div>
       </section>
       <style>{`
@@ -103,6 +127,61 @@ export default function HomePage() {
           user-select: none;
           pointer-events: none;
         }
+        .home-boutique-button {
+          position: absolute;
+          left: 50%;
+          top: calc(50% + min(22vw, 250px));
+          z-index: 8;
+          width: min(28vw, 280px);
+          padding: 0;
+          border: 0;
+          background: transparent;
+          transform: translateX(-50%);
+          filter: drop-shadow(4px 5px 0 rgba(30, 34, 170, .75));
+        }
+        .home-boutique-button img {
+          display: block;
+          width: 100%;
+          height: auto;
+        }
+        .home-boutique-button:hover {
+          animation: wobble .75s;
+          filter: drop-shadow(0 0 12px #1E22AA) drop-shadow(4px 5px 0 rgba(218, 41, 28, .78));
+        }
+        .home-left-buttons {
+          position: absolute;
+          left: calc(50% - min(34vw, 390px));
+          top: 50%;
+          z-index: 8;
+          display: grid;
+          gap: 18px;
+          transform: translate(-50%, -50%) rotate(-2deg);
+        }
+        .home-right-buttons {
+          position: absolute;
+          right: calc(50% - min(34vw, 390px));
+          top: 50%;
+          z-index: 8;
+          display: grid;
+          gap: 18px;
+          transform: translate(50%, -50%) rotate(2deg);
+        }
+        .home-image-button {
+          width: min(24vw, 260px);
+          padding: 0;
+          border: 0;
+          background: transparent;
+          filter: drop-shadow(4px 5px 0 rgba(30, 34, 170, .75));
+        }
+        .home-image-button img {
+          display: block;
+          width: 100%;
+          height: auto;
+        }
+        .home-image-button:hover {
+          animation: wobble .75s;
+          filter: drop-shadow(0 0 12px #1E22AA) drop-shadow(4px 5px 0 rgba(218, 41, 28, .78));
+        }
         .home-title-wrap {
           position: fixed;
           top: 22px;
@@ -127,7 +206,27 @@ export default function HomePage() {
         }
         @media (max-width: 900px) {
           .desktop-room { height: 100vh; min-height: 100vh; }
-          .home-dancer { width: min(72vw, 340px); max-height: 62vh; }
+          .home-dancer { top: 45%; width: min(72vw, 340px); max-height: 62vh; }
+          .home-boutique-button {
+            top: auto;
+            bottom: 96px;
+            width: min(58vw, 230px);
+          }
+          .home-left-buttons {
+            left: 16px;
+            top: 48%;
+            gap: 10px;
+            transform: translateY(-50%) rotate(-2deg);
+          }
+          .home-right-buttons {
+            right: 16px;
+            top: 48%;
+            gap: 10px;
+            transform: translateY(-50%) rotate(2deg);
+          }
+          .home-image-button {
+            width: min(34vw, 142px);
+          }
           .home-title-wrap { left: 104px; right: 10px; top: 7px; height: 50px; }
           .home-title-wrap h1 { font-size: clamp(20px, 6vw, 42px); text-shadow: none; }
           body:has(.home-page) .winamp {
