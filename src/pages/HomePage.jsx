@@ -75,7 +75,7 @@ export default function HomePage() {
           display: block;
           position: absolute;
           left: calc(50% + 16px);
-          top: calc(50% + 10px);
+          top: calc(50% + 14px);
           z-index: 0;
           width: 142px;
           height: auto;
