@@ -13,7 +13,7 @@ import inviteButton from "../components/bouton/NousInviter.svg";
 
 const homeBackgrounds = [forestBg, islandBg, partyBg, scoobyBg, streetBg];
 
-export default function HomePage() {
+export default function HomePage({ setPage }) {
   const background = useMemo(
     () => homeBackgrounds[Math.floor(Math.random() * homeBackgrounds.length)],
     []
@@ -28,22 +28,22 @@ export default function HomePage() {
           </div>
           <img className="home-dancer" src={dancerImage} alt="" />
           <div className="home-left-buttons" aria-label="navigation secondaire">
-            <button className="home-image-button portfolio-button" type="button" aria-label="portfolio">
+            <button className="home-image-button portfolio-button" type="button" aria-label="portfolio" onClick={() => setPage("portfolio")}>
               <img src={portfolioButton} alt="" />
             </button>
-            <button className="home-image-button about-button" type="button" aria-label="qui sommes-nous">
+            <button className="home-image-button about-button" type="button" aria-label="qui sommes-nous" onClick={() => setPage("about")}>
               <img src={aboutButton} alt="" />
             </button>
           </div>
           <div className="home-right-buttons" aria-label="navigation secondaire">
-            <button className="home-image-button buzz-button" type="button" aria-label="cuti buzz">
+            <button className="home-image-button buzz-button" type="button" aria-label="cuti buzz" onClick={() => setPage("buzz")}>
               <img src={cutiBuzzButton} alt="" />
             </button>
-            <button className="home-image-button invite-button" type="button" aria-label="nous inviter">
+            <button className="home-image-button invite-button" type="button" aria-label="nous inviter" onClick={() => setPage("invite")}>
               <img src={inviteButton} alt="" />
             </button>
           </div>
-          <button className="home-boutique-button" type="button" aria-label="ouvrir la boutique">
+          <button className="home-boutique-button" type="button" aria-label="ouvrir la boutique" onClick={() => setPage("shop")}>
             <img src={boutiqueButton} alt="" />
           </button>
         </div>
