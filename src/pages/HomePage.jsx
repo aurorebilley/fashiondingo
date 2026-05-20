@@ -214,24 +214,31 @@ export default function HomePage() {
           }
           .home-left-buttons {
             left: 16px;
-            top: 48%;
-            gap: 10px;
-            transform: translateY(-50%) rotate(-2deg);
+            top: 0;
+            bottom: 0;
+            width: min(34vw, 142px);
+            display: block;
+            transform: rotate(-2deg);
           }
           .home-right-buttons {
             right: 16px;
-            top: 48%;
-            gap: 10px;
-            transform: translateY(-50%) rotate(2deg);
+            top: 0;
+            bottom: 0;
+            width: min(34vw, 142px);
+            display: block;
+            transform: rotate(2deg);
           }
           .home-image-button {
-            width: min(34vw, 142px);
+            position: absolute;
+            width: 100%;
           }
           .portfolio-button,
           .buzz-button {
-            position: relative;
-            top: -92px;
-            margin-bottom: -78px;
+            top: 25%;
+          }
+          .about-button,
+          .invite-button {
+            top: 48%;
           }
           .home-title-wrap { left: 104px; right: 10px; top: 7px; height: 50px; }
           .home-title-wrap h1 { font-size: clamp(20px, 6vw, 42px); text-shadow: none; }
