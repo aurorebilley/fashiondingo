@@ -69,7 +69,7 @@ export default function HomePage({ setPage }) {
       ].filter(Boolean);
 
       const findLayout = (minWidth) => {
-        for (let width = Math.min(desiredWidth, maxScreenWidth); width >= minWidth; width -= 4) {
+        for (let width = Math.floor(Math.min(desiredWidth, maxScreenWidth)); width >= minWidth; width -= 1) {
           const height = width / boutiqueAspectRatio;
           const left = (vw - width) / 2;
           const right = left + width;
