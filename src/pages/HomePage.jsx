@@ -229,7 +229,9 @@ export default function HomePage() {
           }
           .portfolio-button,
           .buzz-button {
-            transform: translateY(-22px);
+            position: relative;
+            top: -92px;
+            margin-bottom: -78px;
           }
           .home-title-wrap { left: 104px; right: 10px; top: 7px; height: 50px; }
           .home-title-wrap h1 { font-size: clamp(20px, 6vw, 42px); text-shadow: none; }
