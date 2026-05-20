@@ -47,64 +47,79 @@ export default function HomePage({ setPage }) {
       const vh = roomRect.height;
       const isMobile = vw <= 900;
       const dancerGap = isMobile ? 10 : 22;
-      const desiredWidth = isMobile ? Math.min(vw * 0.56, 212) : Math.min(vw * 0.42, 480);
-      const minWidth = isMobile ? 112 : 130;
       const dancerRect = dancer.getBoundingClientRect();
       const minTop = dancerRect.bottom - roomRect.top + dancerGap;
       const desiredTop = isMobile
         ? minTop + 4
         : Math.max(minTop, vh * 0.5 + Math.min(vw * 0.22, 250));
       const maxScreenWidth = vw - boutiqueEdgeGap * 2;
+      const aboutWidth = aboutRef.current
+        ? aboutRef.current.getBoundingClientRect().width
+        : Math.min(vw * (isMobile ? 0.34 : 0.24), isMobile ? 142 : 260);
+      const hardMinWidth = isMobile ? 104 : 130;
+      const preferredMinWidth = Math.max(hardMinWidth, Math.min(maxScreenWidth, aboutWidth * 1.12));
+      const desiredWidth = Math.max(
+        preferredMinWidth,
+        isMobile ? Math.min(vw * 0.62, 238) : Math.min(vw * 0.44, 520)
+      );
       const obstacleElements = [
         aboutRef.current,
         inviteRef.current,
         document.querySelector(".winamp")
       ].filter(Boolean);
 
-      for (let width = Math.min(desiredWidth, maxScreenWidth); width >= minWidth; width -= 4) {
-        const height = width / boutiqueAspectRatio;
-        const left = (vw - width) / 2;
-        const right = left + width;
-        const allowedMinTop = Math.max(boutiqueEdgeGap, minTop);
-        const allowedMaxTop = vh - boutiqueEdgeGap - height;
-        if (allowedMinTop > allowedMaxTop) continue;
+      const findLayout = (minWidth) => {
+        for (let width = Math.min(desiredWidth, maxScreenWidth); width >= minWidth; width -= 4) {
+          const height = width / boutiqueAspectRatio;
+          const left = (vw - width) / 2;
+          const right = left + width;
+          const allowedMinTop = Math.max(boutiqueEdgeGap, minTop);
+          const allowedMaxTop = vh - boutiqueEdgeGap - height;
+          if (allowedMinTop > allowedMaxTop) continue;
 
-        const obstacleRects = obstacleElements
-          .map((element) => element.getBoundingClientRect())
-          .map((rect) => ({
-            left: rect.left - roomRect.left,
-            right: rect.right - roomRect.left,
-            top: rect.top - roomRect.top,
-            bottom: rect.bottom - roomRect.top
-          }))
-          .filter((rect) => left < rect.right + boutiqueObstacleGap && right > rect.left - boutiqueObstacleGap);
+          const obstacleRects = obstacleElements
+            .map((element) => element.getBoundingClientRect())
+            .map((rect) => ({
+              left: rect.left - roomRect.left,
+              right: rect.right - roomRect.left,
+              top: rect.top - roomRect.top,
+              bottom: rect.bottom - roomRect.top
+            }))
+            .filter((rect) => left < rect.right + boutiqueObstacleGap && right > rect.left - boutiqueObstacleGap);
 
-        const targetTop = Math.min(Math.max(desiredTop, allowedMinTop), allowedMaxTop);
-        const candidates = [targetTop, allowedMinTop, allowedMaxTop];
-        obstacleRects.forEach((rect) => {
-          candidates.push(rect.top - height - boutiqueObstacleGap);
-          candidates.push(rect.bottom + boutiqueObstacleGap);
-        });
-
-        const bestTop = candidates
-          .map((top) => Math.min(Math.max(top, allowedMinTop), allowedMaxTop))
-          .filter((top, index, list) => list.indexOf(top) === index)
-          .filter((top) => {
-            const boutiqueRect = { left, right, top, bottom: top + height };
-            return obstacleRects.every((rect) => !collides(boutiqueRect, rect));
-          })
-          .sort((a, b) => Math.abs(a - targetTop) - Math.abs(b - targetTop) || b - a)[0];
-
-        if (bestTop !== undefined) {
-          setBoutiqueLayout((current) => {
-            const next = { top: Math.round(bestTop), width: Math.round(width) };
-            return current && current.top === next.top && current.width === next.width ? current : next;
+          const targetTop = Math.min(Math.max(desiredTop, allowedMinTop), allowedMaxTop);
+          const candidates = [targetTop, allowedMinTop, allowedMaxTop];
+          obstacleRects.forEach((rect) => {
+            candidates.push(rect.top - height - boutiqueObstacleGap);
+            candidates.push(rect.bottom + boutiqueObstacleGap);
           });
-          return;
+
+          const bestTop = candidates
+            .map((top) => Math.min(Math.max(top, allowedMinTop), allowedMaxTop))
+            .filter((top, index, list) => list.indexOf(top) === index)
+            .filter((top) => {
+              const boutiqueRect = { left, right, top, bottom: top + height };
+              return obstacleRects.every((rect) => !collides(boutiqueRect, rect));
+            })
+            .sort((a, b) => Math.abs(a - targetTop) - Math.abs(b - targetTop) || b - a)[0];
+
+          if (bestTop !== undefined) {
+            return { top: Math.round(bestTop), width: Math.round(width) };
+          }
         }
+
+        return null;
+      };
+
+      const layout = findLayout(preferredMinWidth) || findLayout(hardMinWidth);
+      if (layout) {
+        setBoutiqueLayout((current) => (
+          current && current.top === layout.top && current.width === layout.width ? current : layout
+        ));
+        return;
       }
 
-      const fallbackWidth = Math.min(84, maxScreenWidth);
+      const fallbackWidth = Math.min(hardMinWidth, maxScreenWidth);
       const fallbackHeight = fallbackWidth / boutiqueAspectRatio;
       setBoutiqueLayout({
         top: Math.min(Math.max(minTop, boutiqueEdgeGap), vh - boutiqueEdgeGap - fallbackHeight),
