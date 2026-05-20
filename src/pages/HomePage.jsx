@@ -13,7 +13,8 @@ import inviteButton from "../components/bouton/NousInviter.svg";
 
 const homeBackgrounds = [forestBg, islandBg, partyBg, scoobyBg, streetBg];
 const boutiqueAspectRatio = 1371 / 482;
-const boutiqueGap = 14;
+const boutiqueEdgeGap = 14;
+const boutiqueObstacleGap = 14;
 
 export default function HomePage({ setPage }) {
   const roomRef = useRef(null);
@@ -30,10 +31,10 @@ export default function HomePage({ setPage }) {
     let frameId;
 
     const collides = (a, b) => (
-      a.left < b.right + boutiqueGap &&
-      a.right > b.left - boutiqueGap &&
-      a.top < b.bottom + boutiqueGap &&
-      a.bottom > b.top - boutiqueGap
+      a.left < b.right + boutiqueObstacleGap &&
+      a.right > b.left - boutiqueObstacleGap &&
+      a.top < b.bottom + boutiqueObstacleGap &&
+      a.bottom > b.top - boutiqueObstacleGap
     );
 
     const calculateBoutiqueLayout = () => {
@@ -45,14 +46,15 @@ export default function HomePage({ setPage }) {
       const vw = roomRect.width;
       const vh = roomRect.height;
       const isMobile = vw <= 900;
-      const desiredWidth = isMobile ? Math.min(vw * 0.48, 182) : Math.min(vw * 0.42, 480);
-      const minWidth = isMobile ? 92 : 150;
-      const desiredTop = isMobile
-        ? vh * 0.45 + Math.min(vw * 0.39, 178)
-        : vh * 0.5 + Math.min(vw * 0.22, 250);
+      const dancerGap = isMobile ? 10 : 22;
+      const desiredWidth = isMobile ? Math.min(vw * 0.56, 212) : Math.min(vw * 0.42, 480);
+      const minWidth = isMobile ? 112 : 130;
       const dancerRect = dancer.getBoundingClientRect();
-      const minTop = dancerRect.bottom - roomRect.top + boutiqueGap;
-      const maxScreenWidth = vw - boutiqueGap * 2;
+      const minTop = dancerRect.bottom - roomRect.top + dancerGap;
+      const desiredTop = isMobile
+        ? minTop + 4
+        : Math.max(minTop, vh * 0.5 + Math.min(vw * 0.22, 250));
+      const maxScreenWidth = vw - boutiqueEdgeGap * 2;
       const obstacleElements = [
         aboutRef.current,
         inviteRef.current,
@@ -63,8 +65,8 @@ export default function HomePage({ setPage }) {
         const height = width / boutiqueAspectRatio;
         const left = (vw - width) / 2;
         const right = left + width;
-        const allowedMinTop = Math.min(Math.max(boutiqueGap, minTop), vh - boutiqueGap - height);
-        const allowedMaxTop = vh - boutiqueGap - height;
+        const allowedMinTop = Math.max(boutiqueEdgeGap, minTop);
+        const allowedMaxTop = vh - boutiqueEdgeGap - height;
         if (allowedMinTop > allowedMaxTop) continue;
 
         const obstacleRects = obstacleElements
@@ -75,13 +77,13 @@ export default function HomePage({ setPage }) {
             top: rect.top - roomRect.top,
             bottom: rect.bottom - roomRect.top
           }))
-          .filter((rect) => left < rect.right + boutiqueGap && right > rect.left - boutiqueGap);
+          .filter((rect) => left < rect.right + boutiqueObstacleGap && right > rect.left - boutiqueObstacleGap);
 
         const targetTop = Math.min(Math.max(desiredTop, allowedMinTop), allowedMaxTop);
         const candidates = [targetTop, allowedMinTop, allowedMaxTop];
         obstacleRects.forEach((rect) => {
-          candidates.push(rect.top - height - boutiqueGap);
-          candidates.push(rect.bottom + boutiqueGap);
+          candidates.push(rect.top - height - boutiqueObstacleGap);
+          candidates.push(rect.bottom + boutiqueObstacleGap);
         });
 
         const bestTop = candidates
@@ -102,10 +104,10 @@ export default function HomePage({ setPage }) {
         }
       }
 
-      const fallbackWidth = Math.min(minWidth, maxScreenWidth);
+      const fallbackWidth = Math.min(84, maxScreenWidth);
       const fallbackHeight = fallbackWidth / boutiqueAspectRatio;
       setBoutiqueLayout({
-        top: Math.max(minTop, vh - boutiqueGap - fallbackHeight),
+        top: Math.min(Math.max(minTop, boutiqueEdgeGap), vh - boutiqueEdgeGap - fallbackHeight),
         width: fallbackWidth
       });
     };
