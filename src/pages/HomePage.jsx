@@ -4,6 +4,7 @@ import islandBg from "../components/fond/Front-Page-Island-1920x1080.webp";
 import partyBg from "../components/fond/Front-Page-Party-1920x1080.webp";
 import scoobyBg from "../components/fond/Front-Page-Scooby-1920x1080.webp";
 import streetBg from "../components/fond/Front-Page-Street-1920x1080.webp";
+import dancerImage from "../components/anim/perso fashion D DANSE rumba0001.png";
 
 const homeBackgrounds = [forestBg, islandBg, partyBg, scoobyBg, streetBg];
 
@@ -20,6 +21,7 @@ export default function HomePage() {
           <div className="home-title-wrap">
             <h1>Fashion Dingo</h1>
           </div>
+          <img className="home-dancer" src={dancerImage} alt="" />
         </div>
       </section>
       <style>{`
@@ -89,6 +91,18 @@ export default function HomePage() {
           min-height: 25px;
         }
         .desktop-room { height: 100vh; min-height: 100vh; position: relative; overflow: hidden; }
+        .home-dancer {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          z-index: 5;
+          width: min(38vw, 430px);
+          max-height: 72vh;
+          object-fit: contain;
+          transform: translate(-50%, -50%);
+          user-select: none;
+          pointer-events: none;
+        }
         .home-title-wrap {
           position: fixed;
           top: 22px;
@@ -113,9 +127,39 @@ export default function HomePage() {
         }
         @media (max-width: 900px) {
           .desktop-room { height: 100vh; min-height: 100vh; }
-          .home-title-wrap { left: 104px; right: 10px; top: 18px; height: 50px; }
+          .home-dancer { width: min(72vw, 340px); max-height: 62vh; }
+          .home-title-wrap { left: 104px; right: 10px; top: 7px; height: 50px; }
           .home-title-wrap h1 { font-size: clamp(20px, 6vw, 42px); text-shadow: none; }
-          body:has(.home-page) .winamp { width: 168px; right: 10px; bottom: 10px; }
+          body:has(.home-page) .winamp {
+            width: calc(100vw - 20px);
+            right: 10px;
+            bottom: 10px;
+            display: grid;
+            grid-template-columns: auto max-content;
+            align-items: center;
+          }
+          body:has(.home-page) .winamp.is-mini {
+            width: calc(100vw - 20px);
+            grid-template-columns: 1fr;
+          }
+          body:has(.home-page) .winamp-top {
+            grid-column: 1 / -1;
+          }
+          body:has(.home-page) .track {
+            min-width: 0;
+            padding: 6px 8px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+          body:has(.home-page) .winamp-buttons {
+            padding: 5px 6px;
+            justify-content: flex-end;
+          }
+          body:has(.home-page) .winamp-buttons button {
+            min-width: 26px;
+            min-height: 24px;
+          }
         }
       `}</style>
     </>
