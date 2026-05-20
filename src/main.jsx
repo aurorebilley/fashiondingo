@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { Component, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -132,4 +132,36 @@ function App() {
   );
 }
 
-createRoot(document.getElementById("root")).render(<App />);
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error) {
+    console.error("Fashion Dingo render error:", error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <main className="page">
+          <h1>Fashion Dingo</h1>
+          <p className="runtime-fallback">Le site a charge, mais une erreur d'interface bloque l'affichage. Regarde la console du navigateur pour le detail.</p>
+        </main>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+createRoot(document.getElementById("root")).render(
+  <ErrorBoundary>
+    <App />
+  </ErrorBoundary>
+);

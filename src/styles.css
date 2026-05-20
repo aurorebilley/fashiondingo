@@ -87,6 +87,7 @@ h2 { font-size: clamp(3rem, 8vw, 7rem); margin: 16px 0; color: #753BBD; text-sha
 .speech { right: -12px; top: 35px; background:#EADA24; padding: 7px; rotate: 7deg; }
 
 .home-button { gap: 6px; padding: 8px 12px; margin-bottom: 10px; transform: rotate(-3deg); }
+.runtime-fallback { max-width: 620px; font-size: 1.25rem; background: rgba(255,255,255,.6); border: 3px dashed #DA291C; padding: 16px; }
 
 @media (max-width: 900px) {
   .page { padding: 150px 14px 40px; }
