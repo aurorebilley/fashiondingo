@@ -11,7 +11,7 @@ import {
 import instagramIcon from "./components/Instagram.svg";
 import mailIcon from "./components/Mail.svg";
 import youtubeIcon from "./components/Youtube.svg";
-import socialBanner from "./components/Bannière-réseau.webp";
+import socialBanner from "./components/banniere-reseau.webp";
 import AboutPage from "./pages/AboutPage";
 import BuzzPage from "./pages/BuzzPage";
 import HomePage from "./pages/HomePage";
