@@ -73,7 +73,7 @@ export default function HomePage() {
         body:has(.home-page) .social-banner {
           display: block;
           position: absolute;
-          left: 50%;
+          left: calc(50% + 12px);
           top: 50%;
           z-index: 0;
           width: 142px;
