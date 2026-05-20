@@ -19,15 +19,6 @@ import PortfolioPage from "./pages/PortfolioPage";
 import ShopPage from "./pages/ShopPage";
 import "./styles.css";
 
-const pages = [
-  { id: "home", label: "Accueil" },
-  { id: "about", label: "Qui sommes-nous ?" },
-  { id: "portfolio", label: "Portfolio" },
-  { id: "shop", label: "Boutique" },
-  { id: "invite", label: "Nous inviter" },
-  { id: "buzz", label: "Cuti Buzz" }
-];
-
 function FloatingDecor() {
   const blobs = useMemo(
     () => Array.from({ length: 16 }, (_, i) => ({
@@ -55,7 +46,7 @@ function FloatingDecor() {
   );
 }
 
-function Nav({ page, setPage }) {
+function Nav() {
   return (
     <header className="fixed left-0 right-0 top-0 z-30 px-3 py-3 md:px-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -64,13 +55,6 @@ function Nav({ page, setPage }) {
           <a aria-label="instagram"><Instagram size={19} /></a>
           <a aria-label="youtube"><Youtube size={20} /></a>
         </div>
-        <nav className="nav-stickers">
-          {pages.slice(1).map((item, i) => (
-            <button key={item.id} onClick={() => setPage(item.id)} className={page === item.id ? "active" : ""} style={{ rotate: `${i % 2 ? 2 : -2}deg` }}>
-              {item.label}
-            </button>
-          ))}
-        </nav>
       </div>
     </header>
   );
@@ -84,7 +68,7 @@ function MusicPlayer({ playing, setPlaying }) {
       drag
       dragMomentum={false}
       className={`winamp ${mini ? "is-mini" : ""}`}
-      initial={{ x: 22, y: 90 }}
+      initial={false}
       whileHover={{ scale: 1.02 }}
     >
       <div className="winamp-top">
@@ -121,7 +105,7 @@ function App() {
   return (
     <>
       <FloatingDecor />
-      <Nav page={page} setPage={setPage} />
+      <Nav />
       <MusicPlayer playing={playing} setPlaying={setPlaying} />
       <AnimatePresence mode="wait">
         <motion.main key={page} initial={{ opacity: 0, filter: "blur(8px)" }} animate={{ opacity: 1, filter: "blur(0)" }} exit={{ opacity: 0, filter: "blur(8px)" }} transition={{ duration: .35 }}>
