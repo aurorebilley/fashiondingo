@@ -28,19 +28,19 @@ export default function HomePage() {
           </div>
           <img className="home-dancer" src={dancerImage} alt="" />
           <div className="home-left-buttons" aria-label="navigation secondaire">
-            <button className="home-image-button about-button" type="button" aria-label="qui sommes-nous">
-              <img src={aboutButton} alt="" />
-            </button>
             <button className="home-image-button portfolio-button" type="button" aria-label="portfolio">
               <img src={portfolioButton} alt="" />
             </button>
+            <button className="home-image-button about-button" type="button" aria-label="qui sommes-nous">
+              <img src={aboutButton} alt="" />
+            </button>
           </div>
           <div className="home-right-buttons" aria-label="navigation secondaire">
-            <button className="home-image-button invite-button" type="button" aria-label="nous inviter">
-              <img src={inviteButton} alt="" />
-            </button>
             <button className="home-image-button buzz-button" type="button" aria-label="cuti buzz">
               <img src={cutiBuzzButton} alt="" />
+            </button>
+            <button className="home-image-button invite-button" type="button" aria-label="nous inviter">
+              <img src={inviteButton} alt="" />
             </button>
           </div>
           <button className="home-boutique-button" type="button" aria-label="ouvrir la boutique">
@@ -226,6 +226,10 @@ export default function HomePage() {
           }
           .home-image-button {
             width: min(34vw, 142px);
+          }
+          .portfolio-button,
+          .buzz-button {
+            transform: translateY(-22px);
           }
           .home-title-wrap { left: 104px; right: 10px; top: 7px; height: 50px; }
           .home-title-wrap h1 { font-size: clamp(20px, 6vw, 42px); text-shadow: none; }
