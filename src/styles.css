@@ -5,7 +5,7 @@
 :root {
   color: #171031;
   background: #BBC7D6;
-  cursor: url("data:image/svg+xml,%3Csvg width='36' height='36' viewBox='0 0 36 36' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 3c5 2 8 6 9 11l4-5c2-2 5 1 3 3l-3 5 6-2c3-1 5 3 2 5l-6 3 4 3c2 2 0 6-3 4l-6-4-2 5c-1 3-6 2-5-1l1-7c-4-2-7-5-9-10C1 8 3 4 7 3Z' fill='%23FF9425' stroke='%231E22AA' stroke-width='2'/%3E%3C/svg%3E") 7 3, auto;
+  cursor: url("/cursors/GLOVES CURSOR1.cur"), auto;
 }
 
 * { box-sizing: border-box; }
@@ -31,7 +31,9 @@ body:before {
     repeating-linear-gradient(0deg, transparent 0 7px, rgba(30,34,170,.14) 8px 9px),
     repeating-linear-gradient(90deg, transparent 0 14px, rgba(218,41,28,.12) 15px 16px);
 }
-button, a, select { cursor: inherit; }
+button, a, select, input, textarea, [role="button"] {
+  cursor: url("/cursors/GLOVES CURSOR2.cur"), pointer;
+}
 button { font-family: inherit; }
 
 .page { min-height: 100vh; padding: 116px 24px 52px; position: relative; z-index: 1; }
