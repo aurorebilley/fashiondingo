@@ -132,7 +132,7 @@ export default function HomePage() {
           left: 50%;
           top: calc(50% + min(22vw, 250px));
           z-index: 8;
-          width: min(36vw, 390px);
+          width: min(44vw, 500px);
           padding: 0;
           border: 0;
           background: transparent;
