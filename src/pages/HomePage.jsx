@@ -130,7 +130,7 @@ export default function HomePage() {
         .home-boutique-button {
           position: absolute;
           left: 50%;
-          top: calc(50% + min(22vw, 250px));
+          top: calc(50% + min(18vw, 205px));
           z-index: 8;
           width: min(44vw, 500px);
           padding: 0;
