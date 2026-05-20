@@ -209,7 +209,7 @@ export default function HomePage() {
           .home-dancer { top: 45%; width: min(72vw, 340px); max-height: 62vh; }
           .home-boutique-button {
             top: auto;
-            bottom: 96px;
+            bottom: 132px;
             width: min(58vw, 230px);
           }
           .home-left-buttons {
@@ -234,12 +234,12 @@ export default function HomePage() {
           }
           .portfolio-button {
             left: 16px;
-            top: 20%;
+            top: 23%;
             transform: translateY(-50%) rotate(-2deg);
           }
           .buzz-button {
             right: 16px;
-            top: 20%;
+            top: 23%;
             transform: translateY(-50%) rotate(2deg);
           }
           .about-button {
