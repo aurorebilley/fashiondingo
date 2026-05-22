@@ -69,8 +69,8 @@ h2 { font-size: clamp(3rem, 8vw, 7rem); margin: 16px 0; color: #753BBD; text-sha
   display: block;
   flex: 0 0 auto;
   width: auto;
-  height: 112px;
-  max-width: min(48vw, 520px);
+  height: 146px;
+  max-width: min(56vw, 640px);
   object-fit: contain;
   background: transparent;
   pointer-events: none;
@@ -122,5 +122,5 @@ h2 { font-size: clamp(3rem, 8vw, 7rem); margin: 16px 0; color: #753BBD; text-sha
   .dingo-character { right: 4%; bottom: 110px; scale: .78; }
   .winamp { width: 230px; }
   h1 { font-size: clamp(4rem, 19vw, 7rem); }
-  .header-logo-video { width: auto; height: 76px; max-width: min(54vw, 280px); transform: translate(26px, -20px); }
+  .header-logo-video { width: auto; height: 96px; max-width: min(62vw, 360px); transform: translate(26px, -20px); }
 }
