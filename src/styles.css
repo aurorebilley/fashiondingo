@@ -99,10 +99,13 @@ h2 { font-size: clamp(3rem, 8vw, 7rem); margin: 16px 0; color: #753BBD; text-sha
 .runtime-fallback { max-width: 620px; font-size: 1.25rem; background: rgba(255,255,255,.6); border: 3px dashed #DA291C; padding: 16px; }
 
 .home-title-wrap {
+  position: absolute;
+  top: 22px;
+  right: 18px;
+  z-index: 31;
   width: min(38vw, 360px);
   height: 76px;
   pointer-events: none;
-  flex-shrink: 0;
 }
 .home-logo-video {
   display: block;
@@ -119,5 +122,5 @@ h2 { font-size: clamp(3rem, 8vw, 7rem); margin: 16px 0; color: #753BBD; text-sha
   .dingo-character { right: 4%; bottom: 110px; scale: .78; }
   .winamp { width: 230px; }
   h1 { font-size: clamp(4rem, 19vw, 7rem); }
-  .home-title-wrap { width: min(42vw, 180px); height: 50px; }
+  .home-title-wrap { top: 7px; right: 10px; width: min(42vw, 180px); height: 50px; }
 }
