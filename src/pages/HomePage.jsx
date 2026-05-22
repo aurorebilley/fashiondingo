@@ -1,10 +1,10 @@
-import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
+import React, { useMemo } from "react";
 import forestBg from "../components/fond/Front-Page-Forest-1920x1080.webp";
 import islandBg from "../components/fond/Front-Page-Island-1920x1080.webp";
 import partyBg from "../components/fond/Front-Page-Party-1920x1080.webp";
 import scoobyBg from "../components/fond/Front-Page-Scooby-1920x1080.webp";
 import streetBg from "../components/fond/Front-Page-Street-1920x1080.webp";
-import dancerImage from "../components/anim/perso fashion D DANSE rumba0001.png";
+import dancerVideo from "../components/anim/perso coucou.webm";
 import boutiqueButton from "../components/bouton/Boutique.svg";
 import portfolioButton from "../components/bouton/Portfolio.svg";
 import aboutButton from "../components/bouton/QuiSommesNous.svg";
@@ -12,158 +12,30 @@ import cutiBuzzButton from "../components/bouton/CutiBuzz.svg";
 import inviteButton from "../components/bouton/NousInviter.svg";
 
 const homeBackgrounds = [forestBg, islandBg, partyBg, scoobyBg, streetBg];
-const boutiqueAspectRatio = 1371 / 482;
-const boutiqueEdgeGap = 14;
-const boutiqueObstacleGap = 14;
 
 export default function HomePage({ setPage }) {
-  const roomRef = useRef(null);
-  const dancerRef = useRef(null);
-  const aboutRef = useRef(null);
-  const inviteRef = useRef(null);
-  const [boutiqueLayout, setBoutiqueLayout] = useState(null);
   const background = useMemo(
     () => homeBackgrounds[Math.floor(Math.random() * homeBackgrounds.length)],
     []
   );
-
-  useLayoutEffect(() => {
-    let frameId;
-
-    const collides = (a, b) => (
-      a.left < b.right + boutiqueObstacleGap &&
-      a.right > b.left - boutiqueObstacleGap &&
-      a.top < b.bottom + boutiqueObstacleGap &&
-      a.bottom > b.top - boutiqueObstacleGap
-    );
-
-    const calculateBoutiqueLayout = () => {
-      const room = roomRef.current;
-      const dancer = dancerRef.current;
-      if (!room || !dancer) return;
-
-      const roomRect = room.getBoundingClientRect();
-      const vw = roomRect.width;
-      const vh = roomRect.height;
-      const isMobile = vw <= 900;
-      const dancerGap = isMobile ? 10 : 22;
-      const dancerRect = dancer.getBoundingClientRect();
-      const minTop = dancerRect.bottom - roomRect.top + dancerGap;
-      const desiredTop = isMobile
-        ? minTop + 4
-        : Math.max(minTop, vh * 0.5 + Math.min(vw * 0.22, 250));
-      const maxScreenWidth = vw - boutiqueEdgeGap * 2;
-      const aboutWidth = aboutRef.current
-        ? aboutRef.current.getBoundingClientRect().width
-        : Math.min(vw * (isMobile ? 0.34 : 0.24), isMobile ? 142 : 260);
-      const hardMinWidth = isMobile ? 104 : 130;
-      const preferredMinWidth = Math.max(hardMinWidth, Math.min(maxScreenWidth, aboutWidth * 1.12));
-      const desiredWidth = Math.max(
-        preferredMinWidth,
-        isMobile ? Math.min(vw * 0.62, 238) : Math.min(vw * 0.44, 520)
-      );
-      const obstacleElements = [
-        aboutRef.current,
-        inviteRef.current,
-        document.querySelector(".winamp")
-      ].filter(Boolean);
-
-      const findLayout = (minWidth) => {
-        for (let width = Math.floor(Math.min(desiredWidth, maxScreenWidth)); width >= minWidth; width -= 1) {
-          const height = width / boutiqueAspectRatio;
-          const left = (vw - width) / 2;
-          const right = left + width;
-          const allowedMinTop = Math.max(boutiqueEdgeGap, minTop);
-          const allowedMaxTop = vh - boutiqueEdgeGap - height;
-          if (allowedMinTop > allowedMaxTop) continue;
-
-          const obstacleRects = obstacleElements
-            .map((element) => element.getBoundingClientRect())
-            .map((rect) => ({
-              left: rect.left - roomRect.left,
-              right: rect.right - roomRect.left,
-              top: rect.top - roomRect.top,
-              bottom: rect.bottom - roomRect.top
-            }))
-            .filter((rect) => left < rect.right + boutiqueObstacleGap && right > rect.left - boutiqueObstacleGap);
-
-          const targetTop = Math.min(Math.max(desiredTop, allowedMinTop), allowedMaxTop);
-          const candidates = [targetTop, allowedMinTop, allowedMaxTop];
-          obstacleRects.forEach((rect) => {
-            candidates.push(rect.top - height - boutiqueObstacleGap);
-            candidates.push(rect.bottom + boutiqueObstacleGap);
-          });
-
-          const bestTop = candidates
-            .map((top) => Math.min(Math.max(top, allowedMinTop), allowedMaxTop))
-            .filter((top, index, list) => list.indexOf(top) === index)
-            .filter((top) => {
-              const boutiqueRect = { left, right, top, bottom: top + height };
-              return obstacleRects.every((rect) => !collides(boutiqueRect, rect));
-            })
-            .sort((a, b) => Math.abs(a - targetTop) - Math.abs(b - targetTop) || b - a)[0];
-
-          if (bestTop !== undefined) {
-            return { top: Math.round(bestTop), width: Math.round(width) };
-          }
-        }
-
-        return null;
-      };
-
-      const layout = findLayout(preferredMinWidth) || findLayout(hardMinWidth);
-      if (layout) {
-        setBoutiqueLayout((current) => (
-          current && current.top === layout.top && current.width === layout.width ? current : layout
-        ));
-        return;
-      }
-
-      const fallbackWidth = Math.min(hardMinWidth, maxScreenWidth);
-      const fallbackHeight = fallbackWidth / boutiqueAspectRatio;
-      setBoutiqueLayout({
-        top: Math.min(Math.max(minTop, boutiqueEdgeGap), vh - boutiqueEdgeGap - fallbackHeight),
-        width: fallbackWidth
-      });
-    };
-
-    const scheduleLayout = () => {
-      cancelAnimationFrame(frameId);
-      frameId = requestAnimationFrame(calculateBoutiqueLayout);
-    };
-
-    scheduleLayout();
-    window.addEventListener("resize", scheduleLayout);
-    window.addEventListener("load", scheduleLayout);
-    window.addEventListener("pointerup", scheduleLayout, true);
-
-    const observer = new ResizeObserver(scheduleLayout);
-    [roomRef.current, dancerRef.current, aboutRef.current, inviteRef.current, document.querySelector(".winamp")]
-      .filter(Boolean)
-      .forEach((element) => observer.observe(element));
-
-    return () => {
-      cancelAnimationFrame(frameId);
-      window.removeEventListener("resize", scheduleLayout);
-      window.removeEventListener("load", scheduleLayout);
-      window.removeEventListener("pointerup", scheduleLayout, true);
-      observer.disconnect();
-    };
-  }, []);
+  const loopDancerVideo = (event) => {
+    event.currentTarget.currentTime = 0;
+    event.currentTarget.play();
+  };
 
   return (
     <>
       <section className="page home-page" style={{ "--home-bg": `url(${background})` }}>
-        <div className="desktop-room" ref={roomRef}>
+        <div className="desktop-room">
           <div className="home-title-wrap">
             <h1>Fashion Dingo</h1>
           </div>
-          <img className="home-dancer" src={dancerImage} alt="" ref={dancerRef} onLoad={() => window.dispatchEvent(new Event("resize"))} />
+          <video className="home-dancer" src={dancerVideo} autoPlay loop muted playsInline onEnded={loopDancerVideo} />
           <div className="home-left-buttons" aria-label="navigation secondaire">
             <button className="home-image-button portfolio-button" type="button" aria-label="portfolio" onClick={() => setPage("portfolio")}>
               <img src={portfolioButton} alt="" />
             </button>
-            <button className="home-image-button about-button" type="button" aria-label="qui sommes-nous" ref={aboutRef} onClick={() => setPage("about")}>
+            <button className="home-image-button about-button" type="button" aria-label="qui sommes-nous" onClick={() => setPage("about")}>
               <img src={aboutButton} alt="" />
             </button>
           </div>
@@ -171,7 +43,7 @@ export default function HomePage({ setPage }) {
             <button className="home-image-button buzz-button" type="button" aria-label="cuti buzz" onClick={() => setPage("buzz")}>
               <img src={cutiBuzzButton} alt="" />
             </button>
-            <button className="home-image-button invite-button" type="button" aria-label="nous inviter" ref={inviteRef} onClick={() => setPage("invite")}>
+            <button className="home-image-button invite-button" type="button" aria-label="nous inviter" onClick={() => setPage("invite")}>
               <img src={inviteButton} alt="" />
             </button>
           </div>
@@ -179,10 +51,6 @@ export default function HomePage({ setPage }) {
             className="home-boutique-button"
             type="button"
             aria-label="ouvrir la boutique"
-            style={boutiqueLayout ? {
-              "--boutique-top": `${boutiqueLayout.top}px`,
-              "--boutique-width": `${boutiqueLayout.width}px`
-            } : undefined}
             onClick={() => setPage("shop")}
           >
             <img src={boutiqueButton} alt="" />
@@ -289,9 +157,9 @@ export default function HomePage({ setPage }) {
         .home-boutique-button {
           position: absolute;
           left: 50%;
-          top: var(--boutique-top, calc(50% + min(22vw, 250px)));
+          top: calc(50% + min(22vw, 250px));
           z-index: 8;
-          width: var(--boutique-width, min(42vw, 480px, calc(100vw - 520px)));
+          width: min(42vw, 480px, calc(100vw - 520px));
           max-width: calc(100vw - 32px);
           padding: 0;
           border: 0;
@@ -368,9 +236,9 @@ export default function HomePage({ setPage }) {
           .desktop-room { height: 100vh; min-height: 100vh; }
           .home-dancer { top: 45%; width: min(72vw, 340px); max-height: 62vh; }
           .home-boutique-button {
-            top: var(--boutique-top, calc(45% + min(39vw, 178px)));
+            top: calc(45% + min(39vw, 178px));
             bottom: auto;
-            width: var(--boutique-width, min(48vw, 182px));
+            width: min(48vw, 182px);
             max-width: calc(100vw - 32px);
           }
           .home-left-buttons {
@@ -448,26 +316,26 @@ export default function HomePage({ setPage }) {
         }
         @media (min-width: 901px) and (max-height: 760px) {
           .home-boutique-button {
-            top: var(--boutique-top, calc(50% + min(19vw, 205px)));
-            width: var(--boutique-width, min(36vw, 390px, calc(100vw - 540px)));
+            top: calc(50% + min(19vw, 205px));
+            width: min(36vw, 390px, calc(100vw - 540px));
           }
         }
         @media (min-width: 901px) and (max-height: 620px) {
           .home-boutique-button {
-            top: var(--boutique-top, calc(50% + min(17vw, 165px)));
-            width: var(--boutique-width, min(30vw, 300px, calc(100vw - 580px)));
+            top: calc(50% + min(17vw, 165px));
+            width: min(30vw, 300px, calc(100vw - 580px));
           }
         }
         @media (max-width: 900px) and (max-height: 700px) {
           .home-boutique-button {
-            top: var(--boutique-top, calc(45% + min(34vw, 150px)));
-            width: var(--boutique-width, min(42vw, 158px));
+            top: calc(45% + min(34vw, 150px));
+            width: min(42vw, 158px);
           }
         }
         @media (max-width: 900px) and (max-height: 600px) {
           .home-boutique-button {
-            top: var(--boutique-top, calc(45% + min(30vw, 126px)));
-            width: var(--boutique-width, min(36vw, 132px));
+            top: calc(45% + min(30vw, 126px));
+            width: min(36vw, 132px);
           }
         }
       `}</style>
