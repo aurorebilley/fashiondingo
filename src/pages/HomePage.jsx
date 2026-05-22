@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import forestBg from "../components/fond/Front-Page-Forest-1920x1080.webp";
 import islandBg from "../components/fond/Front-Page-Island-1920x1080.webp";
 import partyBg from "../components/fond/Front-Page-Party-1920x1080.webp";
@@ -15,15 +15,29 @@ import inviteButton from "../components/bouton/NousInviter.svg";
 const homeBackgrounds = [forestBg, islandBg, partyBg, scoobyBg, streetBg];
 
 export default function HomePage({ setPage }) {
+  const dancerRef = useRef(null);
   const isSafari = typeof navigator !== "undefined" && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   const background = useMemo(
     () => homeBackgrounds[Math.floor(Math.random() * homeBackgrounds.length)],
     []
   );
+  const playDancerVideo = () => {
+    const dancer = dancerRef.current;
+    if (!dancer) return;
+
+    dancer.muted = true;
+    dancer.defaultMuted = true;
+    dancer.playsInline = true;
+    dancer.play().catch(() => {});
+  };
   const loopDancerVideo = (event) => {
     event.currentTarget.currentTime = 0;
-    event.currentTarget.play();
+    event.currentTarget.play().catch(() => {});
   };
+
+  useEffect(() => {
+    playDancerVideo();
+  }, [isSafari]);
 
   return (
     <>
@@ -32,7 +46,21 @@ export default function HomePage({ setPage }) {
           <div className="home-title-wrap">
             <h1>Fashion Dingo</h1>
           </div>
-          <video className="home-dancer" src={isSafari ? dancerSafariVideo : dancerVideo} autoPlay loop muted playsInline onEnded={loopDancerVideo} />
+          <video
+            className="home-dancer"
+            ref={dancerRef}
+            src={isSafari ? dancerSafariVideo : dancerVideo}
+            autoPlay
+            loop
+            muted
+            defaultMuted
+            playsInline
+            preload="auto"
+            controls={false}
+            onCanPlay={playDancerVideo}
+            onLoadedData={playDancerVideo}
+            onEnded={loopDancerVideo}
+          />
           <div className="home-left-buttons" aria-label="navigation secondaire">
             <button className="home-image-button portfolio-button" type="button" aria-label="portfolio" onClick={() => setPage("portfolio")}>
               <img src={portfolioButton} alt="" />
