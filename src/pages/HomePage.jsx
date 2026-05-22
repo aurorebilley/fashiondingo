@@ -349,17 +349,20 @@ export default function HomePage({ setPage, playing }) {
         }
         .home-title-wrap {
           position: fixed;
-          top: 16px;
-          right: 12px;
+          top: 14px;
+          right: 14px;
           z-index: 31;
-          width: min(38vw, 360px);
-          height: 76px;
+          width: min(42vw, 420px);
+          height: 92px;
           pointer-events: none;
+          display: flex;
+          justify-content: flex-end;
+          align-items: flex-start;
         }
         .home-logo-video {
           display: block;
-          width: 100%;
-          max-height: 100%;
+          width: min(42vw, 420px);
+          max-width: calc(100vw - 28px);
           height: auto;
           object-fit: contain;
           background: transparent;
@@ -417,7 +420,8 @@ export default function HomePage({ setPage, playing }) {
             top: 52%;
             transform: translateY(-50%) rotate(2deg);
           }
-          .home-title-wrap { right: 10px; top: 8px; width: min(42vw, 180px); height: 50px; }
+          .home-title-wrap { right: 10px; top: 8px; width: min(46vw, 220px); height: 58px; }
+          .home-logo-video { width: min(46vw, 220px); max-width: calc(100vw - 20px); }
           body:has(.home-page) .winamp {
             width: calc(100vw - 20px);
             right: 10px;
