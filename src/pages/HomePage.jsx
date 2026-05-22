@@ -14,6 +14,7 @@ import inviteButton from "../components/bouton/NousInviter.svg";
 const homeBackgrounds = [forestBg, islandBg, partyBg, scoobyBg, streetBg];
 
 export default function HomePage({ setPage }) {
+  const isSafari = typeof navigator !== "undefined" && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   const background = useMemo(
     () => homeBackgrounds[Math.floor(Math.random() * homeBackgrounds.length)],
     []
@@ -30,7 +31,7 @@ export default function HomePage({ setPage }) {
           <div className="home-title-wrap">
             <h1>Fashion Dingo</h1>
           </div>
-          <video className="home-dancer" src={dancerVideo} autoPlay loop muted playsInline onEnded={loopDancerVideo} />
+          <video className={`home-dancer${isSafari ? " is-safari-video" : ""}`} src={dancerVideo} autoPlay loop muted playsInline onEnded={loopDancerVideo} />
           <div className="home-left-buttons" aria-label="navigation secondaire">
             <button className="home-image-button portfolio-button" type="button" aria-label="portfolio" onClick={() => setPage("portfolio")}>
               <img src={portfolioButton} alt="" />
@@ -151,8 +152,12 @@ export default function HomePage({ setPage }) {
           max-height: 72vh;
           object-fit: contain;
           transform: translate(-50%, -50%);
+          background: transparent;
           user-select: none;
           pointer-events: none;
+        }
+        .home-dancer.is-safari-video {
+          mix-blend-mode: multiply;
         }
         .home-boutique-button {
           position: absolute;
