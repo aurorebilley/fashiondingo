@@ -1,12 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import forestBg from "../components/fond/Front-Page-Forest-1920x1080.webp";
 import islandBg from "../components/fond/Front-Page-Island-1920x1080.webp";
 import partyBg from "../components/fond/Front-Page-Party-1920x1080.webp";
 import scoobyBg from "../components/fond/Front-Page-Scooby-1920x1080.webp";
 import streetBg from "../components/fond/Front-Page-Street-1920x1080.webp";
-import dancerVideo from "../components/anim/perso coucou.webm";
 import dancerSafariVideo from "../components/anim/perso-coucou.mp4";
-import dancingVideo from "../components/anim/perso danse.webm";
 import dancingSafariVideo from "../components/anim/perso danse.mp4";
 import dancerShadow from "../components/anim/Shadow.webp";
 import boutiqueButton from "../components/bouton/Boutique.svg";
@@ -19,28 +17,11 @@ const homeBackgrounds = [forestBg, islandBg, partyBg, scoobyBg, streetBg];
 
 export default function HomePage({ setPage, playing }) {
   const dancerRef = useRef(null);
-  const fallbackTimerRef = useRef(null);
-  const isSafari = typeof navigator !== "undefined" && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-  const preferredDancerVideo = playing
-    ? (isSafari ? dancingSafariVideo : dancingVideo)
-    : (isSafari ? dancerSafariVideo : dancerVideo);
-  const fallbackDancerVideo = playing ? dancingSafariVideo : dancerSafariVideo;
-  const [currentDancerVideo, setCurrentDancerVideo] = useState(preferredDancerVideo);
+  const currentDancerVideo = playing ? dancingSafariVideo : dancerSafariVideo;
   const background = useMemo(
     () => homeBackgrounds[Math.floor(Math.random() * homeBackgrounds.length)],
     []
   );
-  const clearFallbackTimer = () => {
-    if (fallbackTimerRef.current) {
-      window.clearTimeout(fallbackTimerRef.current);
-      fallbackTimerRef.current = null;
-    }
-  };
-  const fallbackToMp4 = () => {
-    if (!isSafari && currentDancerVideo !== fallbackDancerVideo) {
-      setCurrentDancerVideo(fallbackDancerVideo);
-    }
-  };
   const playDancerVideo = (reset = false) => {
     const dancer = dancerRef.current;
     if (!dancer) return;
@@ -51,22 +32,7 @@ export default function HomePage({ setPage, playing }) {
     dancer.muted = true;
     dancer.defaultMuted = true;
     dancer.playsInline = true;
-    dancer.play().catch(fallbackToMp4);
-  };
-  const scheduleWebmFallback = () => {
-    const dancer = dancerRef.current;
-    if (isSafari || currentDancerVideo === fallbackDancerVideo || !dancer) return;
-
-    clearFallbackTimer();
-    const startTime = dancer.currentTime;
-    fallbackTimerRef.current = window.setTimeout(() => {
-      const currentDancer = dancerRef.current;
-      if (!currentDancer || currentDancer.paused) return;
-
-      if (currentDancer.currentTime <= startTime + 0.05) {
-        setCurrentDancerVideo(fallbackDancerVideo);
-      }
-    }, 700);
+    dancer.play().catch(() => {});
   };
   const loopDancerVideo = (event) => {
     event.currentTarget.currentTime = 0;
@@ -74,15 +40,7 @@ export default function HomePage({ setPage, playing }) {
   };
 
   useEffect(() => {
-    clearFallbackTimer();
-    setCurrentDancerVideo(preferredDancerVideo);
-  }, [preferredDancerVideo]);
-
-  useEffect(() => {
     playDancerVideo(true);
-    scheduleWebmFallback();
-
-    return clearFallbackTimer;
   }, [currentDancerVideo]);
 
   return (
@@ -110,7 +68,6 @@ export default function HomePage({ setPage, playing }) {
             onCanPlay={playDancerVideo}
             onLoadedData={playDancerVideo}
             onEnded={loopDancerVideo}
-            onError={fallbackToMp4}
             onClick={() => setPage("shop")}
             onKeyDown={(event) => {
               if (event.key === "Enter" || event.key === " ") {
