@@ -1,4 +1,4 @@
-import React, { Component, useMemo, useState } from "react";
+import React, { Component, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -19,6 +19,21 @@ import InvitePage from "./pages/InvitePage";
 import PortfolioPage from "./pages/PortfolioPage";
 import ShopPage from "./pages/ShopPage";
 import "./styles.css";
+
+const musicModules = import.meta.glob("./components/music/*.mp3", {
+  eager: true,
+  query: "?url",
+  import: "default"
+});
+
+const radioTracks = Object.entries(musicModules)
+  .map(([path, src]) => {
+    const fileName = path.split("/").pop();
+    const title = fileName.replace(/\.mp3$/i, "");
+
+    return { title, src };
+  })
+  .sort((a, b) => a.title.localeCompare(b.title, "fr", { sensitivity: "base" }));
 
 function FloatingDecor() {
   const blobs = useMemo(
@@ -64,6 +79,44 @@ function Nav() {
 
 function MusicPlayer({ playing, setPlaying }) {
   const [mini, setMini] = useState(false);
+  const [trackIndex, setTrackIndex] = useState(null);
+  const audioRef = useRef(null);
+  const shouldPlayRef = useRef(false);
+  const currentTrack = trackIndex === null ? null : radioTracks[trackIndex];
+
+  const playTrack = () => {
+    shouldPlayRef.current = true;
+    if (trackIndex === null) {
+      setTrackIndex(Math.floor(Math.random() * radioTracks.length));
+      return;
+    }
+
+    setPlaying(true);
+    audioRef.current?.play().catch(() => setPlaying(false));
+  };
+
+  const pauseTrack = () => {
+    shouldPlayRef.current = false;
+    audioRef.current?.pause();
+    setPlaying(false);
+  };
+
+  const changeTrack = (direction) => {
+    shouldPlayRef.current = true;
+    setTrackIndex((current) => {
+      const baseIndex = current === null ? Math.floor(Math.random() * radioTracks.length) : current;
+      return (baseIndex + direction + radioTracks.length) % radioTracks.length;
+    });
+  };
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || trackIndex === null || !shouldPlayRef.current) return;
+
+    audio.play()
+      .then(() => setPlaying(true))
+      .catch(() => setPlaying(false));
+  }, [trackIndex, setPlaying]);
 
   return (
     <motion.aside
@@ -77,14 +130,22 @@ function MusicPlayer({ playing, setPlaying }) {
         <span>FashionDingo.exe</span>
         <button onClick={() => setMini(!mini)} aria-label="minimize"><Minus size={15} /></button>
       </div>
+      <audio
+        ref={audioRef}
+        src={currentTrack?.src}
+        preload="auto"
+        onEnded={() => changeTrack(1)}
+      />
       {!mini && (
         <>
           <div className="eq"><span /><span /><span /><span /><span /></div>
-          <div className="track">♪ Radio couture nocturne 03</div>
+          <div className="track">♪ {currentTrack?.title ?? "Radio couture nocturne"}</div>
           <div className="winamp-buttons">
-            <button><SkipBack size={16} /></button>
-            <button onClick={() => setPlaying(!playing)}>{playing ? <Pause size={17} /> : <Play size={17} />}</button>
-            <button><SkipForward size={16} /></button>
+            <button onClick={() => changeTrack(-1)} aria-label="piste precedente"><SkipBack size={16} /></button>
+            <button onClick={playing ? pauseTrack : playTrack} aria-label={playing ? "pause" : "play"}>
+              {playing ? <Pause size={17} /> : <Play size={17} />}
+            </button>
+            <button onClick={() => changeTrack(1)} aria-label="piste suivante"><SkipForward size={16} /></button>
           </div>
         </>
       )}
