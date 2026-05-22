@@ -65,8 +65,6 @@ function FloatingDecor() {
 }
 
 function Nav() {
-  const logoSrc = isSafari ? logoSafariVideo : logoVideo;
-
   return (
     <header className="fixed left-0 right-0 top-0 z-30 px-3 py-3 md:px-6">
       <div className="site-header-row">
@@ -78,7 +76,6 @@ function Nav() {
         </div>
         <video
           className="header-logo-video"
-          src={logoSrc}
           aria-label="Fashion Dingo"
           autoPlay
           loop
@@ -87,7 +84,10 @@ function Nav() {
           playsInline
           preload="auto"
           controls={false}
-        />
+        >
+          <source src={logoVideo} type="video/webm" />
+          <source src={logoSafariVideo} type="video/mp4" />
+        </video>
       </div>
     </header>
   );
@@ -168,8 +168,6 @@ function MusicPlayer({ playing, setPlaying }) {
     </motion.aside>
   );
 }
-
-const isSafari = typeof navigator !== "undefined" && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 function App() {
   const [page, setPage] = useState("home");
