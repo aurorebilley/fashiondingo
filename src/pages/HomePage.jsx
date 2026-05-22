@@ -26,6 +26,11 @@ function SafariDancerVideo({ onEnded }) {
     let frameId;
     let drawingStarted = false;
     let isMounted = true;
+    const isBackgroundWhite = (pixels, pixelIndex) => (
+      pixels[pixelIndex] > 238 &&
+      pixels[pixelIndex + 1] > 238 &&
+      pixels[pixelIndex + 2] > 238
+    );
 
     const drawFrame = () => {
       if (!isMounted) return;
@@ -41,14 +46,42 @@ function SafariDancerVideo({ onEnded }) {
 
         const frame = context.getImageData(0, 0, canvas.width, canvas.height);
         const pixels = frame.data;
-        for (let index = 0; index < pixels.length; index += 4) {
-          const red = pixels[index];
-          const green = pixels[index + 1];
-          const blue = pixels[index + 2];
-          if (red > 248 && green > 248 && blue > 248) {
-            pixels[index + 3] = 0;
+        const width = canvas.width;
+        const height = canvas.height;
+        const visited = new Uint8Array(width * height);
+        const queue = [];
+        const enqueueBackgroundPixel = (x, y) => {
+          if (x < 0 || y < 0 || x >= width || y >= height) return;
+          const pixel = y * width + x;
+          if (visited[pixel]) return;
+          visited[pixel] = 1;
+
+          const pixelIndex = pixel * 4;
+          if (isBackgroundWhite(pixels, pixelIndex)) {
+            pixels[pixelIndex + 3] = 0;
+            queue.push(pixel);
           }
+        };
+
+        for (let x = 0; x < width; x += 1) {
+          enqueueBackgroundPixel(x, 0);
+          enqueueBackgroundPixel(x, height - 1);
         }
+        for (let y = 1; y < height - 1; y += 1) {
+          enqueueBackgroundPixel(0, y);
+          enqueueBackgroundPixel(width - 1, y);
+        }
+
+        for (let index = 0; index < queue.length; index += 1) {
+          const pixel = queue[index];
+          const x = pixel % width;
+          const y = Math.floor(pixel / width);
+          enqueueBackgroundPixel(x + 1, y);
+          enqueueBackgroundPixel(x - 1, y);
+          enqueueBackgroundPixel(x, y + 1);
+          enqueueBackgroundPixel(x, y - 1);
+        }
+
         context.putImageData(frame, 0, 0);
       }
 
