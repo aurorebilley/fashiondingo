@@ -26,20 +26,11 @@ function SafariDancerVideo({ onEnded }) {
     let frameId;
     let drawingStarted = false;
     let isMounted = true;
-    const isBackgroundPixel = (pixels, pixelIndex) => {
-      const red = pixels[pixelIndex];
-      const green = pixels[pixelIndex + 1];
-      const blue = pixels[pixelIndex + 2];
-      const max = Math.max(red, green, blue);
-      const min = Math.min(red, green, blue);
-      const saturation = max - min;
-      const brightness = (red + green + blue) / 3;
-
-      return (
-        (brightness > 218 && saturation < 42) ||
-        (red > 225 && green > 225 && blue > 215)
-      );
-    };
+    const isBackgroundPixel = (pixels, pixelIndex) => (
+      pixels[pixelIndex] > 238 &&
+      pixels[pixelIndex + 1] > 238 &&
+      pixels[pixelIndex + 2] > 238
+    );
 
     const drawFrame = () => {
       if (!isMounted) return;
@@ -61,6 +52,14 @@ function SafariDancerVideo({ onEnded }) {
         const queue = [];
         const enqueueBackgroundPixel = (x, y) => {
           if (x < 0 || y < 0 || x >= width || y >= height) return;
+          const isCharacterWhiteArea = (
+            x > width * 0.28 &&
+            x < width * 0.72 &&
+            y > height * 0.34 &&
+            y < height * 0.9
+          );
+          if (isCharacterWhiteArea) return;
+
           const pixel = y * width + x;
           if (visited[pixel]) return;
           visited[pixel] = 1;
