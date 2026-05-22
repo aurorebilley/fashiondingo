@@ -379,6 +379,12 @@ export default function HomePage({ setPage }) {
             width: min(36vw, 390px, calc(100vw - 540px));
           }
         }
+        @media (min-width: 1025px) {
+          .home-left-buttons,
+          .home-right-buttons {
+            top: 47%;
+          }
+        }
         @media (min-width: 901px) and (max-height: 620px) {
           .home-boutique-button {
             top: calc(50% + min(14vw, 145px));
