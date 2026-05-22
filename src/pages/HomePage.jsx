@@ -297,7 +297,7 @@ export default function HomePage({ setPage }) {
           .home-boutique-button {
             top: calc(45% + min(41vw, 190px));
             bottom: auto;
-            width: min(52vw, 198px);
+            width: min(62vw, 238px);
             max-width: calc(100vw - 32px);
           }
           .home-left-buttons {
@@ -388,13 +388,13 @@ export default function HomePage({ setPage }) {
         @media (max-width: 900px) and (max-height: 700px) {
           .home-boutique-button {
             top: calc(45% + min(36vw, 160px));
-            width: min(46vw, 172px);
+            width: min(56vw, 210px);
           }
         }
         @media (max-width: 900px) and (max-height: 600px) {
           .home-boutique-button {
             top: calc(45% + min(32vw, 136px));
-            width: min(40vw, 146px);
+            width: min(50vw, 184px);
           }
         }
       `}</style>
