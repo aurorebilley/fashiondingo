@@ -6,6 +6,8 @@ import scoobyBg from "../components/fond/Front-Page-Scooby-1920x1080.webp";
 import streetBg from "../components/fond/Front-Page-Street-1920x1080.webp";
 import dancerVideo from "../components/anim/perso coucou.webm";
 import dancerSafariVideo from "../components/anim/perso-coucou.mp4";
+import dancingVideo from "../components/anim/perso danse.webm";
+import dancingSafariVideo from "../components/anim/perso danse.mp4";
 import dancerShadow from "../components/anim/Shadow.webp";
 import boutiqueButton from "../components/bouton/Boutique.svg";
 import portfolioButton from "../components/bouton/Portfolio.svg";
@@ -15,17 +17,23 @@ import inviteButton from "../components/bouton/NousInviter.svg";
 
 const homeBackgrounds = [forestBg, islandBg, partyBg, scoobyBg, streetBg];
 
-export default function HomePage({ setPage }) {
+export default function HomePage({ setPage, playing }) {
   const dancerRef = useRef(null);
   const isSafari = typeof navigator !== "undefined" && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const currentDancerVideo = playing
+    ? (isSafari ? dancingSafariVideo : dancingVideo)
+    : (isSafari ? dancerSafariVideo : dancerVideo);
   const background = useMemo(
     () => homeBackgrounds[Math.floor(Math.random() * homeBackgrounds.length)],
     []
   );
-  const playDancerVideo = () => {
+  const playDancerVideo = (reset = false) => {
     const dancer = dancerRef.current;
     if (!dancer) return;
 
+    if (reset) {
+      dancer.currentTime = 0;
+    }
     dancer.muted = true;
     dancer.defaultMuted = true;
     dancer.playsInline = true;
@@ -37,8 +45,8 @@ export default function HomePage({ setPage }) {
   };
 
   useEffect(() => {
-    playDancerVideo();
-  }, [isSafari]);
+    playDancerVideo(true);
+  }, [currentDancerVideo]);
 
   return (
     <>
@@ -51,7 +59,7 @@ export default function HomePage({ setPage }) {
           <video
             className="home-dancer"
             ref={dancerRef}
-            src={isSafari ? dancerSafariVideo : dancerVideo}
+            src={currentDancerVideo}
             aria-label="ouvrir la boutique"
             autoPlay
             loop
