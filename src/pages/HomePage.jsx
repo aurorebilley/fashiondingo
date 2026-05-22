@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import forestBg from "../components/fond/Front-Page-Forest-1920x1080.webp";
 import islandBg from "../components/fond/Front-Page-Island-1920x1080.webp";
 import partyBg from "../components/fond/Front-Page-Party-1920x1080.webp";
@@ -12,6 +12,77 @@ import cutiBuzzButton from "../components/bouton/CutiBuzz.svg";
 import inviteButton from "../components/bouton/NousInviter.svg";
 
 const homeBackgrounds = [forestBg, islandBg, partyBg, scoobyBg, streetBg];
+
+function SafariDancerVideo({ onEnded }) {
+  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    const context = canvas?.getContext("2d", { willReadFrequently: true });
+    if (!video || !canvas || !context) return undefined;
+
+    let frameId;
+    let drawingStarted = false;
+    let isMounted = true;
+
+    const drawFrame = () => {
+      if (!isMounted) return;
+
+      if (video.videoWidth && video.videoHeight) {
+        if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+        }
+
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        const frame = context.getImageData(0, 0, canvas.width, canvas.height);
+        const pixels = frame.data;
+        for (let index = 0; index < pixels.length; index += 4) {
+          const red = pixels[index];
+          const green = pixels[index + 1];
+          const blue = pixels[index + 2];
+          if (red > 248 && green > 248 && blue > 248) {
+            pixels[index + 3] = 0;
+          }
+        }
+        context.putImageData(frame, 0, 0);
+      }
+
+      if (video.requestVideoFrameCallback) {
+        video.requestVideoFrameCallback(drawFrame);
+      } else {
+        frameId = requestAnimationFrame(drawFrame);
+      }
+    };
+
+    const startDrawing = () => {
+      if (drawingStarted) return;
+      drawingStarted = true;
+      video.play().catch(() => {});
+      drawFrame();
+    };
+
+    video.addEventListener("loadeddata", startDrawing);
+    startDrawing();
+
+    return () => {
+      isMounted = false;
+      cancelAnimationFrame(frameId);
+      video.removeEventListener("loadeddata", startDrawing);
+    };
+  }, []);
+
+  return (
+    <>
+      <video className="home-dancer-source" ref={videoRef} src={dancerVideo} autoPlay loop muted playsInline onEnded={onEnded} />
+      <canvas className="home-dancer" ref={canvasRef} aria-hidden="true" />
+    </>
+  );
+}
 
 export default function HomePage({ setPage }) {
   const isSafari = typeof navigator !== "undefined" && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -31,7 +102,11 @@ export default function HomePage({ setPage }) {
           <div className="home-title-wrap">
             <h1>Fashion Dingo</h1>
           </div>
-          <video className={`home-dancer${isSafari ? " is-safari-video" : ""}`} src={dancerVideo} autoPlay loop muted playsInline onEnded={loopDancerVideo} />
+          {isSafari ? (
+            <SafariDancerVideo onEnded={loopDancerVideo} />
+          ) : (
+            <video className="home-dancer" src={dancerVideo} autoPlay loop muted playsInline onEnded={loopDancerVideo} />
+          )}
           <div className="home-left-buttons" aria-label="navigation secondaire">
             <button className="home-image-button portfolio-button" type="button" aria-label="portfolio" onClick={() => setPage("portfolio")}>
               <img src={portfolioButton} alt="" />
@@ -156,8 +231,14 @@ export default function HomePage({ setPage }) {
           user-select: none;
           pointer-events: none;
         }
-        .home-dancer.is-safari-video {
-          mix-blend-mode: multiply;
+        .home-dancer-source {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1px;
+          height: 1px;
+          opacity: 0;
+          pointer-events: none;
         }
         .home-boutique-button {
           position: absolute;
