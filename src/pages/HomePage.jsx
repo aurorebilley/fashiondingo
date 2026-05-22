@@ -350,20 +350,16 @@ export default function HomePage({ setPage, playing }) {
         .home-title-wrap {
           position: fixed;
           top: 16px;
-          left: 118px;
-          right: 10px;
+          right: 12px;
           z-index: 31;
+          width: min(38vw, 360px);
           height: 76px;
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
           pointer-events: none;
         }
         .home-logo-video {
           display: block;
-          max-width: 100%;
+          width: 100%;
           max-height: 100%;
-          width: min(38vw, 360px);
           height: auto;
           object-fit: contain;
           background: transparent;
@@ -421,8 +417,7 @@ export default function HomePage({ setPage, playing }) {
             top: 52%;
             transform: translateY(-50%) rotate(2deg);
           }
-          .home-title-wrap { left: 104px; right: 8px; top: 8px; height: 50px; }
-          .home-logo-video { width: min(42vw, 180px); }
+          .home-title-wrap { right: 10px; top: 8px; width: min(42vw, 180px); height: 50px; }
           body:has(.home-page) .winamp {
             width: calc(100vw - 20px);
             right: 10px;
