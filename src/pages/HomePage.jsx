@@ -31,6 +31,16 @@ function SafariDancerVideo({ onEnded }) {
       pixels[pixelIndex + 1] > 238 &&
       pixels[pixelIndex + 2] > 238
     );
+    const isProtectedCharacterWhiteArea = (x, y, width, height) => {
+      const relativeX = x / width;
+      const relativeY = y / height;
+
+      return (
+        (relativeX > 0.37 && relativeX < 0.63 && relativeY > 0.42 && relativeY < 0.66) ||
+        (relativeX > 0.38 && relativeX < 0.62 && relativeY > 0.72 && relativeY < 0.9) ||
+        (relativeX > 0.33 && relativeX < 0.67 && relativeY > 0.65 && relativeY < 0.72)
+      );
+    };
 
     const drawFrame = () => {
       if (!isMounted) return;
@@ -52,13 +62,7 @@ function SafariDancerVideo({ onEnded }) {
         const queue = [];
         const enqueueBackgroundPixel = (x, y) => {
           if (x < 0 || y < 0 || x >= width || y >= height) return;
-          const isCharacterWhiteArea = (
-            x > width * 0.28 &&
-            x < width * 0.72 &&
-            y > height * 0.34 &&
-            y < height * 0.9
-          );
-          if (isCharacterWhiteArea) return;
+          if (isProtectedCharacterWhiteArea(x, y, width, height)) return;
 
           const pixel = y * width + x;
           if (visited[pixel]) return;
