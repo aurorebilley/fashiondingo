@@ -349,9 +349,9 @@ export default function HomePage({ setPage, playing }) {
         }
         .home-title-wrap {
           position: fixed;
-          top: 22px;
+          top: 16px;
           left: 118px;
-          right: 18px;
+          right: 10px;
           z-index: 31;
           height: 76px;
           display: flex;
@@ -421,7 +421,7 @@ export default function HomePage({ setPage, playing }) {
             top: 52%;
             transform: translateY(-50%) rotate(2deg);
           }
-          .home-title-wrap { left: 104px; right: 10px; top: 7px; height: 50px; }
+          .home-title-wrap { left: 104px; right: 8px; top: 8px; height: 50px; }
           .home-logo-video { width: min(42vw, 180px); }
           body:has(.home-page) .winamp {
             width: calc(100vw - 20px);
