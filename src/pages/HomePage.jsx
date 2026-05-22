@@ -175,6 +175,7 @@ export default function HomePage({ setPage, playing }) {
       </section>
       <style>{`
         .home-page {
+          width: 100vw;
           height: 100vh;
           min-height: 100vh;
           overflow: hidden;
@@ -257,7 +258,7 @@ export default function HomePage({ setPage, playing }) {
           min-width: 27px;
           min-height: 25px;
         }
-        .desktop-room { height: 100vh; min-height: 100vh; position: relative; overflow: hidden; }
+        .desktop-room { width: 100vw; height: 100vh; min-height: 100vh; position: relative; overflow: hidden; }
         .home-dancer-shadow {
           position: absolute;
           left: 50%;
@@ -349,26 +350,27 @@ export default function HomePage({ setPage, playing }) {
         }
         .home-title-wrap {
           position: fixed;
-          top: 14px;
-          right: 14px;
+          top: 22px;
+          left: 118px;
+          right: 18px;
           z-index: 31;
-          width: min(42vw, 420px);
-          height: 92px;
-          pointer-events: none;
+          height: 76px;
           display: flex;
+          align-items: center;
           justify-content: flex-end;
-          align-items: flex-start;
+          pointer-events: none;
         }
         .home-logo-video {
           display: block;
-          width: min(42vw, 420px);
-          max-width: calc(100vw - 28px);
+          max-width: 100%;
+          max-height: 100%;
+          width: min(38vw, 360px);
           height: auto;
           object-fit: contain;
           background: transparent;
         }
         @media (max-width: 900px) {
-          .desktop-room { height: 100vh; min-height: 100vh; }
+          .desktop-room { width: 100vw; height: 100vh; min-height: 100vh; }
           .home-dancer-shadow {
             top: calc(45% + min(28vw, 132px));
             width: min(24vw, 110px);
@@ -420,8 +422,8 @@ export default function HomePage({ setPage, playing }) {
             top: 52%;
             transform: translateY(-50%) rotate(2deg);
           }
-          .home-title-wrap { right: 10px; top: 8px; width: min(46vw, 220px); height: 58px; }
-          .home-logo-video { width: min(46vw, 220px); max-width: calc(100vw - 20px); }
+          .home-title-wrap { left: 104px; right: 10px; top: 7px; height: 50px; }
+          .home-logo-video { width: min(42vw, 180px); }
           body:has(.home-page) .winamp {
             width: calc(100vw - 20px);
             right: 10px;
