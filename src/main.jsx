@@ -72,8 +72,8 @@ function Nav() {
       <div className="site-header-row">
         <div className="social-strip">
           <img className="social-banner" src={socialBanner} alt="" />
-          <a href="mailto:contact@fashiondingo.com" aria-label="envoyer un mail"><img src={mailIcon} alt="" /></a>
-          <a href="https://www.instagram.com/fashiondingo/" target="_blank" rel="noreferrer" aria-label="ouvrir Instagram"><img src={instagramIcon} alt="" /></a>
+          <a href="mailto:fashion.dingo@proton.me" aria-label="envoyer un mail"><img src={mailIcon} alt="" /></a>
+          <a href="https://www.instagram.com/fashion_dingo0o/" target="_blank" rel="noreferrer" aria-label="ouvrir Instagram"><img src={instagramIcon} alt="" /></a>
           <a href="https://www.youtube.com/@fashiondingo" target="_blank" rel="noreferrer" aria-label="ouvrir YouTube"><img src={youtubeIcon} alt="" /></a>
         </div>
         <video

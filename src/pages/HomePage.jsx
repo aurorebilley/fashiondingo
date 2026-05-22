@@ -165,8 +165,8 @@ export default function HomePage({ setPage, playing }) {
           overflow: hidden;
           padding: 0;
           background-image: var(--home-bg);
-          background-position: top center;
-          background-size: auto 100%;
+          background-position: center center;
+          background-size: cover;
           background-repeat: no-repeat;
           background-color: #171031;
         }
