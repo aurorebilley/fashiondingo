@@ -18,17 +18,16 @@ import inviteButton from "../components/bouton/NousInviter.svg";
 const homeBackgrounds = [forestBg, islandBg, partyBg, scoobyBg, streetBg];
 
 export default function HomePage({ setPage, playing }) {
-  const dancerRef = useRef(null);
+  const coucouVideoRef = useRef(null);
+  const dancingVideoRef = useRef(null);
   const isSafari = typeof navigator !== "undefined" && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-  const currentDancerVideo = playing
-    ? (isSafari ? dancingSafariVideo : dancingVideo)
-    : (isSafari ? dancerSafariVideo : dancerVideo);
+  const coucouSrc = isSafari ? dancerSafariVideo : dancerVideo;
+  const dancingSrc = isSafari ? dancingSafariVideo : dancingVideo;
   const background = useMemo(
     () => homeBackgrounds[Math.floor(Math.random() * homeBackgrounds.length)],
     []
   );
-  const playDancerVideo = () => {
-    const dancer = dancerRef.current;
+  const playDancerVideo = (dancer) => {
     if (!dancer) return;
 
     dancer.muted = true;
@@ -36,14 +35,27 @@ export default function HomePage({ setPage, playing }) {
     dancer.playsInline = true;
     dancer.play().catch(() => {});
   };
+  const pauseDancerVideo = (dancer) => {
+    if (!dancer) return;
+
+    dancer.pause();
+    dancer.currentTime = 0;
+  };
   const loopDancerVideo = (event) => {
     event.currentTarget.currentTime = 0;
     event.currentTarget.play().catch(() => {});
   };
 
   useEffect(() => {
-    playDancerVideo();
-  }, [currentDancerVideo]);
+    if (playing) {
+      pauseDancerVideo(coucouVideoRef.current);
+      playDancerVideo(dancingVideoRef.current);
+      return;
+    }
+
+    pauseDancerVideo(dancingVideoRef.current);
+    playDancerVideo(coucouVideoRef.current);
+  }, [playing]);
 
   return (
     <>
@@ -54,11 +66,11 @@ export default function HomePage({ setPage, playing }) {
           </div>
           <img className="home-dancer-shadow" src={dancerShadow} alt="" aria-hidden="true" />
           <video
-            className="home-dancer"
-            key={currentDancerVideo}
-            ref={dancerRef}
-            src={currentDancerVideo}
+            className={`home-dancer ${playing ? "is-hidden" : "is-visible"}`}
+            ref={coucouVideoRef}
+            src={coucouSrc}
             aria-label="ouvrir la boutique"
+            aria-hidden={playing}
             autoPlay
             loop
             muted
@@ -67,9 +79,43 @@ export default function HomePage({ setPage, playing }) {
             preload="auto"
             controls={false}
             role="button"
-            tabIndex={0}
-            onCanPlay={playDancerVideo}
-            onLoadedData={playDancerVideo}
+            tabIndex={playing ? -1 : 0}
+            onCanPlay={(event) => {
+              if (!playing) playDancerVideo(event.currentTarget);
+            }}
+            onLoadedData={(event) => {
+              if (!playing) playDancerVideo(event.currentTarget);
+            }}
+            onEnded={loopDancerVideo}
+            onClick={() => setPage("shop")}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                setPage("shop");
+              }
+            }}
+          />
+          <video
+            className={`home-dancer ${playing ? "is-visible" : "is-hidden"}`}
+            ref={dancingVideoRef}
+            src={dancingSrc}
+            aria-label="ouvrir la boutique"
+            aria-hidden={!playing}
+            autoPlay
+            loop
+            muted
+            defaultMuted
+            playsInline
+            preload="auto"
+            controls={false}
+            role="button"
+            tabIndex={playing ? 0 : -1}
+            onCanPlay={(event) => {
+              if (playing) playDancerVideo(event.currentTarget);
+            }}
+            onLoadedData={(event) => {
+              if (playing) playDancerVideo(event.currentTarget);
+            }}
             onEnded={loopDancerVideo}
             onClick={() => setPage("shop")}
             onKeyDown={(event) => {
@@ -214,6 +260,14 @@ export default function HomePage({ setPage, playing }) {
           background: transparent;
           user-select: none;
           cursor: pointer;
+        }
+        .home-dancer.is-hidden {
+          opacity: 0;
+          pointer-events: none;
+        }
+        .home-dancer.is-visible {
+          opacity: 1;
+          pointer-events: auto;
         }
         .home-boutique-button {
           position: absolute;
