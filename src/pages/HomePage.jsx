@@ -8,8 +8,6 @@ import dancerVideo from "../components/anim/perso coucou.webm";
 import dancerSafariVideo from "../components/anim/perso-coucou.mp4";
 import dancingVideo from "../components/anim/perso danse.webm";
 import dancingSafariVideo from "../components/anim/perso danse.mp4";
-import logoVideo from "../components/anim/logo site.webm";
-import logoSafariVideo from "../components/anim/logo site.mp4";
 import dancerShadow from "../components/anim/Shadow.webp";
 import boutiqueButton from "../components/bouton/Boutique.svg";
 import portfolioButton from "../components/bouton/Portfolio.svg";
@@ -25,7 +23,6 @@ export default function HomePage({ setPage, playing }) {
   const isSafari = typeof navigator !== "undefined" && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   const coucouSrc = isSafari ? dancerSafariVideo : dancerVideo;
   const dancingSrc = isSafari ? dancingSafariVideo : dancingVideo;
-  const logoSrc = isSafari ? logoSafariVideo : logoVideo;
   const background = useMemo(
     () => homeBackgrounds[Math.floor(Math.random() * homeBackgrounds.length)],
     []
@@ -71,21 +68,6 @@ export default function HomePage({ setPage, playing }) {
     <>
       <section className="page home-page" style={{ "--home-bg": `url(${background})` }}>
         <div className="desktop-room">
-          <div className="home-title-wrap">
-            <video
-              className="home-logo-video"
-              src={logoSrc}
-              aria-label="Fashion Dingo"
-              autoPlay
-              loop
-              muted
-              defaultMuted
-              playsInline
-              preload="auto"
-              controls={false}
-              onEnded={loopDancerVideo}
-            />
-          </div>
           <img className="home-dancer-shadow" src={dancerShadow} alt="" aria-hidden="true" />
           <video
             className={`home-dancer ${playing ? "is-hidden" : "is-visible"}`}
@@ -348,24 +330,6 @@ export default function HomePage({ setPage, playing }) {
           animation: wobble .75s;
           filter: drop-shadow(0 0 12px #1E22AA) drop-shadow(4px 5px 0 rgba(218, 41, 28, .78));
         }
-        .home-title-wrap {
-          position: fixed;
-          top: 22px;
-          left: auto;
-          right: 18px;
-          z-index: 31;
-          width: min(38vw, 360px);
-          height: 76px;
-          pointer-events: none;
-        }
-        .home-logo-video {
-          display: block;
-          width: 100%;
-          max-height: 100%;
-          height: auto;
-          object-fit: contain;
-          background: transparent;
-        }
         @media (max-width: 900px) {
           .desktop-room { width: 100vw; height: 100vh; min-height: 100vh; }
           .home-dancer-shadow {
@@ -419,7 +383,6 @@ export default function HomePage({ setPage, playing }) {
             top: 52%;
             transform: translateY(-50%) rotate(2deg);
           }
-          .home-title-wrap { left: auto; right: 10px; top: 7px; width: min(42vw, 180px); height: 50px; }
           body:has(.home-page) .winamp {
             width: calc(100vw - 20px);
             right: 10px;

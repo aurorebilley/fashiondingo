@@ -12,6 +12,8 @@ import instagramIcon from "./components/Instagram.svg";
 import mailIcon from "./components/Mail.svg";
 import youtubeIcon from "./components/Youtube.svg";
 import socialBanner from "./components/banniere-reseau.webp";
+import logoVideo from "./components/anim/logo site.webm";
+import logoSafariVideo from "./components/anim/logo site.mp4";
 import AboutPage from "./pages/AboutPage";
 import BuzzPage from "./pages/BuzzPage";
 import HomePage from "./pages/HomePage";
@@ -153,9 +155,12 @@ function MusicPlayer({ playing, setPlaying }) {
   );
 }
 
+const isSafari = typeof navigator !== "undefined" && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
 function App() {
   const [page, setPage] = useState("home");
   const [playing, setPlaying] = useState(false);
+  const logoSrc = isSafari ? logoSafariVideo : logoVideo;
   const Current = {
     home: HomePage,
     about: AboutPage,
@@ -170,6 +175,22 @@ function App() {
       <FloatingDecor />
       <Nav />
       <MusicPlayer playing={playing} setPlaying={setPlaying} />
+      {page === "home" && (
+        <div className="home-title-wrap">
+          <video
+            className="home-logo-video"
+            src={logoSrc}
+            aria-label="Fashion Dingo"
+            autoPlay
+            loop
+            muted
+            defaultMuted
+            playsInline
+            preload="auto"
+            controls={false}
+          />
+        </div>
+      )}
       <AnimatePresence mode="wait">
         <motion.main key={page} initial={{ opacity: 0, filter: "blur(8px)" }} animate={{ opacity: 1, filter: "blur(0)" }} exit={{ opacity: 0, filter: "blur(8px)" }} transition={{ duration: .35 }}>
           <Current setPage={setPage} playing={playing} />
