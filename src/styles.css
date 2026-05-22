@@ -74,6 +74,7 @@ h2 { font-size: clamp(3rem, 8vw, 7rem); margin: 16px 0; color: #753BBD; text-sha
   object-fit: contain;
   background: transparent;
   pointer-events: none;
+  transform: translate(38px, -28px);
 }
 .nav-stickers { display: flex; flex-wrap: wrap; gap: 8px; max-width: 840px; padding: 8px; background: rgba(234,218,36,.86); }
 .nav-stickers button {
@@ -121,5 +122,5 @@ h2 { font-size: clamp(3rem, 8vw, 7rem); margin: 16px 0; color: #753BBD; text-sha
   .dingo-character { right: 4%; bottom: 110px; scale: .78; }
   .winamp { width: 230px; }
   h1 { font-size: clamp(4rem, 19vw, 7rem); }
-  .header-logo-video { width: auto; height: 76px; max-width: min(54vw, 280px); }
+  .header-logo-video { width: auto; height: 76px; max-width: min(54vw, 280px); transform: translate(26px, -20px); }
 }
