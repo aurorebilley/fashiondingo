@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef } from "react";
+import { motion } from "framer-motion";
 import forestBg from "../components/fond/Front-Page-Forest-1920x1080.webp";
 import islandBg from "../components/fond/Front-Page-Island-1920x1080.webp";
 import partyBg from "../components/fond/Front-Page-Party-1920x1080.webp";
@@ -16,6 +17,7 @@ import cutiBuzzButton from "../components/bouton/CutiBuzz.svg";
 import inviteButton from "../components/bouton/NousInviter.svg";
 
 const homeBackgrounds = [forestBg, islandBg, partyBg, scoobyBg, streetBg];
+const homeButtonHover = (tilt = 2) => ({ y: -8, rotate: tilt });
 
 export default function HomePage({ setPage, playing }) {
   const coucouVideoRef = useRef(null);
@@ -131,18 +133,18 @@ export default function HomePage({ setPage, playing }) {
           />
           <div className="home-left-buttons" aria-label="navigation secondaire">
             <button className="home-image-button portfolio-button" type="button" aria-label="portfolio" onClick={() => setPage("portfolio")}>
-              <img src={portfolioButton} alt="" />
+              <motion.img src={portfolioButton} alt="" whileHover={homeButtonHover(2)} />
             </button>
             <button className="home-image-button about-button" type="button" aria-label="qui sommes-nous" onClick={() => setPage("about")}>
-              <img src={aboutButton} alt="" />
+              <motion.img src={aboutButton} alt="" whileHover={homeButtonHover(-2)} />
             </button>
           </div>
           <div className="home-right-buttons" aria-label="navigation secondaire">
             <button className="home-image-button buzz-button" type="button" aria-label="cuti buzz" onClick={() => setPage("buzz")}>
-              <img src={cutiBuzzButton} alt="" />
+              <motion.img src={cutiBuzzButton} alt="" whileHover={homeButtonHover(2)} />
             </button>
             <button className="home-image-button invite-button" type="button" aria-label="nous inviter" onClick={() => setPage("invite")}>
-              <img src={inviteButton} alt="" />
+              <motion.img src={inviteButton} alt="" whileHover={homeButtonHover(-2)} />
             </button>
           </div>
           <button
@@ -151,7 +153,7 @@ export default function HomePage({ setPage, playing }) {
             aria-label="ouvrir la boutique"
             onClick={() => setPage("shop")}
           >
-            <img src={boutiqueButton} alt="" />
+            <motion.img src={boutiqueButton} alt="" whileHover={homeButtonHover(2)} />
           </button>
         </div>
       </section>
@@ -292,10 +294,6 @@ export default function HomePage({ setPage, playing }) {
           width: 100%;
           height: auto;
         }
-        .home-boutique-button:hover {
-          animation: wobble .75s;
-          filter: drop-shadow(0 0 12px #1E22AA) drop-shadow(4px 5px 0 rgba(218, 41, 28, .78));
-        }
         .home-left-buttons {
           position: absolute;
           left: calc(50% - min(34vw, 390px));
@@ -325,10 +323,6 @@ export default function HomePage({ setPage, playing }) {
           display: block;
           width: 100%;
           height: auto;
-        }
-        .home-image-button:hover {
-          animation: wobble .75s;
-          filter: drop-shadow(0 0 12px #1E22AA) drop-shadow(4px 5px 0 rgba(218, 41, 28, .78));
         }
         @media (max-width: 900px) {
           .desktop-room { width: 100vw; height: 100vh; min-height: 100vh; }
