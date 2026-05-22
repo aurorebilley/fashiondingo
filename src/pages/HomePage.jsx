@@ -22,7 +22,6 @@ const homeBackgrounds = [forestBg, islandBg, partyBg, scoobyBg, streetBg];
 export default function HomePage({ setPage, playing }) {
   const coucouVideoRef = useRef(null);
   const dancingVideoRef = useRef(null);
-  const logoVideoRef = useRef(null);
   const isSafari = typeof navigator !== "undefined" && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   const coucouSrc = isSafari ? dancerSafariVideo : dancerVideo;
   const dancingSrc = isSafari ? dancingSafariVideo : dancingVideo;
@@ -49,26 +48,14 @@ export default function HomePage({ setPage, playing }) {
     event.currentTarget.currentTime = 0;
     event.currentTarget.play().catch(() => {});
   };
-  const loopLogoVideoBeforeEnd = (event) => {
-    const video = event.currentTarget;
-
-    if (!Number.isFinite(video.duration) || video.duration <= 0) return;
-    if (video.duration - video.currentTime > 0.08) return;
-
-    video.currentTime = 0;
-    video.play().catch(() => {});
-  };
   const shouldPlayVideo = (isVisible) => isSafari || isVisible;
 
   useEffect(() => {
     if (isSafari) {
-      playDancerVideo(logoVideoRef.current);
       playDancerVideo(coucouVideoRef.current);
       playDancerVideo(dancingVideoRef.current);
       return;
     }
-
-    playDancerVideo(logoVideoRef.current);
 
     if (playing) {
       pauseDancerVideo(coucouVideoRef.current);
@@ -87,18 +74,15 @@ export default function HomePage({ setPage, playing }) {
           <div className="home-title-wrap">
             <video
               className="home-logo-video"
-              ref={logoVideoRef}
               src={logoSrc}
               aria-label="Fashion Dingo"
               autoPlay
+              loop
               muted
               defaultMuted
               playsInline
               preload="auto"
               controls={false}
-              onCanPlay={(event) => playDancerVideo(event.currentTarget)}
-              onLoadedData={(event) => playDancerVideo(event.currentTarget)}
-              onTimeUpdate={loopLogoVideoBeforeEnd}
               onEnded={loopDancerVideo}
             />
           </div>
