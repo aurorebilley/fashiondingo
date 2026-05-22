@@ -6,6 +6,7 @@ import scoobyBg from "../components/fond/Front-Page-Scooby-1920x1080.webp";
 import streetBg from "../components/fond/Front-Page-Street-1920x1080.webp";
 import dancerVideo from "../components/anim/perso coucou.webm";
 import dancerSafariVideo from "../components/anim/perso-coucou.mp4";
+import dancerShadow from "../components/anim/Shadow.webp";
 import boutiqueButton from "../components/bouton/Boutique.svg";
 import portfolioButton from "../components/bouton/Portfolio.svg";
 import aboutButton from "../components/bouton/QuiSommesNous.svg";
@@ -46,6 +47,7 @@ export default function HomePage({ setPage }) {
           <div className="home-title-wrap">
             <h1>Fashion Dingo</h1>
           </div>
+          <img className="home-dancer-shadow" src={dancerShadow} alt="" aria-hidden="true" />
           <video
             className="home-dancer"
             ref={dancerRef}
@@ -172,6 +174,18 @@ export default function HomePage({ setPage }) {
           min-height: 25px;
         }
         .desktop-room { height: 100vh; min-height: 100vh; position: relative; overflow: hidden; }
+        .home-dancer-shadow {
+          position: absolute;
+          left: 50%;
+          top: calc(50% + min(15vw, 170px));
+          z-index: 4;
+          width: min(36vw, 410px);
+          height: auto;
+          object-fit: contain;
+          transform: translate(-50%, -50%);
+          user-select: none;
+          pointer-events: none;
+        }
         .home-dancer {
           position: absolute;
           left: 50%;
@@ -265,6 +279,10 @@ export default function HomePage({ setPage }) {
         }
         @media (max-width: 900px) {
           .desktop-room { height: 100vh; min-height: 100vh; }
+          .home-dancer-shadow {
+            top: calc(45% + min(28vw, 132px));
+            width: min(68vw, 320px);
+          }
           .home-dancer { top: 45%; width: min(72vw, 340px); max-height: 62vh; }
           .home-boutique-button {
             top: calc(45% + min(39vw, 178px));
