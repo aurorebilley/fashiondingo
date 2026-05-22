@@ -4,7 +4,9 @@ import islandBg from "../components/fond/Front-Page-Island-1920x1080.webp";
 import partyBg from "../components/fond/Front-Page-Party-1920x1080.webp";
 import scoobyBg from "../components/fond/Front-Page-Scooby-1920x1080.webp";
 import streetBg from "../components/fond/Front-Page-Street-1920x1080.webp";
+import dancerVideo from "../components/anim/perso coucou.webm";
 import dancerSafariVideo from "../components/anim/perso-coucou.mp4";
+import dancingVideo from "../components/anim/perso danse.webm";
 import dancingSafariVideo from "../components/anim/perso danse.mp4";
 import dancerShadow from "../components/anim/Shadow.webp";
 import boutiqueButton from "../components/bouton/Boutique.svg";
@@ -17,7 +19,10 @@ const homeBackgrounds = [forestBg, islandBg, partyBg, scoobyBg, streetBg];
 
 export default function HomePage({ setPage, playing }) {
   const dancerRef = useRef(null);
-  const currentDancerVideo = playing ? dancingSafariVideo : dancerSafariVideo;
+  const isSafari = typeof navigator !== "undefined" && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const currentDancerVideo = playing
+    ? (isSafari ? dancingSafariVideo : dancingVideo)
+    : (isSafari ? dancerSafariVideo : dancerVideo);
   const background = useMemo(
     () => homeBackgrounds[Math.floor(Math.random() * homeBackgrounds.length)],
     []
