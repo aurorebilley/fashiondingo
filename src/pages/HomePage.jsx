@@ -52,6 +52,7 @@ export default function HomePage({ setPage }) {
             className="home-dancer"
             ref={dancerRef}
             src={isSafari ? dancerSafariVideo : dancerVideo}
+            aria-label="ouvrir la boutique"
             autoPlay
             loop
             muted
@@ -59,9 +60,18 @@ export default function HomePage({ setPage }) {
             playsInline
             preload="auto"
             controls={false}
+            role="button"
+            tabIndex={0}
             onCanPlay={playDancerVideo}
             onLoadedData={playDancerVideo}
             onEnded={loopDancerVideo}
+            onClick={() => setPage("shop")}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                setPage("shop");
+              }
+            }}
           />
           <div className="home-left-buttons" aria-label="navigation secondaire">
             <button className="home-image-button portfolio-button" type="button" aria-label="portfolio" onClick={() => setPage("portfolio")}>
@@ -197,12 +207,12 @@ export default function HomePage({ setPage }) {
           transform: translate(-50%, -50%);
           background: transparent;
           user-select: none;
-          pointer-events: none;
+          cursor: pointer;
         }
         .home-boutique-button {
           position: absolute;
           left: 50%;
-          top: calc(50% + min(22vw, 250px));
+          top: calc(50% + min(18vw, 210px));
           z-index: 8;
           width: min(42vw, 480px, calc(100vw - 520px));
           max-width: calc(100vw - 32px);
@@ -285,9 +295,9 @@ export default function HomePage({ setPage }) {
           }
           .home-dancer { top: 45%; width: min(72vw, 340px); max-height: 62vh; }
           .home-boutique-button {
-            top: calc(45% + min(39vw, 178px));
+            top: calc(45% + min(41vw, 190px));
             bottom: auto;
-            width: min(48vw, 182px);
+            width: min(52vw, 198px);
             max-width: calc(100vw - 32px);
           }
           .home-left-buttons {
@@ -365,26 +375,26 @@ export default function HomePage({ setPage }) {
         }
         @media (min-width: 901px) and (max-height: 760px) {
           .home-boutique-button {
-            top: calc(50% + min(19vw, 205px));
+            top: calc(50% + min(16vw, 180px));
             width: min(36vw, 390px, calc(100vw - 540px));
           }
         }
         @media (min-width: 901px) and (max-height: 620px) {
           .home-boutique-button {
-            top: calc(50% + min(17vw, 165px));
+            top: calc(50% + min(14vw, 145px));
             width: min(30vw, 300px, calc(100vw - 580px));
           }
         }
         @media (max-width: 900px) and (max-height: 700px) {
           .home-boutique-button {
-            top: calc(45% + min(34vw, 150px));
-            width: min(42vw, 158px);
+            top: calc(45% + min(36vw, 160px));
+            width: min(46vw, 172px);
           }
         }
         @media (max-width: 900px) and (max-height: 600px) {
           .home-boutique-button {
-            top: calc(45% + min(30vw, 126px));
-            width: min(36vw, 132px);
+            top: calc(45% + min(32vw, 136px));
+            width: min(40vw, 146px);
           }
         }
       `}</style>
