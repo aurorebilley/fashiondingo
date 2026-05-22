@@ -5,7 +5,7 @@ import partyBg from "../components/fond/Front-Page-Party-1920x1080.webp";
 import scoobyBg from "../components/fond/Front-Page-Scooby-1920x1080.webp";
 import streetBg from "../components/fond/Front-Page-Street-1920x1080.webp";
 import dancerVideo from "../components/anim/perso coucou.webm";
-import dancerSafariVideo from "../components/anim/perso-coucou.mov";
+import dancerSafariVideo from "../components/anim/perso-coucou.mp4";
 import boutiqueButton from "../components/bouton/Boutique.svg";
 import portfolioButton from "../components/bouton/Portfolio.svg";
 import aboutButton from "../components/bouton/QuiSommesNous.svg";
