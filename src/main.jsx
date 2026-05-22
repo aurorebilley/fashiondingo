@@ -64,35 +64,31 @@ function FloatingDecor() {
   );
 }
 
-function Nav({ page }) {
+function Nav() {
   const logoSrc = isSafari ? logoSafariVideo : logoVideo;
 
   return (
     <header className="fixed left-0 right-0 top-0 z-30 px-3 py-3 md:px-6">
-      <div className="flex flex-wrap items-start gap-3">
+      <div className="site-header-row">
         <div className="social-strip">
           <img className="social-banner" src={socialBanner} alt="" />
           <a href="mailto:contact@fashiondingo.com" aria-label="envoyer un mail"><img src={mailIcon} alt="" /></a>
           <a href="https://www.instagram.com/fashiondingo/" target="_blank" rel="noreferrer" aria-label="ouvrir Instagram"><img src={instagramIcon} alt="" /></a>
           <a href="https://www.youtube.com/@fashiondingo" target="_blank" rel="noreferrer" aria-label="ouvrir YouTube"><img src={youtubeIcon} alt="" /></a>
         </div>
+        <video
+          className="header-logo-video"
+          src={logoSrc}
+          aria-label="Fashion Dingo"
+          autoPlay
+          loop
+          muted
+          defaultMuted
+          playsInline
+          preload="auto"
+          controls={false}
+        />
       </div>
-      {page === "home" && (
-        <div className="home-title-wrap">
-          <video
-            className="home-logo-video"
-            src={logoSrc}
-            aria-label="Fashion Dingo"
-            autoPlay
-            loop
-            muted
-            defaultMuted
-            playsInline
-            preload="auto"
-            controls={false}
-          />
-        </div>
-      )}
     </header>
   );
 }
@@ -190,7 +186,7 @@ function App() {
   return (
     <>
       <FloatingDecor />
-      <Nav page={page} />
+      <Nav />
       <MusicPlayer playing={playing} setPlaying={setPlaying} />
       <AnimatePresence mode="wait">
         <motion.main key={page} initial={{ opacity: 0, filter: "blur(8px)" }} animate={{ opacity: 1, filter: "blur(0)" }} exit={{ opacity: 0, filter: "blur(8px)" }} transition={{ duration: .35 }}>

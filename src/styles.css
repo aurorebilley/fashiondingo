@@ -58,6 +58,24 @@ h2 { font-size: clamp(3rem, 8vw, 7rem); margin: 16px 0; color: #753BBD; text-sha
   object-fit: contain;
   display: block;
 }
+.site-header-row {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.header-logo-video {
+  display: block;
+  flex: 0 0 auto;
+  width: min(38vw, 360px);
+  max-width: calc(100vw - 140px);
+  height: auto;
+  max-height: 76px;
+  object-fit: contain;
+  background: transparent;
+  pointer-events: none;
+}
 .nav-stickers { display: flex; flex-wrap: wrap; gap: 8px; max-width: 840px; padding: 8px; background: rgba(234,218,36,.86); }
 .nav-stickers button {
   border: 3px solid #171031; border-radius: 43% 57% 51% 49% / 58% 34% 66% 42%;
@@ -98,29 +116,11 @@ h2 { font-size: clamp(3rem, 8vw, 7rem); margin: 16px 0; color: #753BBD; text-sha
 .home-button { gap: 6px; padding: 8px 12px; margin-bottom: 10px; transform: rotate(-3deg); }
 .runtime-fallback { max-width: 620px; font-size: 1.25rem; background: rgba(255,255,255,.6); border: 3px dashed #DA291C; padding: 16px; }
 
-.home-title-wrap {
-  position: absolute;
-  top: 22px;
-  right: 18px;
-  z-index: 31;
-  width: min(38vw, 360px);
-  height: 76px;
-  pointer-events: none;
-}
-.home-logo-video {
-  display: block;
-  width: 100%;
-  max-height: 100%;
-  height: auto;
-  object-fit: contain;
-  background: transparent;
-}
-
 @media (max-width: 900px) {
   .page { padding: 150px 14px 40px; }
   .nav-stickers { justify-content:flex-end; }
   .dingo-character { right: 4%; bottom: 110px; scale: .78; }
   .winamp { width: 230px; }
   h1 { font-size: clamp(4rem, 19vw, 7rem); }
-  .home-title-wrap { top: 7px; right: 10px; width: min(42vw, 180px); height: 50px; }
+  .header-logo-video { width: min(42vw, 180px); max-width: calc(100vw - 118px); max-height: 50px; }
 }
