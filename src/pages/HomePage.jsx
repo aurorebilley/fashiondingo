@@ -1,10 +1,11 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useMemo } from "react";
 import forestBg from "../components/fond/Front-Page-Forest-1920x1080.webp";
 import islandBg from "../components/fond/Front-Page-Island-1920x1080.webp";
 import partyBg from "../components/fond/Front-Page-Party-1920x1080.webp";
 import scoobyBg from "../components/fond/Front-Page-Scooby-1920x1080.webp";
 import streetBg from "../components/fond/Front-Page-Street-1920x1080.webp";
 import dancerVideo from "../components/anim/perso coucou.webm";
+import dancerSafariVideo from "../components/anim/perso-coucou.mov";
 import boutiqueButton from "../components/bouton/Boutique.svg";
 import portfolioButton from "../components/bouton/Portfolio.svg";
 import aboutButton from "../components/bouton/QuiSommesNous.svg";
@@ -12,122 +13,6 @@ import cutiBuzzButton from "../components/bouton/CutiBuzz.svg";
 import inviteButton from "../components/bouton/NousInviter.svg";
 
 const homeBackgrounds = [forestBg, islandBg, partyBg, scoobyBg, streetBg];
-
-function SafariDancerVideo({ onEnded }) {
-  const videoRef = useRef(null);
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    const canvas = canvasRef.current;
-    const context = canvas?.getContext("2d", { willReadFrequently: true });
-    if (!video || !canvas || !context) return undefined;
-
-    let frameId;
-    let drawingStarted = false;
-    let isMounted = true;
-    const isBackgroundPixel = (pixels, pixelIndex) => (
-      pixels[pixelIndex] > 238 &&
-      pixels[pixelIndex + 1] > 238 &&
-      pixels[pixelIndex + 2] > 238
-    );
-    const isProtectedCharacterWhiteArea = (x, y, width, height) => {
-      const relativeX = x / width;
-      const relativeY = y / height;
-
-      return (
-        (relativeX > 0.37 && relativeX < 0.63 && relativeY > 0.42 && relativeY < 0.66) ||
-        (relativeX > 0.38 && relativeX < 0.62 && relativeY > 0.72 && relativeY < 0.9) ||
-        (relativeX > 0.33 && relativeX < 0.67 && relativeY > 0.65 && relativeY < 0.72)
-      );
-    };
-
-    const drawFrame = () => {
-      if (!isMounted) return;
-
-      if (video.videoWidth && video.videoHeight) {
-        if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
-          canvas.width = video.videoWidth;
-          canvas.height = video.videoHeight;
-        }
-
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-        const frame = context.getImageData(0, 0, canvas.width, canvas.height);
-        const pixels = frame.data;
-        const width = canvas.width;
-        const height = canvas.height;
-        const visited = new Uint8Array(width * height);
-        const queue = [];
-        const enqueueBackgroundPixel = (x, y) => {
-          if (x < 0 || y < 0 || x >= width || y >= height) return;
-          if (isProtectedCharacterWhiteArea(x, y, width, height)) return;
-
-          const pixel = y * width + x;
-          if (visited[pixel]) return;
-          visited[pixel] = 1;
-
-          const pixelIndex = pixel * 4;
-          if (isBackgroundPixel(pixels, pixelIndex)) {
-            pixels[pixelIndex + 3] = 0;
-            queue.push(pixel);
-          }
-        };
-
-        for (let x = 0; x < width; x += 1) {
-          enqueueBackgroundPixel(x, 0);
-          enqueueBackgroundPixel(x, height - 1);
-        }
-        for (let y = 1; y < height - 1; y += 1) {
-          enqueueBackgroundPixel(0, y);
-          enqueueBackgroundPixel(width - 1, y);
-        }
-
-        for (let index = 0; index < queue.length; index += 1) {
-          const pixel = queue[index];
-          const x = pixel % width;
-          const y = Math.floor(pixel / width);
-          enqueueBackgroundPixel(x + 1, y);
-          enqueueBackgroundPixel(x - 1, y);
-          enqueueBackgroundPixel(x, y + 1);
-          enqueueBackgroundPixel(x, y - 1);
-        }
-
-        context.putImageData(frame, 0, 0);
-      }
-
-      if (video.requestVideoFrameCallback) {
-        video.requestVideoFrameCallback(drawFrame);
-      } else {
-        frameId = requestAnimationFrame(drawFrame);
-      }
-    };
-
-    const startDrawing = () => {
-      if (drawingStarted) return;
-      drawingStarted = true;
-      video.play().catch(() => {});
-      drawFrame();
-    };
-
-    video.addEventListener("loadeddata", startDrawing);
-    startDrawing();
-
-    return () => {
-      isMounted = false;
-      cancelAnimationFrame(frameId);
-      video.removeEventListener("loadeddata", startDrawing);
-    };
-  }, []);
-
-  return (
-    <>
-      <video className="home-dancer-source" ref={videoRef} src={dancerVideo} autoPlay loop muted playsInline onEnded={onEnded} />
-      <canvas className="home-dancer" ref={canvasRef} aria-hidden="true" />
-    </>
-  );
-}
 
 export default function HomePage({ setPage }) {
   const isSafari = typeof navigator !== "undefined" && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -147,11 +32,7 @@ export default function HomePage({ setPage }) {
           <div className="home-title-wrap">
             <h1>Fashion Dingo</h1>
           </div>
-          {isSafari ? (
-            <SafariDancerVideo onEnded={loopDancerVideo} />
-          ) : (
-            <video className="home-dancer" src={dancerVideo} autoPlay loop muted playsInline onEnded={loopDancerVideo} />
-          )}
+          <video className="home-dancer" src={isSafari ? dancerSafariVideo : dancerVideo} autoPlay loop muted playsInline onEnded={loopDancerVideo} />
           <div className="home-left-buttons" aria-label="navigation secondaire">
             <button className="home-image-button portfolio-button" type="button" aria-label="portfolio" onClick={() => setPage("portfolio")}>
               <img src={portfolioButton} alt="" />
@@ -274,15 +155,6 @@ export default function HomePage({ setPage }) {
           transform: translate(-50%, -50%);
           background: transparent;
           user-select: none;
-          pointer-events: none;
-        }
-        .home-dancer-source {
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 1px;
-          height: 1px;
-          opacity: 0;
           pointer-events: none;
         }
         .home-boutique-button {
