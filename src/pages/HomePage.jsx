@@ -45,8 +45,15 @@ export default function HomePage({ setPage, playing }) {
     event.currentTarget.currentTime = 0;
     event.currentTarget.play().catch(() => {});
   };
+  const shouldPlayVideo = (isVisible) => isSafari || isVisible;
 
   useEffect(() => {
+    if (isSafari) {
+      playDancerVideo(coucouVideoRef.current);
+      playDancerVideo(dancingVideoRef.current);
+      return;
+    }
+
     if (playing) {
       pauseDancerVideo(coucouVideoRef.current);
       playDancerVideo(dancingVideoRef.current);
@@ -55,7 +62,7 @@ export default function HomePage({ setPage, playing }) {
 
     pauseDancerVideo(dancingVideoRef.current);
     playDancerVideo(coucouVideoRef.current);
-  }, [playing]);
+  }, [isSafari, playing]);
 
   return (
     <>
@@ -81,10 +88,10 @@ export default function HomePage({ setPage, playing }) {
             role="button"
             tabIndex={playing ? -1 : 0}
             onCanPlay={(event) => {
-              if (!playing) playDancerVideo(event.currentTarget);
+              if (shouldPlayVideo(!playing)) playDancerVideo(event.currentTarget);
             }}
             onLoadedData={(event) => {
-              if (!playing) playDancerVideo(event.currentTarget);
+              if (shouldPlayVideo(!playing)) playDancerVideo(event.currentTarget);
             }}
             onEnded={loopDancerVideo}
             onClick={() => setPage("shop")}
@@ -111,10 +118,10 @@ export default function HomePage({ setPage, playing }) {
             role="button"
             tabIndex={playing ? 0 : -1}
             onCanPlay={(event) => {
-              if (playing) playDancerVideo(event.currentTarget);
+              if (shouldPlayVideo(playing)) playDancerVideo(event.currentTarget);
             }}
             onLoadedData={(event) => {
-              if (playing) playDancerVideo(event.currentTarget);
+              if (shouldPlayVideo(playing)) playDancerVideo(event.currentTarget);
             }}
             onEnded={loopDancerVideo}
             onClick={() => setPage("shop")}
