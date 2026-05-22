@@ -64,7 +64,9 @@ function FloatingDecor() {
   );
 }
 
-function Nav() {
+function Nav({ page }) {
+  const logoSrc = isSafari ? logoSafariVideo : logoVideo;
+
   return (
     <header className="fixed left-0 right-0 top-0 z-30 px-3 py-3 md:px-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -74,6 +76,22 @@ function Nav() {
           <a href="https://www.instagram.com/fashiondingo/" target="_blank" rel="noreferrer" aria-label="ouvrir Instagram"><img src={instagramIcon} alt="" /></a>
           <a href="https://www.youtube.com/@fashiondingo" target="_blank" rel="noreferrer" aria-label="ouvrir YouTube"><img src={youtubeIcon} alt="" /></a>
         </div>
+        {page === "home" && (
+          <div className="home-title-wrap">
+            <video
+              className="home-logo-video"
+              src={logoSrc}
+              aria-label="Fashion Dingo"
+              autoPlay
+              loop
+              muted
+              defaultMuted
+              playsInline
+              preload="auto"
+              controls={false}
+            />
+          </div>
+        )}
       </div>
     </header>
   );
@@ -160,7 +178,6 @@ const isSafari = typeof navigator !== "undefined" && /^((?!chrome|android).)*saf
 function App() {
   const [page, setPage] = useState("home");
   const [playing, setPlaying] = useState(false);
-  const logoSrc = isSafari ? logoSafariVideo : logoVideo;
   const Current = {
     home: HomePage,
     about: AboutPage,
@@ -173,24 +190,8 @@ function App() {
   return (
     <>
       <FloatingDecor />
-      <Nav />
+      <Nav page={page} />
       <MusicPlayer playing={playing} setPlaying={setPlaying} />
-      {page === "home" && (
-        <div className="home-title-wrap">
-          <video
-            className="home-logo-video"
-            src={logoSrc}
-            aria-label="Fashion Dingo"
-            autoPlay
-            loop
-            muted
-            defaultMuted
-            playsInline
-            preload="auto"
-            controls={false}
-          />
-        </div>
-      )}
       <AnimatePresence mode="wait">
         <motion.main key={page} initial={{ opacity: 0, filter: "blur(8px)" }} animate={{ opacity: 1, filter: "blur(0)" }} exit={{ opacity: 0, filter: "blur(8px)" }} transition={{ duration: .35 }}>
           <Current setPage={setPage} playing={playing} />
