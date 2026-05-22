@@ -179,7 +179,7 @@ export default function HomePage({ setPage }) {
           left: 50%;
           top: calc(50% + min(15vw, 170px));
           z-index: 4;
-          width: min(20vw, 230px);
+          width: min(12vw, 140px);
           height: auto;
           object-fit: contain;
           transform: translate(-50%, -50%);
@@ -281,7 +281,7 @@ export default function HomePage({ setPage }) {
           .desktop-room { height: 100vh; min-height: 100vh; }
           .home-dancer-shadow {
             top: calc(45% + min(28vw, 132px));
-            width: min(36vw, 170px);
+            width: min(24vw, 110px);
           }
           .home-dancer { top: 45%; width: min(72vw, 340px); max-height: 62vh; }
           .home-boutique-button {
