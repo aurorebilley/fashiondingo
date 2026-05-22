@@ -27,10 +27,13 @@ export default function HomePage({ setPage, playing }) {
     () => homeBackgrounds[Math.floor(Math.random() * homeBackgrounds.length)],
     []
   );
-  const playDancerVideo = (reset = false) => {
+  const playDancerVideo = ({ reset = false, reload = false } = {}) => {
     const dancer = dancerRef.current;
     if (!dancer) return;
 
+    if (reload) {
+      dancer.load();
+    }
     if (reset) {
       dancer.currentTime = 0;
     }
@@ -45,7 +48,7 @@ export default function HomePage({ setPage, playing }) {
   };
 
   useEffect(() => {
-    playDancerVideo(true);
+    playDancerVideo({ reset: true, reload: true });
   }, [currentDancerVideo]);
 
   return (
@@ -70,8 +73,8 @@ export default function HomePage({ setPage, playing }) {
             controls={false}
             role="button"
             tabIndex={0}
-            onCanPlay={playDancerVideo}
-            onLoadedData={playDancerVideo}
+            onCanPlay={() => playDancerVideo()}
+            onLoadedData={() => playDancerVideo()}
             onEnded={loopDancerVideo}
             onClick={() => setPage("shop")}
             onKeyDown={(event) => {
