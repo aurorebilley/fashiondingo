@@ -6,12 +6,20 @@ import felixMember from "../components/membre/Felix1.svg";
 import leoMember from "../components/membre/Leo1.svg";
 import maloneMember from "../components/membre/Malone1.svg";
 import manueMember from "../components/membre/Manue1.svg";
+import popsMember from "../components/membre/Pops1.svg";
+import zelieMember from "../components/membre/Zelie1.svg";
 
-const desktopMembers = [
-  { src: felixMember, alt: "Felix" },
-  { src: leoMember, alt: "Leo" },
-  { src: maloneMember, alt: "Malone" },
-  { src: manueMember, alt: "Manue" }
+const desktopMemberColumns = [
+  [
+    { src: felixMember, alt: "Felix" },
+    { src: popsMember, alt: "Pops" }
+  ],
+  [
+    { src: leoMember, alt: "Leo" },
+    { src: zelieMember, alt: "Zelie" }
+  ],
+  [{ src: maloneMember, alt: "Malone" }],
+  [{ src: manueMember, alt: "Manue" }]
 ];
 
 export default function AboutPage() {
@@ -24,8 +32,12 @@ export default function AboutPage() {
       }}
     >
       <div className="about-members-row">
-        {desktopMembers.map((member) => (
-          <img key={member.alt} className="about-member" src={member.src} alt={member.alt} />
+        {desktopMemberColumns.map((column) => (
+          <div className="about-member-column" key={column[0].alt}>
+            {column.map((member) => (
+              <img key={member.alt} className="about-member" src={member.src} alt={member.alt} />
+            ))}
+          </div>
         ))}
       </div>
       <img className="about-table-foreground" src={tableForeground} alt="" aria-hidden="true" />
@@ -63,9 +75,18 @@ export default function AboutPage() {
           transform: translateY(-50%);
         }
 
+        .about-member-column {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          gap: min(2.5vh, 24px);
+          width: min(18vw, 220px);
+        }
+
         .about-member {
           display: block;
-          width: min(18vw, 220px);
+          width: 100%;
           height: auto;
           object-fit: contain;
           user-select: none;
