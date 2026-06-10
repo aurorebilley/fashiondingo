@@ -32,8 +32,8 @@ export default function AboutPage() {
       }}
     >
       <div className="about-members-row">
-        {desktopMemberColumns.map((column) => (
-          <div className="about-member-column" key={column[0].alt}>
+        {desktopMemberColumns.map((column, index) => (
+          <div className={`about-member-column ${index < 2 ? "is-lower" : ""}`} key={column[0].alt}>
             {column.map((member) => (
               <img key={member.alt} className="about-member" src={member.src} alt={member.alt} />
             ))}
@@ -82,6 +82,10 @@ export default function AboutPage() {
           justify-content: flex-start;
           gap: min(2.5vh, 24px);
           width: min(18vw, 220px);
+        }
+
+        .about-member-column.is-lower {
+          transform: translateY(82px);
         }
 
         .about-member {
