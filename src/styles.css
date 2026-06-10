@@ -65,12 +65,20 @@ h2 { font-size: clamp(3rem, 8vw, 7rem); margin: 16px 0; color: #753BBD; text-sha
   justify-content: space-between;
   gap: 16px;
 }
-.site-header-row > .home-button {
-  margin-bottom: 0;
+.header-left-spacer {
+  width: 154px;
+  min-height: 1px;
+  flex: 0 0 auto;
+}
+.header-logo-button {
+  display: block;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
 .header-logo-video {
   display: block;
-  flex: 0 0 auto;
   width: auto;
   height: 146px;
   max-width: min(56vw, 640px);

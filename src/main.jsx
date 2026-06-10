@@ -14,7 +14,6 @@ import youtubeIcon from "./components/Youtube.svg";
 import socialBanner from "./components/banniere-reseau.webp";
 import logoVideo from "./components/anim/logo site.webm";
 import logoSafariVideo from "./components/anim/logo site.mp4";
-import HomeButton from "./components/HomeButton";
 import AboutPage from "./pages/AboutPage";
 import BuzzPage from "./pages/BuzzPage";
 import HomePage from "./pages/HomePage";
@@ -72,7 +71,7 @@ function Nav({ page, setPage }) {
     <header className="fixed left-0 right-0 top-0 z-30 px-3 py-3 md:px-6">
       <div className="site-header-row">
         {page === "about" ? (
-          <HomeButton setPage={setPage} />
+          <div className="header-left-spacer" aria-hidden="true" />
         ) : (
           <div className="social-strip">
             <img className="social-banner" src={socialBanner} alt="" />
@@ -81,18 +80,20 @@ function Nav({ page, setPage }) {
             <a href="https://www.youtube.com/@fashiondingo" target="_blank" rel="noreferrer" aria-label="ouvrir YouTube"><img src={youtubeIcon} alt="" /></a>
           </div>
         )}
-        <video
-          className="header-logo-video"
-          src={logoSrc}
-          aria-label="Fashion Dingo"
-          autoPlay
-          loop
-          muted
-          defaultMuted
-          playsInline
-          preload="auto"
-          controls={false}
-        />
+        <button className="header-logo-button" type="button" onClick={() => setPage("home")} aria-label="retour accueil">
+          <video
+            className="header-logo-video"
+            src={logoSrc}
+            aria-label="Fashion Dingo"
+            autoPlay
+            loop
+            muted
+            defaultMuted
+            playsInline
+            preload="auto"
+            controls={false}
+          />
+        </button>
       </div>
     </header>
   );
