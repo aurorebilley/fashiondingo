@@ -69,12 +69,16 @@ export default function AboutPage() {
         ))}
       </div>
       <motion.img
-        key={mobileMember.alt}
         className="about-mobile-member"
         src={mobileMember.src}
         alt={mobileMember.alt}
         whileHover={memberHover}
       />
+      <div className="about-member-preload" aria-hidden="true">
+        {mobileMembers.map((member) => (
+          <img key={member.alt} src={member.src} alt="" />
+        ))}
+      </div>
       <div className="about-mobile-controls" aria-label="navigation membres">
         <button type="button" onClick={showPreviousMobileMember} aria-label="membre precedent">
           <ArrowLeft size={24} />
@@ -140,7 +144,8 @@ export default function AboutPage() {
         }
 
         .about-mobile-member,
-        .about-mobile-controls {
+        .about-mobile-controls,
+        .about-member-preload {
           display: none;
         }
 
