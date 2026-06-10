@@ -52,7 +52,7 @@ export default function AboutPage() {
         .about-members-row {
           position: absolute;
           left: 50%;
-          top: 44%;
+          top: 38%;
           z-index: 2;
           display: flex;
           align-items: center;
