@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import aboutDesktopBg from "../components/fond/aboutordi.webp";
 import aboutMobileBg from "../components/fond/aboutmobile.webp";
 import tableForeground from "../components/fond/Table Premier Plan.webp";
@@ -22,6 +23,8 @@ const desktopMemberColumns = [
   [{ src: manueMember, alt: "Manue" }]
 ];
 
+const memberHover = { y: -8, rotate: 2 };
+
 export default function AboutPage() {
   return (
     <section
@@ -35,7 +38,13 @@ export default function AboutPage() {
         {desktopMemberColumns.map((column, index) => (
           <div className={`about-member-column ${index < 2 ? "is-lower" : ""}`} key={column[0].alt}>
             {column.map((member) => (
-              <img key={member.alt} className="about-member" src={member.src} alt={member.alt} />
+              <motion.img
+                key={member.alt}
+                className="about-member"
+                src={member.src}
+                alt={member.alt}
+                whileHover={memberHover}
+              />
             ))}
           </div>
         ))}
