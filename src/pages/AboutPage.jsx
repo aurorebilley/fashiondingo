@@ -1,7 +1,5 @@
 import React from "react";
 import HomeButton from "../components/HomeButton";
-import logoWebm from "../components/anim/logo site.webm";
-import logoMp4 from "../components/anim/logo site.mp4";
 import aboutDesktopBg from "../components/fond/aboutordi.webp";
 import aboutMobileBg from "../components/fond/aboutmobile.webp";
 
@@ -15,10 +13,6 @@ export default function AboutPage({ setPage }) {
       }}
     >
       <HomeButton setPage={setPage} />
-      <video className="about-logo-video" autoPlay loop muted playsInline>
-        <source src={logoWebm} type="video/webm" />
-        <source src={logoMp4} type="video/mp4" />
-      </video>
       <style>{`
         .about-logo-page {
           width: 100vw;
@@ -39,12 +33,6 @@ export default function AboutPage({ setPage }) {
         main:has(.about-logo-page) {
           height: 100vh;
           overflow: hidden;
-        }
-
-        .about-logo-video {
-          display: block;
-          width: min(90vw, 720px);
-          height: auto;
         }
 
         @media (max-width: 900px) {

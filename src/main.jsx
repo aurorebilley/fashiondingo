@@ -183,11 +183,15 @@ function App() {
     buzz: BuzzPage
   }[page];
 
+  useEffect(() => {
+    if (page === "about") setPlaying(false);
+  }, [page]);
+
   return (
     <>
       <FloatingDecor />
       <Nav />
-      <MusicPlayer playing={playing} setPlaying={setPlaying} />
+      {page !== "about" && <MusicPlayer playing={playing} setPlaying={setPlaying} />}
       <AnimatePresence mode="wait">
         <motion.main key={page} initial={{ opacity: 0, filter: "blur(8px)" }} animate={{ opacity: 1, filter: "blur(0)" }} exit={{ opacity: 0, filter: "blur(8px)" }} transition={{ duration: .35 }}>
           <Current setPage={setPage} playing={playing} />
