@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import aboutDesktopBg from "../components/fond/aboutordi.webp";
 import aboutMobileBg from "../components/fond/aboutmobile.webp";
 import tableForeground from "../components/fond/Table Premier Plan.webp";
+import leftArrowGif from "../components/anim/LeftArrow.gif";
+import rightArrowGif from "../components/anim/RightArrow.GIF";
 import felixMember from "../components/membre/Felix1.svg";
 import leoMember from "../components/membre/Leo1.svg";
 import maloneMember from "../components/membre/Malone1.svg";
@@ -81,10 +82,10 @@ export default function AboutPage() {
       </div>
       <div className="about-mobile-controls" aria-label="navigation membres">
         <button className="about-mobile-arrow is-left" type="button" onClick={showPreviousMobileMember} aria-label="membre precedent">
-          <ArrowLeft size={24} />
+          <img src={leftArrowGif} alt="" aria-hidden="true" />
         </button>
         <button className="about-mobile-arrow is-right" type="button" onClick={showNextMobileMember} aria-label="membre suivant">
-          <ArrowRight size={24} />
+          <img src={rightArrowGif} alt="" aria-hidden="true" />
         </button>
       </div>
       <img className="about-table-foreground" src={tableForeground} alt="" aria-hidden="true" />
@@ -201,12 +202,18 @@ export default function AboutPage() {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 52px;
-            height: 44px;
-            border: 3px solid #1E22AA;
-            background: #FF9425;
-            color: #171031;
-            box-shadow: 4px 4px 0 #DA291C;
+            width: 64px;
+            height: 58px;
+            padding: 0;
+            border: 0;
+            background: transparent;
+          }
+
+          .about-mobile-arrow img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
           }
 
           .about-mobile-arrow.is-left {
