@@ -140,9 +140,10 @@ export default function AboutPage() {
             display: block;
             position: absolute;
             left: 50%;
-            top: 50%;
+            top: 38%;
             z-index: 2;
-            width: min(62vw, 280px);
+            width: min(82vw, 380px);
+            max-height: 58vh;
             height: auto;
             object-fit: contain;
             transform: translate(-50%, -50%);
