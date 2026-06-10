@@ -20,9 +20,6 @@ export default function AboutPage() {
           min-height: 100vh;
           overflow: hidden;
           padding: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
           background-image: var(--about-desktop-bg);
           background-position: center center;
           background-size: cover;
@@ -37,6 +34,9 @@ export default function AboutPage() {
 
         .about-table-foreground {
           display: block;
+          position: absolute;
+          right: 0;
+          bottom: 0;
           width: min(64vw, 620px);
           max-height: 58vh;
           object-fit: contain;
@@ -50,6 +50,8 @@ export default function AboutPage() {
           }
 
           .about-table-foreground {
+            position: static;
+            margin: auto;
             width: min(78vw, 420px);
             max-height: 52vh;
           }
