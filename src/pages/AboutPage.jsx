@@ -49,6 +49,12 @@ export default function AboutPage() {
           </div>
         ))}
       </div>
+      <motion.img
+        className="about-mobile-member"
+        src={felixMember}
+        alt="Felix"
+        whileHover={memberHover}
+      />
       <img className="about-table-foreground" src={tableForeground} alt="" aria-hidden="true" />
       <style>{`
         .about-logo-page {
@@ -105,6 +111,10 @@ export default function AboutPage() {
           user-select: none;
         }
 
+        .about-mobile-member {
+          display: none;
+        }
+
         .about-table-foreground {
           display: block;
           position: absolute;
@@ -126,11 +136,21 @@ export default function AboutPage() {
             display: none;
           }
 
+          .about-mobile-member {
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 2;
+            width: min(62vw, 280px);
+            height: auto;
+            object-fit: contain;
+            transform: translate(-50%, -50%);
+            user-select: none;
+          }
+
           .about-table-foreground {
-            position: static;
-            margin: auto;
-            width: min(70vw, 360px);
-            max-height: 46vh;
+            display: none;
           }
         }
       `}</style>
