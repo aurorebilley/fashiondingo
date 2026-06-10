@@ -68,22 +68,20 @@ export default function AboutPage() {
           </div>
         ))}
       </div>
-      <div className="about-mobile-carousel">
-        <motion.img
-          key={mobileMember.alt}
-          className="about-mobile-member"
-          src={mobileMember.src}
-          alt={mobileMember.alt}
-          whileHover={memberHover}
-        />
-        <div className="about-mobile-controls" aria-label="navigation membres">
-          <button type="button" onClick={showPreviousMobileMember} aria-label="membre precedent">
-            <ArrowLeft size={24} />
-          </button>
-          <button type="button" onClick={showNextMobileMember} aria-label="membre suivant">
-            <ArrowRight size={24} />
-          </button>
-        </div>
+      <motion.img
+        key={mobileMember.alt}
+        className="about-mobile-member"
+        src={mobileMember.src}
+        alt={mobileMember.alt}
+        whileHover={memberHover}
+      />
+      <div className="about-mobile-controls" aria-label="navigation membres">
+        <button type="button" onClick={showPreviousMobileMember} aria-label="membre precedent">
+          <ArrowLeft size={24} />
+        </button>
+        <button type="button" onClick={showNextMobileMember} aria-label="membre suivant">
+          <ArrowRight size={24} />
+        </button>
       </div>
       <img className="about-table-foreground" src={tableForeground} alt="" aria-hidden="true" />
       <style>{`
@@ -141,7 +139,8 @@ export default function AboutPage() {
           user-select: none;
         }
 
-        .about-mobile-carousel {
+        .about-mobile-member,
+        .about-mobile-controls {
           display: none;
         }
 
@@ -166,21 +165,17 @@ export default function AboutPage() {
             display: none;
           }
 
-          .about-mobile-carousel {
+          .about-mobile-member {
             display: block;
             position: absolute;
             left: 50%;
             top: 34%;
             z-index: 2;
-            transform: translate(-50%, -50%);
-          }
-
-          .about-mobile-member {
-            display: block;
             width: min(82vw, 380px);
             max-height: 58vh;
             height: auto;
             object-fit: contain;
+            transform: translate(-50%, -50%);
             user-select: none;
           }
 
@@ -188,7 +183,8 @@ export default function AboutPage() {
             display: flex;
             position: absolute;
             left: 50%;
-            top: calc(100% + 12px);
+            top: 73%;
+            z-index: 3;
             align-items: center;
             justify-content: center;
             gap: 16px;
