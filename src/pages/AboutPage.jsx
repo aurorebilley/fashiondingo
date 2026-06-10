@@ -80,10 +80,10 @@ export default function AboutPage() {
         ))}
       </div>
       <div className="about-mobile-controls" aria-label="navigation membres">
-        <button type="button" onClick={showPreviousMobileMember} aria-label="membre precedent">
+        <button className="about-mobile-arrow is-left" type="button" onClick={showPreviousMobileMember} aria-label="membre precedent">
           <ArrowLeft size={24} />
         </button>
-        <button type="button" onClick={showNextMobileMember} aria-label="membre suivant">
+        <button className="about-mobile-arrow is-right" type="button" onClick={showNextMobileMember} aria-label="membre suivant">
           <ArrowRight size={24} />
         </button>
       </div>
@@ -185,18 +185,19 @@ export default function AboutPage() {
           }
 
           .about-mobile-controls {
-            display: flex;
+            display: block;
             position: absolute;
             left: 50%;
-            top: 73%;
+            top: calc(34% + min(29vh, 190px));
             z-index: 3;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
+            width: min(82vw, 380px);
+            height: 44px;
             transform: translateX(-50%);
           }
 
-          .about-mobile-controls button {
+          .about-mobile-arrow {
+            position: absolute;
+            top: 0;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -206,6 +207,14 @@ export default function AboutPage() {
             background: #FF9425;
             color: #171031;
             box-shadow: 4px 4px 0 #DA291C;
+          }
+
+          .about-mobile-arrow.is-left {
+            left: 0;
+          }
+
+          .about-mobile-arrow.is-right {
+            right: 0;
           }
 
           .about-table-foreground {
