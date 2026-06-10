@@ -35,8 +35,8 @@ export default function AboutPage() {
         .about-table-foreground {
           display: block;
           position: absolute;
-          right: 0;
-          bottom: 0;
+          right: 48px;
+          bottom: 36px;
           width: min(64vw, 620px);
           max-height: 58vh;
           object-fit: contain;
