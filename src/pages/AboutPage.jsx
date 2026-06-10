@@ -99,7 +99,7 @@ export default function AboutPage() {
         .about-table-foreground {
           display: block;
           position: absolute;
-          right: 48px;
+          right: 24px;
           bottom: 36px;
           width: min(56vw, 540px);
           max-height: 52vh;
