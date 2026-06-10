@@ -76,8 +76,8 @@ export default function AboutPage() {
           position: absolute;
           right: 48px;
           bottom: 36px;
-          width: min(64vw, 620px);
-          max-height: 58vh;
+          width: min(56vw, 540px);
+          max-height: 52vh;
           object-fit: contain;
           user-select: none;
           pointer-events: none;
@@ -95,8 +95,8 @@ export default function AboutPage() {
           .about-table-foreground {
             position: static;
             margin: auto;
-            width: min(78vw, 420px);
-            max-height: 52vh;
+            width: min(70vw, 360px);
+            max-height: 46vh;
           }
         }
       `}</style>
