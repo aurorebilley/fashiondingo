@@ -37,8 +37,8 @@ export default function AboutPage() {
 
         .about-table-foreground {
           display: block;
-          width: min(88vw, 920px);
-          max-height: 78vh;
+          width: min(64vw, 620px);
+          max-height: 58vh;
           object-fit: contain;
           user-select: none;
           pointer-events: none;
@@ -50,8 +50,8 @@ export default function AboutPage() {
           }
 
           .about-table-foreground {
-            width: min(96vw, 620px);
-            max-height: 72vh;
+            width: min(78vw, 420px);
+            max-height: 52vh;
           }
         }
       `}</style>
