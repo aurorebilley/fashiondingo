@@ -167,9 +167,7 @@ export default function AboutPage() {
           }
 
           .about-mobile-carousel {
-            display: grid;
-            justify-items: center;
-            gap: 12px;
+            display: block;
             position: absolute;
             left: 50%;
             top: 34%;
@@ -188,9 +186,13 @@ export default function AboutPage() {
 
           .about-mobile-controls {
             display: flex;
+            position: absolute;
+            left: 50%;
+            top: calc(100% + 12px);
             align-items: center;
             justify-content: center;
             gap: 16px;
+            transform: translateX(-50%);
           }
 
           .about-mobile-controls button {
