@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import aboutDesktopBg from "../components/fond/aboutordi.webp";
 import aboutMobileBg from "../components/fond/aboutmobile.webp";
 import tableForeground from "../components/fond/Table Premier Plan.webp";
@@ -23,9 +24,27 @@ const desktopMemberColumns = [
   [{ src: manueMember, alt: "Manue" }]
 ];
 
+const mobileMembers = [
+  { src: felixMember, alt: "Felix" },
+  { src: leoMember, alt: "Leo" },
+  { src: maloneMember, alt: "Malone" },
+  { src: manueMember, alt: "Manue" },
+  { src: popsMember, alt: "Pops" },
+  { src: zelieMember, alt: "Zelie" }
+];
+
 const memberHover = { y: -8, rotate: 2 };
 
 export default function AboutPage() {
+  const [mobileMemberIndex, setMobileMemberIndex] = useState(0);
+  const mobileMember = mobileMembers[mobileMemberIndex];
+  const showPreviousMobileMember = () => {
+    setMobileMemberIndex((index) => (index - 1 + mobileMembers.length) % mobileMembers.length);
+  };
+  const showNextMobileMember = () => {
+    setMobileMemberIndex((index) => (index + 1) % mobileMembers.length);
+  };
+
   return (
     <section
       className="page about-logo-page"
@@ -49,12 +68,23 @@ export default function AboutPage() {
           </div>
         ))}
       </div>
-      <motion.img
-        className="about-mobile-member"
-        src={felixMember}
-        alt="Felix"
-        whileHover={memberHover}
-      />
+      <div className="about-mobile-carousel">
+        <motion.img
+          key={mobileMember.alt}
+          className="about-mobile-member"
+          src={mobileMember.src}
+          alt={mobileMember.alt}
+          whileHover={memberHover}
+        />
+        <div className="about-mobile-controls" aria-label="navigation membres">
+          <button type="button" onClick={showPreviousMobileMember} aria-label="membre precedent">
+            <ArrowLeft size={24} />
+          </button>
+          <button type="button" onClick={showNextMobileMember} aria-label="membre suivant">
+            <ArrowRight size={24} />
+          </button>
+        </div>
+      </div>
       <img className="about-table-foreground" src={tableForeground} alt="" aria-hidden="true" />
       <style>{`
         .about-logo-page {
@@ -111,7 +141,7 @@ export default function AboutPage() {
           user-select: none;
         }
 
-        .about-mobile-member {
+        .about-mobile-carousel {
           display: none;
         }
 
@@ -136,18 +166,43 @@ export default function AboutPage() {
             display: none;
           }
 
-          .about-mobile-member {
-            display: block;
+          .about-mobile-carousel {
+            display: grid;
+            justify-items: center;
+            gap: 12px;
             position: absolute;
             left: 50%;
             top: 34%;
             z-index: 2;
+            transform: translate(-50%, -50%);
+          }
+
+          .about-mobile-member {
+            display: block;
             width: min(82vw, 380px);
             max-height: 58vh;
             height: auto;
             object-fit: contain;
-            transform: translate(-50%, -50%);
             user-select: none;
+          }
+
+          .about-mobile-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+          }
+
+          .about-mobile-controls button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 44px;
+            border: 3px solid #1E22AA;
+            background: #FF9425;
+            color: #171031;
+            box-shadow: 4px 4px 0 #DA291C;
           }
 
           .about-table-foreground {
