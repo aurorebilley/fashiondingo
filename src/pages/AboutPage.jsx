@@ -51,15 +51,16 @@ export default function AboutPage() {
 
         .about-members-row {
           position: absolute;
-          left: 50%;
+          left: 0;
+          right: 0;
           top: 33%;
           z-index: 2;
           display: flex;
           align-items: center;
-          justify-content: center;
-          gap: min(2.4vw, 34px);
-          width: min(82vw, 1040px);
-          transform: translate(-50%, -50%);
+          justify-content: space-evenly;
+          gap: 0;
+          width: 100vw;
+          transform: translateY(-50%);
         }
 
         .about-member {
