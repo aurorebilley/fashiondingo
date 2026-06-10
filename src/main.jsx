@@ -14,6 +14,7 @@ import youtubeIcon from "./components/Youtube.svg";
 import socialBanner from "./components/banniere-reseau.webp";
 import logoVideo from "./components/anim/logo site.webm";
 import logoSafariVideo from "./components/anim/logo site.mp4";
+import HomeButton from "./components/HomeButton";
 import AboutPage from "./pages/AboutPage";
 import BuzzPage from "./pages/BuzzPage";
 import HomePage from "./pages/HomePage";
@@ -64,18 +65,22 @@ function FloatingDecor() {
   );
 }
 
-function Nav() {
+function Nav({ page, setPage }) {
   const logoSrc = isSafari ? logoSafariVideo : logoVideo;
 
   return (
     <header className="fixed left-0 right-0 top-0 z-30 px-3 py-3 md:px-6">
       <div className="site-header-row">
-        <div className="social-strip">
-          <img className="social-banner" src={socialBanner} alt="" />
-          <a href="mailto:fashion.dingo@proton.me" aria-label="envoyer un mail"><img src={mailIcon} alt="" /></a>
-          <a href="https://www.instagram.com/fashion_dingo0o/" target="_blank" rel="noreferrer" aria-label="ouvrir Instagram"><img src={instagramIcon} alt="" /></a>
-          <a href="https://www.youtube.com/@fashiondingo" target="_blank" rel="noreferrer" aria-label="ouvrir YouTube"><img src={youtubeIcon} alt="" /></a>
-        </div>
+        {page === "about" ? (
+          <HomeButton setPage={setPage} />
+        ) : (
+          <div className="social-strip">
+            <img className="social-banner" src={socialBanner} alt="" />
+            <a href="mailto:fashion.dingo@proton.me" aria-label="envoyer un mail"><img src={mailIcon} alt="" /></a>
+            <a href="https://www.instagram.com/fashion_dingo0o/" target="_blank" rel="noreferrer" aria-label="ouvrir Instagram"><img src={instagramIcon} alt="" /></a>
+            <a href="https://www.youtube.com/@fashiondingo" target="_blank" rel="noreferrer" aria-label="ouvrir YouTube"><img src={youtubeIcon} alt="" /></a>
+          </div>
+        )}
         <video
           className="header-logo-video"
           src={logoSrc}
@@ -171,8 +176,35 @@ function MusicPlayer({ playing, setPlaying }) {
 
 const isSafari = typeof navigator !== "undefined" && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
+const pagePaths = {
+  home: "/",
+  about: "/about",
+  portfolio: "/portfolio",
+  shop: "/shop",
+  invite: "/invite",
+  buzz: "/buzz"
+};
+
+const pathPages = Object.entries(pagePaths).reduce((routes, [page, path]) => {
+  routes[path] = page;
+  return routes;
+}, {
+  "/src/pages/HomePage.jsx": "home",
+  "/src/pages/AboutPage.jsx": "about",
+  "/src/pages/PortfolioPage.jsx": "portfolio",
+  "/src/pages/ShopPage.jsx": "shop",
+  "/src/pages/InvitePage.jsx": "invite",
+  "/src/pages/BuzzPage.jsx": "buzz"
+});
+
+const getPageFromLocation = () => {
+  if (typeof window === "undefined") return "home";
+
+  return pathPages[window.location.pathname] ?? "home";
+};
+
 function App() {
-  const [page, setPage] = useState("home");
+  const [page, setCurrentPage] = useState(getPageFromLocation);
   const [playing, setPlaying] = useState(false);
   const Current = {
     home: HomePage,
@@ -183,14 +215,33 @@ function App() {
     buzz: BuzzPage
   }[page];
 
+  const setPage = (nextPage) => {
+    const nextPath = pagePaths[nextPage] ?? pagePaths.home;
+
+    setCurrentPage(nextPage);
+
+    if (typeof window !== "undefined" && window.location.pathname !== nextPath) {
+      window.history.pushState({ page: nextPage }, "", nextPath);
+    }
+  };
+
   useEffect(() => {
     if (page === "about") setPlaying(false);
   }, [page]);
 
+  useEffect(() => {
+    const syncPageWithUrl = () => {
+      setCurrentPage(getPageFromLocation());
+    };
+
+    window.addEventListener("popstate", syncPageWithUrl);
+    return () => window.removeEventListener("popstate", syncPageWithUrl);
+  }, []);
+
   return (
     <>
       <FloatingDecor />
-      <Nav />
+      <Nav page={page} setPage={setPage} />
       {page !== "about" && <MusicPlayer playing={playing} setPlaying={setPlaying} />}
       <AnimatePresence mode="wait">
         <motion.main key={page} initial={{ opacity: 0, filter: "blur(8px)" }} animate={{ opacity: 1, filter: "blur(0)" }} exit={{ opacity: 0, filter: "blur(8px)" }} transition={{ duration: .35 }}>

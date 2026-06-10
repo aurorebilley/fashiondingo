@@ -1,9 +1,8 @@
 import React from "react";
-import HomeButton from "../components/HomeButton";
 import aboutDesktopBg from "../components/fond/aboutordi.webp";
 import aboutMobileBg from "../components/fond/aboutmobile.webp";
 
-export default function AboutPage({ setPage }) {
+export default function AboutPage() {
   return (
     <section
       className="page about-logo-page"
@@ -12,7 +11,6 @@ export default function AboutPage({ setPage }) {
         "--about-mobile-bg": `url(${aboutMobileBg})`
       }}
     >
-      <HomeButton setPage={setPage} />
       <style>{`
         .about-logo-page {
           width: 100vw;
