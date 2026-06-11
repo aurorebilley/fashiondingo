@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import aboutDesktopBg from "../components/fond/aboutordi.webp";
 import aboutMobileBg from "../components/fond/aboutmobile.webp";
+import floorBg from "../components/fond/sol.webp";
 import tableForeground from "../components/fond/Table Premier Plan.webp";
 import leftArrowGif from "../components/anim/LeftArrow.gif";
 import rightArrowGif from "../components/anim/RightArrow.GIF";
@@ -55,6 +56,7 @@ export default function AboutPage() {
         "--about-mobile-bg": `url(${aboutMobileBg})`
       }}
     >
+      <img className="about-floor" src={floorBg} alt="" aria-hidden="true" />
       <div className="about-members-row">
         {desktopMemberColumns.map((column, index) => (
           <div className={`about-member-column ${index < 2 ? "is-lower" : ""}`} key={column[0].alt}>
@@ -146,6 +148,21 @@ export default function AboutPage() {
           user-select: none;
         }
 
+        .about-floor {
+          display: block;
+          position: absolute;
+          left: 50%;
+          bottom: 0;
+          z-index: 1;
+          width: 100vw;
+          min-width: 100%;
+          height: auto;
+          object-fit: cover;
+          transform: translateX(-50%);
+          user-select: none;
+          pointer-events: none;
+        }
+
         .about-mobile-member,
         .about-mobile-controls,
         .about-member-preload {
@@ -157,6 +174,7 @@ export default function AboutPage() {
           position: absolute;
           right: 24px;
           bottom: 36px;
+          z-index: 3;
           width: min(56vw, 540px);
           max-height: 52vh;
           object-fit: contain;
@@ -269,6 +287,10 @@ export default function AboutPage() {
           }
 
           .about-table-foreground {
+            display: none;
+          }
+
+          .about-floor {
             display: none;
           }
 
