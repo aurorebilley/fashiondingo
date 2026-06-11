@@ -180,7 +180,7 @@ export default function AboutPage() {
         .about-desktop-title {
           position: absolute;
           left: clamp(24px, 4vw, 72px);
-          bottom: clamp(128px, 20vh, 230px);
+          bottom: clamp(150px, 23vh, 260px);
           z-index: 2;
           max-width: min(48vw, 640px);
           color: #EADA24;
@@ -249,6 +249,16 @@ export default function AboutPage() {
           }
           100% {
             transform: translate(0, 0) rotate(-10deg) scaleX(-1);
+          }
+        }
+
+        @media (min-width: 901px) and (min-aspect-ratio: 16 / 10) {
+          .about-floor {
+            bottom: clamp(-900px, -68vh, -620px);
+          }
+
+          .about-desktop-title {
+            bottom: clamp(120px, 20vh, 230px);
           }
         }
 
