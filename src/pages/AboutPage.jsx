@@ -13,12 +13,42 @@ import popsMember from "../components/membre/Pops1.svg";
 import zelieMember from "../components/membre/Zelie1.svg";
 
 const desktopMembers = [
-  { src: felixMember, alt: "Felix", name: "Félix" },
-  { src: leoMember, alt: "Leo", name: "Léo" },
-  { src: maloneMember, alt: "Malone", name: "Malone" },
-  { src: manueMember, alt: "Manue", name: "Manue" },
-  { src: popsMember, alt: "Pops", name: "Pops" },
-  { src: zelieMember, alt: "Zelie", name: "Zélie" }
+  {
+    src: felixMember,
+    alt: "Felix",
+    name: "Félix",
+    copy: "le deuxième geek de la bande.\ninfo : toujours aux aguets."
+  },
+  {
+    src: leoMember,
+    alt: "Leo",
+    name: "Léo",
+    copy: "le quatrième geek de la bande spécialité magic.\ninfo : pro de la truffade."
+  },
+  {
+    src: maloneMember,
+    alt: "Malone",
+    name: "Malone",
+    copy: "le geek de la bande.\ninfo : n’a en réalité que deux couettes."
+  },
+  {
+    src: manueMember,
+    alt: "Manue",
+    name: "Manue",
+    copy: "A le sens du style.\ninfo : vit recluse avec ses deux chattes."
+  },
+  {
+    src: popsMember,
+    alt: "Pops",
+    name: "Pops",
+    copy: "Dort après les repas.\ninfo : en perpétuelle crise d’ado."
+  },
+  {
+    src: zelieMember,
+    alt: "Zelie",
+    name: "Zélie",
+    copy: "la troisième geek de la bande.\ninfo : force weird (est capable d’enlever une de ses dents)."
+  }
 ];
 
 const desktopTopMembers = desktopMembers.slice(0, 4);
@@ -34,6 +64,8 @@ const mobileMembers = [
 ];
 
 const memberHover = { y: -8, rotate: 2 };
+const defaultDesktopCopy =
+  "Hoc inmaturo interitu ipse quoque sui pertaesus excessit e vita aetatis nono anno atque vicensimo cum quadriennio imperasset. natus apud Tuscos in Massa Veternensi, patre Constantio Constantini fratre imperatoris, matreque Galla sorore Rufini et Cerealis, quos trabeae consulares nobilitarunt et praefecturae.";
 const selectedMemberAnimation = {
   y: [0, -10, 0, -5, 0],
   rotate: [0, -2, 2, -1, 0],
@@ -47,6 +79,7 @@ const selectedMemberAnimation = {
 export default function AboutPage() {
   const [selectedDesktopMember, setSelectedDesktopMember] = useState(null);
   const desktopTitle = selectedDesktopMember?.name ?? "Qui sommes nous ?";
+  const desktopCopy = selectedDesktopMember?.copy ?? defaultDesktopCopy;
 
   return (
     <section
@@ -61,7 +94,7 @@ export default function AboutPage() {
         <div className="about-floor-text">
           <div className="about-desktop-title">{desktopTitle}</div>
           <p className="about-desktop-copy">
-            Hoc inmaturo interitu ipse quoque sui pertaesus excessit e vita aetatis nono anno atque vicensimo cum quadriennio imperasset. natus apud Tuscos in Massa Veternensi, patre Constantio Constantini fratre imperatoris, matreque Galla sorore Rufini et Cerealis, quos trabeae consulares nobilitarunt et praefecturae.
+            {desktopCopy}
           </p>
         </div>
       </div>
