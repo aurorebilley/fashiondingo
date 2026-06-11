@@ -23,6 +23,17 @@ import PortfolioPage from "./pages/PortfolioPage";
 import ShopPage from "./pages/ShopPage";
 import "./styles.css";
 
+if (typeof document !== "undefined") {
+  const loadingGifPreload = document.createElement("link");
+  loadingGifPreload.rel = "preload";
+  loadingGifPreload.as = "image";
+  loadingGifPreload.href = loadingGif;
+  document.head.appendChild(loadingGifPreload);
+
+  const loadingGifImage = new Image();
+  loadingGifImage.src = loadingGif;
+}
+
 const musicModules = import.meta.glob("./components/music/*.mp3", {
   eager: true,
   query: "?url",
