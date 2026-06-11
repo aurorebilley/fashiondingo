@@ -5,6 +5,7 @@ import aboutMobileBg from "../components/fond/aboutmobile.webp";
 import tableForeground from "../components/fond/Table Premier Plan.webp";
 import leftArrowGif from "../components/anim/LeftArrow.gif";
 import rightArrowGif from "../components/anim/RightArrow.GIF";
+import loupeIcon from "../components/anim/Loupe Icon.webp";
 import felixMember from "../components/membre/Felix1.svg";
 import leoMember from "../components/membre/Leo1.svg";
 import maloneMember from "../components/membre/Malone1.svg";
@@ -88,6 +89,7 @@ export default function AboutPage() {
           <img src={rightArrowGif} alt="" aria-hidden="true" />
         </button>
       </div>
+      <img className="about-loupe-wanderer" src={loupeIcon} alt="" aria-hidden="true" />
       <img className="about-table-foreground" src={tableForeground} alt="" aria-hidden="true" />
       <style>{`
         .about-logo-page {
@@ -162,6 +164,48 @@ export default function AboutPage() {
           pointer-events: none;
         }
 
+        .about-loupe-wanderer {
+          display: block;
+          position: absolute;
+          left: 12vw;
+          top: 18vh;
+          z-index: 4;
+          width: clamp(74px, 8vw, 128px);
+          height: auto;
+          object-fit: contain;
+          pointer-events: none;
+          user-select: none;
+          transform-origin: 50% 70%;
+          animation: about-loupe-walk 18s ease-in-out infinite;
+        }
+
+        @keyframes about-loupe-walk {
+          0% {
+            transform: translate(0, 0) rotate(-10deg) scaleX(1);
+          }
+          18% {
+            transform: translate(24vw, 8vh) rotate(9deg) scaleX(1);
+          }
+          34% {
+            transform: translate(46vw, -2vh) rotate(-6deg) scaleX(1);
+          }
+          50% {
+            transform: translate(64vw, 22vh) rotate(12deg) scaleX(1);
+          }
+          51% {
+            transform: translate(64vw, 22vh) rotate(12deg) scaleX(-1);
+          }
+          68% {
+            transform: translate(42vw, 30vh) rotate(-8deg) scaleX(-1);
+          }
+          84% {
+            transform: translate(18vw, 18vh) rotate(8deg) scaleX(-1);
+          }
+          100% {
+            transform: translate(0, 0) rotate(-10deg) scaleX(-1);
+          }
+        }
+
         @media (max-width: 900px) {
           .about-logo-page {
             background-image: var(--about-mobile-bg);
@@ -225,6 +269,10 @@ export default function AboutPage() {
           }
 
           .about-table-foreground {
+            display: none;
+          }
+
+          .about-loupe-wanderer {
             display: none;
           }
         }
