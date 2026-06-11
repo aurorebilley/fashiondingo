@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import aboutDesktopBg from "../components/fond/aboutordi.webp";
 import aboutMobileBg from "../components/fond/aboutmobile.webp";
@@ -12,12 +13,12 @@ import popsMember from "../components/membre/Pops1.svg";
 import zelieMember from "../components/membre/Zelie1.svg";
 
 const desktopMembers = [
-  { src: felixMember, alt: "Felix" },
-  { src: leoMember, alt: "Leo" },
-  { src: maloneMember, alt: "Malone" },
-  { src: manueMember, alt: "Manue" },
-  { src: popsMember, alt: "Pops" },
-  { src: zelieMember, alt: "Zelie" }
+  { src: felixMember, alt: "Felix", name: "Félix" },
+  { src: leoMember, alt: "Leo", name: "Léo" },
+  { src: maloneMember, alt: "Malone", name: "Malone" },
+  { src: manueMember, alt: "Manue", name: "Manue" },
+  { src: popsMember, alt: "Pops", name: "Pops" },
+  { src: zelieMember, alt: "Zelie", name: "Zélie" }
 ];
 
 const desktopTopMembers = desktopMembers.slice(0, 4);
@@ -35,6 +36,8 @@ const mobileMembers = [
 const memberHover = { y: -8, rotate: 2 };
 
 export default function AboutPage() {
+  const [desktopTitle, setDesktopTitle] = useState("Qui sommes nous ?");
+
   return (
     <section
       className="page about-logo-page"
@@ -46,7 +49,7 @@ export default function AboutPage() {
       <div className="about-floor-layer">
         <img className="about-floor" src={floorBg} alt="" aria-hidden="true" />
         <div className="about-floor-text">
-          <div className="about-desktop-title">Qui sommes nous ?</div>
+          <div className="about-desktop-title">{desktopTitle}</div>
           <p className="about-desktop-copy">
             Hoc inmaturo interitu ipse quoque sui pertaesus excessit e vita aetatis nono anno atque vicensimo cum quadriennio imperasset. natus apud Tuscos in Massa Veternensi, patre Constantio Constantini fratre imperatoris, matreque Galla sorore Rufini et Cerealis, quos trabeae consulares nobilitarunt et praefecturae.
           </p>
@@ -56,24 +59,30 @@ export default function AboutPage() {
         <div className="about-members-line is-top">
           {desktopTopMembers.map((member) => (
             <div className={`about-member-slot about-member-slot-${member.alt.toLowerCase()}`} key={member.alt}>
-              <motion.img
-                className="about-member"
-                src={member.src}
-                alt={member.alt}
+              <motion.button
+                className="about-member-button"
+                type="button"
+                aria-label={`Afficher ${member.name}`}
+                onClick={() => setDesktopTitle(member.name)}
                 whileHover={memberHover}
-              />
+              >
+                <img className="about-member" src={member.src} alt={member.alt} />
+              </motion.button>
             </div>
           ))}
         </div>
         <div className="about-members-line is-lower">
           {desktopLowerMembers.map((member) => (
             <div className={`about-member-slot about-member-slot-${member.alt.toLowerCase()}`} key={member.alt}>
-              <motion.img
-                className="about-member"
-                src={member.src}
-                alt={member.alt}
+              <motion.button
+                className="about-member-button"
+                type="button"
+                aria-label={`Afficher ${member.name}`}
+                onClick={() => setDesktopTitle(member.name)}
                 whileHover={memberHover}
-              />
+              >
+                <img className="about-member" src={member.src} alt={member.alt} />
+              </motion.button>
             </div>
           ))}
         </div>
@@ -152,6 +161,20 @@ export default function AboutPage() {
           align-items: center;
           justify-content: center;
           width: 100%;
+        }
+
+        .about-member-button {
+          display: block;
+          padding: 0;
+          border: 0;
+          background: transparent;
+          cursor: pointer;
+        }
+
+        .about-member-button:focus-visible {
+          outline: 3px solid #EADA24;
+          outline-offset: 6px;
+          border-radius: 10px;
         }
 
         .about-member {
