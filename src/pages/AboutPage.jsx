@@ -423,7 +423,18 @@ export default function AboutPage() {
           }
 
           .about-table-foreground {
-            display: none;
+            display: block;
+            position: fixed;
+            left: 50%;
+            right: auto;
+            bottom: clamp(-18px, -2vh, 0px);
+            z-index: 1;
+            width: min(112vw, 620px);
+            max-height: 42vh;
+            transform: translateX(-50%);
+            object-fit: contain;
+            pointer-events: none;
+            user-select: none;
           }
 
           .about-floor-layer {
