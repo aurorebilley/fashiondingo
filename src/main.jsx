@@ -12,6 +12,7 @@ import instagramIcon from "./components/Instagram.svg";
 import mailIcon from "./components/Mail.svg";
 import youtubeIcon from "./components/Youtube.svg";
 import socialBanner from "./components/banniere-reseau.webp";
+import loadingGif from "./components/anim/Loading.gif";
 import logoVideo from "./components/anim/logo site.webm";
 import logoSafariVideo from "./components/anim/logo site.mp4";
 import AboutPage from "./pages/AboutPage";
@@ -175,6 +176,30 @@ function MusicPlayer({ playing, setPlaying }) {
   );
 }
 
+function LoadingScreen() {
+  return (
+    <motion.div
+      className="loading-screen"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      role="status"
+      aria-live="polite"
+    >
+      <img className="loading-gif" src={loadingGif} alt="" />
+      <p className="loading-text">
+        Couture des pixels
+        <span className="loading-dots" aria-hidden="true">
+          <span>.</span>
+          <span>.</span>
+          <span>.</span>
+        </span>
+      </p>
+    </motion.div>
+  );
+}
+
 const isSafari = typeof navigator !== "undefined" && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 const pagePaths = {
@@ -206,6 +231,7 @@ const getPageFromLocation = () => {
 
 function App() {
   const [page, setCurrentPage] = useState(getPageFromLocation);
+  const [loading, setLoading] = useState(true);
   const [playing, setPlaying] = useState(false);
   const Current = {
     home: HomePage,
@@ -239,8 +265,21 @@ function App() {
     return () => window.removeEventListener("popstate", syncPageWithUrl);
   }, []);
 
+  useEffect(() => {
+    setLoading(true);
+
+    const timer = window.setTimeout(() => {
+      setLoading(false);
+    }, 900);
+
+    return () => window.clearTimeout(timer);
+  }, [page]);
+
   return (
     <>
+      <AnimatePresence>
+        {loading && <LoadingScreen />}
+      </AnimatePresence>
       <FloatingDecor />
       <Nav page={page} setPage={setPage} />
       {page !== "about" && <MusicPlayer playing={playing} setPlaying={setPlaying} />}

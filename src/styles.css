@@ -127,6 +127,50 @@ h2 { font-size: clamp(3rem, 8vw, 7rem); margin: 16px 0; color: #753BBD; text-sha
 .home-button { gap: 6px; padding: 8px 12px; margin-bottom: 10px; transform: rotate(-3deg); }
 .runtime-fallback { max-width: 620px; font-size: 1.25rem; background: rgba(255,255,255,.6); border: 3px dashed #DA291C; padding: 16px; }
 
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  padding: 24px;
+  background: #000;
+  color: #fff;
+}
+.loading-gif {
+  display: block;
+  width: min(42vw, 260px);
+  max-width: 78vw;
+  height: auto;
+  object-fit: contain;
+}
+.loading-text {
+  margin: 0;
+  font-size: clamp(1.35rem, 4vw, 2.6rem);
+  line-height: 1.1;
+  text-align: center;
+}
+.loading-dots span {
+  display: inline-block;
+  animation: loadingDot 1s infinite ease-in-out;
+}
+.loading-dots span:nth-child(2) { animation-delay: .15s; }
+.loading-dots span:nth-child(3) { animation-delay: .3s; }
+
+@keyframes loadingDot {
+  0%, 80%, 100% {
+    opacity: .25;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-6px);
+  }
+}
+
 @media (max-width: 900px) {
   .page { padding: 150px 14px 40px; }
   .nav-stickers { justify-content:flex-end; }
