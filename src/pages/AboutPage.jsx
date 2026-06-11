@@ -185,7 +185,7 @@ export default function AboutPage() {
           max-width: min(48vw, 640px);
           color: #EADA24;
           font-family: Griffy, serif;
-          font-size: clamp(2.8rem, 6.8vw, 6.4rem);
+          font-size: clamp(2rem, 4.6vw, 4.5rem);
           line-height: 0.9;
           letter-spacing: 0;
           text-shadow: 5px 5px #1E22AA, -3px -2px #DA291C;
