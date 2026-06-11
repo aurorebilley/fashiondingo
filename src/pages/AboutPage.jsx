@@ -142,21 +142,21 @@ export default function AboutPage() {
 
         .about-members-line.is-top {
           grid-template-columns: repeat(4, minmax(0, 1fr));
-          width: min(74vw, 920px);
+          width: min(82vw, 1060px);
           margin: 0 auto;
         }
 
         .about-members-line.is-lower {
           grid-template-columns: repeat(2, minmax(0, 1fr));
-          width: min(34vw, 500px);
+          width: min(42vw, 640px);
           margin-left: clamp(18px, 3vw, 58px);
         }
 
         .about-member {
           display: block;
-          width: clamp(92px, 11vw, 168px);
+          width: clamp(124px, 14vw, 230px);
           max-width: 100%;
-          max-height: min(24vh, 188px);
+          max-height: min(30vh, 250px);
           height: auto;
           object-fit: contain;
           user-select: none;
