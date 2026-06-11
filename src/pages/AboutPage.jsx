@@ -164,7 +164,7 @@ export default function AboutPage() {
 
         .about-member-malone,
         .about-member-manue {
-          transform: translateY(clamp(24px, 5vh, 58px));
+          transform: translateY(clamp(58px, 10vh, 116px));
         }
 
         .about-floor {
