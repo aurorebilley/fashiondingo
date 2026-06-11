@@ -166,7 +166,7 @@ export default function AboutPage() {
           display: block;
           position: absolute;
           left: 50%;
-          bottom: clamp(-780px, -60vh, -440px);
+          bottom: clamp(-700px, -54vh, -390px);
           z-index: 1;
           width: 100vw;
           min-width: 100%;
@@ -312,7 +312,9 @@ export default function AboutPage() {
           }
 
           .about-floor {
-            display: none;
+            display: block;
+            bottom: clamp(-220px, -24vh, -120px);
+            z-index: 1;
           }
 
           .about-desktop-title {
