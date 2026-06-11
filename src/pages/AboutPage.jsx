@@ -152,7 +152,7 @@ export default function AboutPage() {
           display: block;
           position: absolute;
           left: 50%;
-          bottom: clamp(-220px, -16vh, -96px);
+          bottom: clamp(-520px, -38vh, -260px);
           z-index: 1;
           width: 100vw;
           min-width: 100%;
