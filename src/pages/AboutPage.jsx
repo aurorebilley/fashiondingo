@@ -84,6 +84,7 @@ export default function AboutPage() {
   return (
     <section
       className="page about-logo-page"
+      onClick={() => setSelectedDesktopMember(null)}
       style={{
         "--about-desktop-bg": `url(${aboutDesktopBg})`,
         "--about-mobile-bg": `url(${aboutMobileBg})`
@@ -106,7 +107,10 @@ export default function AboutPage() {
                 className="about-member-button"
                 type="button"
                 aria-label={`Afficher ${member.name}`}
-                onClick={() => setSelectedDesktopMember(member)}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setSelectedDesktopMember(member);
+                }}
                 animate={selectedDesktopMember?.alt === member.alt ? selectedMemberAnimation : { y: 0, rotate: 0 }}
                 whileHover={memberHover}
               >
@@ -122,7 +126,10 @@ export default function AboutPage() {
                 className="about-member-button"
                 type="button"
                 aria-label={`Afficher ${member.name}`}
-                onClick={() => setSelectedDesktopMember(member)}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setSelectedDesktopMember(member);
+                }}
                 animate={selectedDesktopMember?.alt === member.alt ? selectedMemberAnimation : { y: 0, rotate: 0 }}
                 whileHover={memberHover}
               >
