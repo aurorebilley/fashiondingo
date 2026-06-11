@@ -228,22 +228,21 @@ export default function AboutPage() {
 
         @media (max-width: 900px) {
           .about-logo-page {
-            height: auto;
+            height: 100vh;
             min-height: 100vh;
-            overflow: visible;
+            overflow: hidden;
             background-image: none;
           }
 
           main:has(.about-logo-page) {
-            height: auto;
-            min-height: 100vh;
-            overflow: visible;
+            height: 100vh;
+            overflow: hidden;
           }
 
           .about-logo-page::before {
             content: "";
             display: block;
-            position: fixed;
+            position: absolute;
             inset: 0;
             z-index: 0;
             pointer-events: none;
@@ -258,14 +257,18 @@ export default function AboutPage() {
           }
 
           .about-mobile-members-scroll {
-            position: relative;
+            position: absolute;
+            inset: 0;
             z-index: 2;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: clamp(20px, 5vh, 38px);
             width: 100%;
-            min-height: 100vh;
+            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             padding: 14vh 0 12vh;
           }
 
