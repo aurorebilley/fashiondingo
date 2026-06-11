@@ -23,6 +23,9 @@ const desktopMembers = [
   { src: zelieMember, alt: "Zelie" }
 ];
 
+const desktopTopMembers = desktopMembers.slice(0, 4);
+const desktopLowerMembers = desktopMembers.slice(4);
+
 const mobileMembers = [
   { src: felixMember, alt: "Felix" },
   { src: leoMember, alt: "Leo" },
@@ -54,15 +57,28 @@ export default function AboutPage() {
     >
       <img className="about-floor" src={floorBg} alt="" aria-hidden="true" />
       <div className="about-members-stage">
-        {desktopMembers.map((member) => (
-          <motion.img
-            key={member.alt}
-            className="about-member"
-            src={member.src}
-            alt={member.alt}
-            whileHover={memberHover}
-          />
-        ))}
+        <div className="about-members-line is-top">
+          {desktopTopMembers.map((member) => (
+            <motion.img
+              key={member.alt}
+              className="about-member"
+              src={member.src}
+              alt={member.alt}
+              whileHover={memberHover}
+            />
+          ))}
+        </div>
+        <div className="about-members-line is-lower">
+          {desktopLowerMembers.map((member) => (
+            <motion.img
+              key={member.alt}
+              className="about-member"
+              src={member.src}
+              alt={member.alt}
+              whileHover={memberHover}
+            />
+          ))}
+        </div>
       </div>
       <motion.img
         className="about-mobile-member"
@@ -108,23 +124,39 @@ export default function AboutPage() {
         .about-members-stage {
           position: absolute;
           left: 50%;
-          top: 7vh;
+          top: 5vh;
           z-index: 2;
+          display: flex;
+          flex-direction: column;
+          gap: clamp(14px, 2.2vh, 26px);
+          width: min(92vw, 1180px);
+          transform: translateX(-50%);
+        }
+
+        .about-members-line {
           display: grid;
-          grid-template-columns: repeat(6, minmax(0, 1fr));
           align-items: center;
           justify-items: center;
-          gap: clamp(8px, 1.4vw, 24px);
-          width: min(92vw, 1280px);
-          max-height: 34vh;
-          transform: translateX(-50%);
+          gap: clamp(10px, 1.8vw, 30px);
+        }
+
+        .about-members-line.is-top {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          width: min(74vw, 920px);
+          margin: 0 auto;
+        }
+
+        .about-members-line.is-lower {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          width: min(34vw, 500px);
+          margin-left: clamp(18px, 3vw, 58px);
         }
 
         .about-member {
           display: block;
-          width: clamp(92px, 12vw, 178px);
+          width: clamp(92px, 11vw, 168px);
           max-width: 100%;
-          max-height: min(29vh, 210px);
+          max-height: min(24vh, 188px);
           height: auto;
           object-fit: contain;
           user-select: none;
