@@ -34,9 +34,19 @@ const mobileMembers = [
 ];
 
 const memberHover = { y: -8, rotate: 2 };
+const selectedMemberAnimation = {
+  y: [0, -10, 0, -5, 0],
+  rotate: [0, -2, 2, -1, 0],
+  transition: {
+    duration: 1.4,
+    repeat: Infinity,
+    ease: "easeInOut"
+  }
+};
 
 export default function AboutPage() {
-  const [desktopTitle, setDesktopTitle] = useState("Qui sommes nous ?");
+  const [selectedDesktopMember, setSelectedDesktopMember] = useState(null);
+  const desktopTitle = selectedDesktopMember?.name ?? "Qui sommes nous ?";
 
   return (
     <section
@@ -63,7 +73,8 @@ export default function AboutPage() {
                 className="about-member-button"
                 type="button"
                 aria-label={`Afficher ${member.name}`}
-                onClick={() => setDesktopTitle(member.name)}
+                onClick={() => setSelectedDesktopMember(member)}
+                animate={selectedDesktopMember?.alt === member.alt ? selectedMemberAnimation : { y: 0, rotate: 0 }}
                 whileHover={memberHover}
               >
                 <img className="about-member" src={member.src} alt={member.alt} />
@@ -78,7 +89,8 @@ export default function AboutPage() {
                 className="about-member-button"
                 type="button"
                 aria-label={`Afficher ${member.name}`}
-                onClick={() => setDesktopTitle(member.name)}
+                onClick={() => setSelectedDesktopMember(member)}
+                animate={selectedDesktopMember?.alt === member.alt ? selectedMemberAnimation : { y: 0, rotate: 0 }}
                 whileHover={memberHover}
               >
                 <img className="about-member" src={member.src} alt={member.alt} />
