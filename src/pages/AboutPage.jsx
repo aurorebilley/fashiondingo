@@ -285,6 +285,7 @@ export default function AboutPage() {
           font-size: clamp(0.95rem, 1.45vw, 1.55rem);
           line-height: 1.14;
           text-align: left;
+          white-space: pre-line;
           text-wrap: pretty;
           text-shadow: 2px 2px #1E22AA;
         }
