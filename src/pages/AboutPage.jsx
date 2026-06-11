@@ -45,10 +45,12 @@ export default function AboutPage() {
     >
       <div className="about-floor-layer">
         <img className="about-floor" src={floorBg} alt="" aria-hidden="true" />
-        <div className="about-desktop-title">Qui sommes nous ?</div>
-        <p className="about-desktop-copy">
-          Hoc inmaturo interitu ipse quoque sui pertaesus excessit e vita aetatis nono anno atque vicensimo cum quadriennio imperasset. natus apud Tuscos in Massa Veternensi, patre Constantio Constantini fratre imperatoris, matreque Galla sorore Rufini et Cerealis, quos trabeae consulares nobilitarunt et praefecturae.
-        </p>
+        <div className="about-floor-text">
+          <div className="about-desktop-title">Qui sommes nous ?</div>
+          <p className="about-desktop-copy">
+            Hoc inmaturo interitu ipse quoque sui pertaesus excessit e vita aetatis nono anno atque vicensimo cum quadriennio imperasset. natus apud Tuscos in Massa Veternensi, patre Constantio Constantini fratre imperatoris, matreque Galla sorore Rufini et Cerealis, quos trabeae consulares nobilitarunt et praefecturae.
+          </p>
+        </div>
       </div>
       <div className="about-members-stage">
         <div className="about-members-line is-top">
@@ -187,11 +189,18 @@ export default function AboutPage() {
           object-fit: cover;
         }
 
-        .about-desktop-title {
+        .about-floor-text {
           position: absolute;
           left: clamp(24px, 4vw, 72px);
           top: clamp(10px, 3.4vh, 48px);
           z-index: 1;
+          width: min(48vw, 820px);
+          max-width: calc(100vw - min(56vw, 540px) - 120px);
+          pointer-events: none;
+          user-select: none;
+        }
+
+        .about-desktop-title {
           max-width: min(48vw, 640px);
           color: #EADA24;
           font-family: Griffy, serif;
@@ -199,26 +208,17 @@ export default function AboutPage() {
           line-height: 0.9;
           letter-spacing: 0;
           text-shadow: 5px 5px #1E22AA, -3px -2px #DA291C;
-          pointer-events: none;
-          user-select: none;
         }
 
         .about-desktop-copy {
-          position: absolute;
-          left: clamp(28px, 4.2vw, 80px);
-          top: clamp(84px, 14vh, 160px);
-          z-index: 1;
-          width: min(48vw, 820px);
-          max-width: calc(100vw - min(56vw, 540px) - 120px);
-          margin: 0;
+          width: 100%;
+          margin: clamp(10px, 1.6vh, 18px) 0 0;
           color: #fff4b8;
           font-size: clamp(0.95rem, 1.45vw, 1.55rem);
           line-height: 1.14;
-          text-align: left;
+          text-align: center;
           text-wrap: pretty;
           text-shadow: 2px 2px #1E22AA;
-          pointer-events: none;
-          user-select: none;
         }
 
         .about-mobile-members-scroll {
@@ -285,7 +285,7 @@ export default function AboutPage() {
             bottom: clamp(-760px, -58vh, -500px);
           }
 
-          .about-desktop-copy {
+          .about-floor-text {
             width: min(40vw, 760px);
             max-width: calc(100vw - min(56vw, 540px) - 150px);
           }
@@ -356,11 +356,7 @@ export default function AboutPage() {
             z-index: 1;
           }
 
-          .about-desktop-title {
-            display: none;
-          }
-
-          .about-desktop-copy {
+          .about-floor-text {
             display: none;
           }
 
