@@ -14,17 +14,13 @@ import manueMember from "../components/membre/Manue1.svg";
 import popsMember from "../components/membre/Pops1.svg";
 import zelieMember from "../components/membre/Zelie1.svg";
 
-const desktopMemberColumns = [
-  [
-    { src: felixMember, alt: "Felix" },
-    { src: popsMember, alt: "Pops" }
-  ],
-  [
-    { src: leoMember, alt: "Leo" },
-    { src: zelieMember, alt: "Zelie" }
-  ],
-  [{ src: maloneMember, alt: "Malone" }],
-  [{ src: manueMember, alt: "Manue" }]
+const desktopMembers = [
+  { src: felixMember, alt: "Felix" },
+  { src: leoMember, alt: "Leo" },
+  { src: maloneMember, alt: "Malone" },
+  { src: manueMember, alt: "Manue" },
+  { src: popsMember, alt: "Pops" },
+  { src: zelieMember, alt: "Zelie" }
 ];
 
 const mobileMembers = [
@@ -57,19 +53,15 @@ export default function AboutPage() {
       }}
     >
       <img className="about-floor" src={floorBg} alt="" aria-hidden="true" />
-      <div className="about-members-row">
-        {desktopMemberColumns.map((column, index) => (
-          <div className={`about-member-column ${index < 2 ? "is-lower" : ""}`} key={column[0].alt}>
-            {column.map((member) => (
-              <motion.img
-                key={member.alt}
-                className="about-member"
-                src={member.src}
-                alt={member.alt}
-                whileHover={memberHover}
-              />
-            ))}
-          </div>
+      <div className="about-members-stage">
+        {desktopMembers.map((member) => (
+          <motion.img
+            key={member.alt}
+            className="about-member"
+            src={member.src}
+            alt={member.alt}
+            whileHover={memberHover}
+          />
         ))}
       </div>
       <motion.img
@@ -113,36 +105,26 @@ export default function AboutPage() {
           overflow: hidden;
         }
 
-        .about-members-row {
+        .about-members-stage {
           position: absolute;
-          left: 0;
-          right: 0;
-          top: 33%;
+          left: 50%;
+          top: 7vh;
           z-index: 2;
-          display: flex;
+          display: grid;
+          grid-template-columns: repeat(6, minmax(0, 1fr));
           align-items: center;
-          justify-content: space-evenly;
-          gap: 0;
-          width: 100vw;
-          transform: translateY(-50%);
-        }
-
-        .about-member-column {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: flex-start;
-          gap: min(2.5vh, 24px);
-          width: min(18vw, 220px);
-        }
-
-        .about-member-column.is-lower {
-          transform: translateY(82px);
+          justify-items: center;
+          gap: clamp(8px, 1.4vw, 24px);
+          width: min(92vw, 1280px);
+          max-height: 34vh;
+          transform: translateX(-50%);
         }
 
         .about-member {
           display: block;
-          width: 100%;
+          width: clamp(92px, 12vw, 178px);
+          max-width: 100%;
+          max-height: min(29vh, 210px);
           height: auto;
           object-fit: contain;
           user-select: none;
@@ -229,7 +211,7 @@ export default function AboutPage() {
             background-image: var(--about-mobile-bg);
           }
 
-          .about-members-row {
+          .about-members-stage {
             display: none;
           }
 
