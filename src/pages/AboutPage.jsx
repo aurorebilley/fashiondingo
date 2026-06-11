@@ -47,24 +47,26 @@ export default function AboutPage() {
       <div className="about-members-stage">
         <div className="about-members-line is-top">
           {desktopTopMembers.map((member) => (
-            <motion.img
-              key={member.alt}
-              className={`about-member about-member-${member.alt.toLowerCase()}`}
-              src={member.src}
-              alt={member.alt}
-              whileHover={memberHover}
-            />
+            <div className={`about-member-slot about-member-slot-${member.alt.toLowerCase()}`} key={member.alt}>
+              <motion.img
+                className="about-member"
+                src={member.src}
+                alt={member.alt}
+                whileHover={memberHover}
+              />
+            </div>
           ))}
         </div>
         <div className="about-members-line is-lower">
           {desktopLowerMembers.map((member) => (
-            <motion.img
-              key={member.alt}
-              className={`about-member about-member-${member.alt.toLowerCase()}`}
-              src={member.src}
-              alt={member.alt}
-              whileHover={memberHover}
-            />
+            <div className={`about-member-slot about-member-slot-${member.alt.toLowerCase()}`} key={member.alt}>
+              <motion.img
+                className="about-member"
+                src={member.src}
+                alt={member.alt}
+                whileHover={memberHover}
+              />
+            </div>
           ))}
         </div>
       </div>
@@ -137,6 +139,13 @@ export default function AboutPage() {
           margin-left: clamp(18px, 3vw, 58px);
         }
 
+        .about-member-slot {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+        }
+
         .about-member {
           display: block;
           width: clamp(124px, 14vw, 230px);
@@ -147,8 +156,8 @@ export default function AboutPage() {
           user-select: none;
         }
 
-        .about-member-malone,
-        .about-member-manue {
+        .about-member-slot-malone,
+        .about-member-slot-manue {
           transform: translateY(clamp(58px, 10vh, 116px));
         }
 
