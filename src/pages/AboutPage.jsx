@@ -61,7 +61,7 @@ export default function AboutPage() {
           {desktopTopMembers.map((member) => (
             <motion.img
               key={member.alt}
-              className="about-member"
+              className={`about-member about-member-${member.alt.toLowerCase()}`}
               src={member.src}
               alt={member.alt}
               whileHover={memberHover}
@@ -72,7 +72,7 @@ export default function AboutPage() {
           {desktopLowerMembers.map((member) => (
             <motion.img
               key={member.alt}
-              className="about-member"
+              className={`about-member about-member-${member.alt.toLowerCase()}`}
               src={member.src}
               alt={member.alt}
               whileHover={memberHover}
@@ -160,6 +160,11 @@ export default function AboutPage() {
           height: auto;
           object-fit: contain;
           user-select: none;
+        }
+
+        .about-member-malone,
+        .about-member-manue {
+          transform: translateY(clamp(24px, 5vh, 58px));
         }
 
         .about-floor {
