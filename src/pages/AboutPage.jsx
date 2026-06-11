@@ -44,6 +44,7 @@ export default function AboutPage() {
       }}
     >
       <img className="about-floor" src={floorBg} alt="" aria-hidden="true" />
+      <div className="about-desktop-title">Qui sommes nous ?</div>
       <div className="about-members-stage">
         <div className="about-members-line is-top">
           {desktopTopMembers.map((member) => (
@@ -176,6 +177,22 @@ export default function AboutPage() {
           pointer-events: none;
         }
 
+        .about-desktop-title {
+          position: absolute;
+          left: clamp(24px, 4vw, 72px);
+          bottom: clamp(68px, 12vh, 130px);
+          z-index: 2;
+          max-width: min(48vw, 640px);
+          color: #EADA24;
+          font-family: Griffy, serif;
+          font-size: clamp(2.8rem, 6.8vw, 6.4rem);
+          line-height: 0.9;
+          letter-spacing: 0;
+          text-shadow: 5px 5px #1E22AA, -3px -2px #DA291C;
+          pointer-events: none;
+          user-select: none;
+        }
+
         .about-mobile-members-scroll {
           display: none;
         }
@@ -295,6 +312,10 @@ export default function AboutPage() {
           }
 
           .about-floor {
+            display: none;
+          }
+
+          .about-desktop-title {
             display: none;
           }
 
