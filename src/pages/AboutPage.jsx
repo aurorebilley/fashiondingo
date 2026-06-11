@@ -46,6 +46,9 @@ export default function AboutPage() {
       <div className="about-floor-layer">
         <img className="about-floor" src={floorBg} alt="" aria-hidden="true" />
         <div className="about-desktop-title">Qui sommes nous ?</div>
+        <p className="about-desktop-copy">
+          Hoc inmaturo interitu ipse quoque sui pertaesus excessit e vita aetatis nono anno atque vicensimo cum quadriennio imperasset. natus apud Tuscos in Massa Veternensi, patre Constantio Constantini fratre imperatoris, matreque Galla sorore Rufini et Cerealis, quos trabeae consulares nobilitarunt et praefecturae.
+        </p>
       </div>
       <div className="about-members-stage">
         <div className="about-members-line is-top">
@@ -200,6 +203,24 @@ export default function AboutPage() {
           user-select: none;
         }
 
+        .about-desktop-copy {
+          position: absolute;
+          left: clamp(28px, 4.2vw, 80px);
+          top: clamp(84px, 14vh, 160px);
+          z-index: 1;
+          width: min(48vw, 820px);
+          max-width: calc(100vw - min(56vw, 540px) - 120px);
+          margin: 0;
+          color: #fff4b8;
+          font-size: clamp(0.95rem, 1.45vw, 1.55rem);
+          line-height: 1.14;
+          text-align: left;
+          text-wrap: pretty;
+          text-shadow: 2px 2px #1E22AA;
+          pointer-events: none;
+          user-select: none;
+        }
+
         .about-mobile-members-scroll {
           display: none;
         }
@@ -262,6 +283,11 @@ export default function AboutPage() {
         @media (min-width: 901px) and (min-aspect-ratio: 16 / 10) {
           .about-floor-layer {
             bottom: clamp(-760px, -58vh, -500px);
+          }
+
+          .about-desktop-copy {
+            width: min(40vw, 760px);
+            max-width: calc(100vw - min(56vw, 540px) - 150px);
           }
         }
 
@@ -331,6 +357,10 @@ export default function AboutPage() {
           }
 
           .about-desktop-title {
+            display: none;
+          }
+
+          .about-desktop-copy {
             display: none;
           }
 
