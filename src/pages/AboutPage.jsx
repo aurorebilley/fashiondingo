@@ -43,8 +43,10 @@ export default function AboutPage() {
         "--about-mobile-bg": `url(${aboutMobileBg})`
       }}
     >
-      <img className="about-floor" src={floorBg} alt="" aria-hidden="true" />
-      <div className="about-desktop-title">Qui sommes nous ?</div>
+      <div className="about-floor-layer">
+        <img className="about-floor" src={floorBg} alt="" aria-hidden="true" />
+        <div className="about-desktop-title">Qui sommes nous ?</div>
+      </div>
       <div className="about-members-stage">
         <div className="about-members-line is-top">
           {desktopTopMembers.map((member) => (
@@ -162,26 +164,31 @@ export default function AboutPage() {
           transform: translateY(clamp(58px, 10vh, 116px));
         }
 
-        .about-floor {
-          display: block;
+        .about-floor-layer {
           position: absolute;
           left: 50%;
           bottom: clamp(-700px, -54vh, -390px);
           z-index: 1;
           width: 100vw;
           min-width: 100%;
-          height: auto;
-          object-fit: cover;
+          aspect-ratio: 16 / 9;
           transform: translateX(-50%);
           user-select: none;
           pointer-events: none;
         }
 
+        .about-floor {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
         .about-desktop-title {
           position: absolute;
           left: clamp(24px, 4vw, 72px);
-          bottom: clamp(150px, 23vh, 260px);
-          z-index: 2;
+          top: clamp(18px, 4.8vh, 70px);
+          z-index: 1;
           max-width: min(48vw, 640px);
           color: #EADA24;
           font-family: Griffy, serif;
@@ -253,12 +260,8 @@ export default function AboutPage() {
         }
 
         @media (min-width: 901px) and (min-aspect-ratio: 16 / 10) {
-          .about-floor {
+          .about-floor-layer {
             bottom: clamp(-760px, -58vh, -500px);
-          }
-
-          .about-desktop-title {
-            bottom: clamp(260px, 31vh, 360px);
           }
         }
 
@@ -321,7 +324,7 @@ export default function AboutPage() {
             display: none;
           }
 
-          .about-floor {
+          .about-floor-layer {
             display: block;
             bottom: clamp(-220px, -24vh, -120px);
             z-index: 1;
