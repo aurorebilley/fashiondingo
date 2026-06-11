@@ -254,11 +254,11 @@ export default function AboutPage() {
 
         @media (min-width: 901px) and (min-aspect-ratio: 16 / 10) {
           .about-floor {
-            bottom: clamp(-900px, -68vh, -620px);
+            bottom: clamp(-760px, -58vh, -500px);
           }
 
           .about-desktop-title {
-            bottom: clamp(120px, 20vh, 230px);
+            bottom: clamp(260px, 31vh, 360px);
           }
         }
 
