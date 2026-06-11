@@ -180,7 +180,7 @@ export default function AboutPage() {
         .about-desktop-title {
           position: absolute;
           left: clamp(24px, 4vw, 72px);
-          bottom: clamp(68px, 12vh, 130px);
+          bottom: clamp(128px, 20vh, 230px);
           z-index: 2;
           max-width: min(48vw, 640px);
           color: #EADA24;
