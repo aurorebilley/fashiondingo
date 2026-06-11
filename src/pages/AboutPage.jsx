@@ -216,7 +216,7 @@ export default function AboutPage() {
           color: #fff4b8;
           font-size: clamp(0.95rem, 1.45vw, 1.55rem);
           line-height: 1.14;
-          text-align: center;
+          text-align: left;
           text-wrap: pretty;
           text-shadow: 2px 2px #1E22AA;
         }
