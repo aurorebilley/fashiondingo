@@ -1,11 +1,8 @@
-import React, { useState } from "react";
 import { motion } from "framer-motion";
 import aboutDesktopBg from "../components/fond/aboutordi.webp";
 import aboutMobileBg from "../components/fond/aboutmobile.webp";
 import floorBg from "../components/fond/sol.webp";
 import tableForeground from "../components/fond/Table Premier Plan.webp";
-import leftArrowGif from "../components/anim/LeftArrow.gif";
-import rightArrowGif from "../components/anim/RightArrow.GIF";
 import loupeIcon from "../components/anim/Loupe Icon.webp";
 import felixMember from "../components/membre/Felix1.svg";
 import leoMember from "../components/membre/Leo1.svg";
@@ -38,15 +35,6 @@ const mobileMembers = [
 const memberHover = { y: -8, rotate: 2 };
 
 export default function AboutPage() {
-  const [mobileMemberIndex, setMobileMemberIndex] = useState(0);
-  const mobileMember = mobileMembers[mobileMemberIndex];
-  const showPreviousMobileMember = () => {
-    setMobileMemberIndex((index) => (index - 1 + mobileMembers.length) % mobileMembers.length);
-  };
-  const showNextMobileMember = () => {
-    setMobileMemberIndex((index) => (index + 1) % mobileMembers.length);
-  };
-
   return (
     <section
       className="page about-logo-page"
@@ -80,24 +68,16 @@ export default function AboutPage() {
           ))}
         </div>
       </div>
-      <motion.img
-        className="about-mobile-member"
-        src={mobileMember.src}
-        alt={mobileMember.alt}
-        whileHover={memberHover}
-      />
-      <div className="about-member-preload" aria-hidden="true">
+      <div className="about-mobile-members-scroll">
         {mobileMembers.map((member) => (
-          <img key={member.alt} src={member.src} alt="" />
+          <motion.img
+            key={member.alt}
+            className="about-mobile-member"
+            src={member.src}
+            alt={member.alt}
+            whileHover={memberHover}
+          />
         ))}
-      </div>
-      <div className="about-mobile-controls" aria-label="navigation membres">
-        <button className="about-mobile-arrow is-left" type="button" onClick={showPreviousMobileMember} aria-label="membre precedent">
-          <img src={leftArrowGif} alt="" aria-hidden="true" />
-        </button>
-        <button className="about-mobile-arrow is-right" type="button" onClick={showNextMobileMember} aria-label="membre suivant">
-          <img src={rightArrowGif} alt="" aria-hidden="true" />
-        </button>
       </div>
       <img className="about-loupe-wanderer" src={loupeIcon} alt="" aria-hidden="true" />
       <img className="about-table-foreground" src={tableForeground} alt="" aria-hidden="true" />
@@ -119,6 +99,11 @@ export default function AboutPage() {
         main:has(.about-logo-page) {
           height: 100vh;
           overflow: hidden;
+        }
+
+        .about-logo-page::before {
+          content: "";
+          display: none;
         }
 
         .about-members-stage {
@@ -182,9 +167,7 @@ export default function AboutPage() {
           pointer-events: none;
         }
 
-        .about-mobile-member,
-        .about-mobile-controls,
-        .about-member-preload {
+        .about-mobile-members-scroll {
           display: none;
         }
 
@@ -245,64 +228,54 @@ export default function AboutPage() {
 
         @media (max-width: 900px) {
           .about-logo-page {
+            height: auto;
+            min-height: 100vh;
+            overflow: visible;
+            background-image: none;
+          }
+
+          main:has(.about-logo-page) {
+            height: auto;
+            min-height: 100vh;
+            overflow: visible;
+          }
+
+          .about-logo-page::before {
+            content: "";
+            display: block;
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
             background-image: var(--about-mobile-bg);
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
           }
 
           .about-members-stage {
             display: none;
           }
 
+          .about-mobile-members-scroll {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(20px, 5vh, 38px);
+            width: 100%;
+            min-height: 100vh;
+            padding: 14vh 0 12vh;
+          }
+
           .about-mobile-member {
             display: block;
-            position: absolute;
-            left: 50%;
-            top: 34%;
-            z-index: 2;
             width: min(82vw, 380px);
-            max-height: 58vh;
+            max-height: none;
             height: auto;
             object-fit: contain;
-            transform: translate(-50%, -50%);
             user-select: none;
-          }
-
-          .about-mobile-controls {
-            display: block;
-            position: absolute;
-            left: 50%;
-            top: calc(34% + min(29vh, 190px));
-            z-index: 3;
-            width: min(82vw, 380px);
-            height: 44px;
-            transform: translateX(-50%);
-          }
-
-          .about-mobile-arrow {
-            position: absolute;
-            top: 0;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 64px;
-            height: 58px;
-            padding: 0;
-            border: 0;
-            background: transparent;
-          }
-
-          .about-mobile-arrow img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-          }
-
-          .about-mobile-arrow.is-left {
-            left: 0;
-          }
-
-          .about-mobile-arrow.is-right {
-            right: 0;
           }
 
           .about-table-foreground {
