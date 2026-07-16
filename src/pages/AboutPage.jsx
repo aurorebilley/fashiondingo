@@ -65,7 +65,7 @@ const mobileMembers = [
 
 const memberHover = { y: -8, rotate: 2 };
 const defaultDesktopCopy =
-  "Hoc inmaturo interitu ipse quoque sui pertaesus excessit e vita aetatis nono anno atque vicensimo cum quadriennio imperasset. natus apud Tuscos in Massa Veternensi, patre Constantio Constantini fratre imperatoris, matreque Galla sorore Rufini et Cerealis, quos trabeae consulares nobilitarunt et praefecturae.";
+  "Fashion Dingo est un collectif d'artistes travaillant autour de l’univers de la mode et de la musique. Le principe est simple : réinventer les défilés pour faire entrer la mode dans un monde absurde, coloré et inventif. Pour ça, la bande de dingos ramène des valises remplies des costumes qu'elle a fabriqué en glanant tissus et étoffes déchues, et fait participer des volontaires sur place pour défiler autour d'un show déjanté, participatif et libérateur !";
 const selectedMemberAnimation = {
   y: [0, -10, 0, -5, 0],
   rotate: [0, -2, 2, -1, 0],
@@ -246,13 +246,13 @@ export default function AboutPage() {
 
         .about-floor-layer {
           position: absolute;
-          left: 50%;
-          bottom: clamp(-700px, -54vh, -390px);
+          left: 0;
+          right: 0;
+          bottom: 0;
           z-index: 1;
           width: 100vw;
+          height: 27.5vh;
           min-width: 100%;
-          aspect-ratio: 16 / 9;
-          transform: translateX(-50%);
           user-select: none;
           pointer-events: none;
         }
@@ -358,7 +358,7 @@ export default function AboutPage() {
 
         @media (min-width: 901px) and (min-aspect-ratio: 16 / 10) {
           .about-floor-layer {
-            bottom: clamp(-760px, -58vh, -500px);
+            bottom: 0;
           }
 
           .about-floor-text {
@@ -439,7 +439,7 @@ export default function AboutPage() {
 
           .about-floor-layer {
             display: block;
-            bottom: clamp(-220px, -24vh, -120px);
+            bottom: 0;
             z-index: 1;
           }
 
