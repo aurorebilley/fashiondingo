@@ -54,14 +54,7 @@ const desktopMembers = [
 const desktopTopMembers = desktopMembers.slice(0, 4);
 const desktopLowerMembers = desktopMembers.slice(4);
 
-const mobileMembers = [
-  { src: felixMember, alt: "Felix" },
-  { src: leoMember, alt: "Leo" },
-  { src: maloneMember, alt: "Malone" },
-  { src: manueMember, alt: "Manue" },
-  { src: popsMember, alt: "Pops" },
-  { src: zelieMember, alt: "Zelie" }
-];
+const mobileMembers = desktopMembers;
 
 const memberHover = { y: -8, rotate: 2 };
 const defaultDesktopCopy =
@@ -214,13 +207,18 @@ export default function AboutPage() {
       </div>
       <div className="about-mobile-members-scroll">
         {mobileMembers.map((member) => (
-          <motion.img
-            key={member.alt}
-            className="about-mobile-member"
-            src={member.src}
-            alt={member.alt}
-            whileHover={memberHover}
-          />
+          <div className="about-mobile-member-block" key={member.alt}>
+            <motion.img
+              className="about-mobile-member"
+              src={member.src}
+              alt={member.alt}
+              whileHover={memberHover}
+            />
+            <article className="soap-card about-mobile-member-card">
+              <h2>{member.name}</h2>
+              <p>{member.copy}</p>
+            </article>
+          </div>
         ))}
       </div>
       <img className="about-loupe-wanderer" src={loupeIcon} alt="" aria-hidden="true" />
@@ -379,6 +377,119 @@ export default function AboutPage() {
           display: none;
         }
 
+        .soap-card {
+          position: relative;
+          isolation: isolate;
+          overflow: hidden;
+          width: min(100%, 520px);
+          height: auto;
+          padding: 40px;
+          border: 1px solid rgba(255, 255, 255, 0.65);
+          border-radius: 34px;
+          background:
+            radial-gradient(
+              circle at 15% 15%,
+              rgba(255, 255, 255, 0.85) 0%,
+              rgba(255, 255, 255, 0.25) 12%,
+              transparent 30%
+            ),
+            radial-gradient(
+              circle at 80% 10%,
+              rgba(127, 236, 255, 0.65) 0%,
+              transparent 38%
+            ),
+            radial-gradient(
+              circle at 10% 80%,
+              rgba(255, 137, 245, 0.55) 0%,
+              transparent 42%
+            ),
+            radial-gradient(
+              circle at 85% 85%,
+              rgba(114, 215, 255, 0.55) 0%,
+              transparent 40%
+            ),
+            linear-gradient(
+              135deg,
+              rgba(223, 163, 255, 0.45),
+              rgba(152, 232, 255, 0.45),
+              rgba(242, 180, 255, 0.38)
+            );
+          box-shadow:
+            0 18px 45px rgba(126, 211, 255, 0.2),
+            0 0 24px rgba(221, 145, 255, 0.28),
+            inset 0 0 35px rgba(255, 255, 255, 0.38);
+          backdrop-filter: blur(18px) saturate(150%);
+          -webkit-backdrop-filter: blur(18px) saturate(150%);
+          color: #222;
+        }
+
+        .soap-card::before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          top: -35%;
+          left: -10%;
+          width: 75%;
+          height: 70%;
+          border-radius: 50%;
+          background: radial-gradient(
+            ellipse,
+            rgba(255, 255, 255, 0.75) 0%,
+            rgba(255, 255, 255, 0.2) 45%,
+            transparent 72%
+          );
+          filter: blur(10px);
+          transform: rotate(-12deg);
+        }
+
+        .soap-card::after {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          inset: -40%;
+          background:
+            repeating-linear-gradient(
+              125deg,
+              rgba(255, 120, 255, 0.08) 0px,
+              rgba(120, 230, 255, 0.08) 18px,
+              rgba(255, 255, 255, 0.05) 35px,
+              transparent 50px
+            ),
+            conic-gradient(
+              from 120deg,
+              transparent,
+              rgba(116, 236, 255, 0.22),
+              rgba(240, 133, 255, 0.25),
+              rgba(255, 255, 255, 0.12),
+              rgba(100, 216, 255, 0.2),
+              transparent
+            );
+          background-size: 180px 180px, cover;
+          background-blend-mode: screen;
+          filter: blur(30px);
+          opacity: 0.9;
+          animation: soap-movement 12s linear infinite;
+        }
+
+        .soap-card h2 {
+          margin: 0 0 16px;
+          font-size: clamp(1.6rem, 4vw, 2.4rem);
+          line-height: 1.1;
+        }
+
+        .soap-card p {
+          margin: 0;
+          font-size: 1rem;
+          line-height: 1.6;
+          white-space: pre-line;
+        }
+
+        @keyframes soap-movement {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
         .about-table-foreground {
           display: block;
           position: absolute;
@@ -490,6 +601,15 @@ export default function AboutPage() {
             padding: 14vh 0 12vh;
           }
 
+          .about-mobile-member-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(14px, 4vw, 24px);
+            width: 100%;
+            padding: 0 clamp(14px, 5vw, 26px);
+          }
+
           .about-mobile-member {
             display: block;
             width: min(82vw, 380px);
@@ -497,6 +617,12 @@ export default function AboutPage() {
             height: auto;
             object-fit: contain;
             user-select: none;
+          }
+
+          .about-mobile-member-card {
+            width: 100%;
+            max-width: 520px;
+            padding: clamp(24px, 7vw, 40px);
           }
 
           .about-table-foreground {
