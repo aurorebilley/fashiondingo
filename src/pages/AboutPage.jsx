@@ -626,24 +626,11 @@ export default function AboutPage() {
           }
 
           .about-table-foreground {
-            display: block;
-            position: fixed;
-            left: 50%;
-            right: auto;
-            bottom: clamp(-18px, -2vh, 0px);
-            z-index: 1;
-            width: min(112vw, 620px);
-            max-height: 42vh;
-            transform: translateX(-50%);
-            object-fit: contain;
-            pointer-events: none;
-            user-select: none;
+            display: none;
           }
 
           .about-floor-layer {
-            display: block;
-            bottom: 0;
-            z-index: 1;
+            display: none;
           }
 
           .about-floor-text {
