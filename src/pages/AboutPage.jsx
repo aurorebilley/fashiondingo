@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import aboutDesktopBg from "../components/fond/aboutordi.webp";
 import aboutMobileBg from "../components/fond/aboutmobile.webp";
@@ -78,8 +78,77 @@ const selectedMemberAnimation = {
 
 export default function AboutPage() {
   const [selectedDesktopMember, setSelectedDesktopMember] = useState(null);
+  const [copyFontSize, setCopyFontSize] = useState(null);
+  const textBoxRef = useRef(null);
+  const titleRef = useRef(null);
+  const copyRef = useRef(null);
   const desktopTitle = selectedDesktopMember?.name ?? "Qui sommes nous ?";
   const desktopCopy = selectedDesktopMember?.copy ?? defaultDesktopCopy;
+
+  useLayoutEffect(() => {
+    const textBox = textBoxRef.current;
+    const title = titleRef.current;
+    const copy = copyRef.current;
+
+    if (!textBox || !title || !copy) {
+      return undefined;
+    }
+
+    let animationFrame = null;
+
+    const fitCopyToSpace = () => {
+      if (window.innerWidth <= 900) {
+        return;
+      }
+
+      const titleStyles = window.getComputedStyle(title);
+      const copyStyles = window.getComputedStyle(copy);
+      const titleFontSize = parseFloat(titleStyles.fontSize) || 48;
+      const copyMarginTop = parseFloat(copyStyles.marginTop) || 0;
+      const availableHeight = textBox.clientHeight - title.offsetHeight - copyMarginTop;
+      const availableWidth = copy.clientWidth;
+
+      if (availableHeight <= 0 || availableWidth <= 0) {
+        return;
+      }
+
+      let min = 10;
+      let max = Math.max(min, titleFontSize * 0.72);
+
+      for (let index = 0; index < 18; index += 1) {
+        const next = (min + max) / 2;
+        copy.style.fontSize = `${next}px`;
+
+        if (copy.scrollHeight <= availableHeight + 1 && copy.scrollWidth <= availableWidth + 1) {
+          min = next;
+        } else {
+          max = next;
+        }
+      }
+
+      setCopyFontSize(Math.floor(min * 10) / 10);
+    };
+
+    const scheduleFit = () => {
+      if (animationFrame) {
+        window.cancelAnimationFrame(animationFrame);
+      }
+
+      animationFrame = window.requestAnimationFrame(fitCopyToSpace);
+    };
+
+    scheduleFit();
+    window.addEventListener("resize", scheduleFit);
+    document.fonts?.ready.then(scheduleFit);
+
+    return () => {
+      if (animationFrame) {
+        window.cancelAnimationFrame(animationFrame);
+      }
+
+      window.removeEventListener("resize", scheduleFit);
+    };
+  }, [desktopCopy, desktopTitle]);
 
   return (
     <section
@@ -92,9 +161,13 @@ export default function AboutPage() {
     >
       <div className="about-floor-layer">
         <img className="about-floor" src={floorBg} alt="" aria-hidden="true" />
-        <div className="about-floor-text">
-          <div className="about-desktop-title">{desktopTitle}</div>
-          <p className="about-desktop-copy">
+        <div className="about-floor-text" ref={textBoxRef}>
+          <div className="about-desktop-title" ref={titleRef}>{desktopTitle}</div>
+          <p
+            className="about-desktop-copy"
+            ref={copyRef}
+            style={copyFontSize ? { fontSize: `${copyFontSize}px` } : undefined}
+          >
             {desktopCopy}
           </p>
         </div>
