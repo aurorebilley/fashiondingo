@@ -598,7 +598,7 @@ export default function AboutPage() {
             overflow-x: hidden;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
-            padding: 14vh 0 12vh;
+            padding: clamp(0px, 2vh, 16px) 0 12vh;
           }
 
           .about-mobile-member-block {
@@ -608,6 +608,10 @@ export default function AboutPage() {
             gap: clamp(14px, 4vw, 24px);
             width: 100%;
             padding: 0 clamp(14px, 5vw, 26px);
+          }
+
+          .about-mobile-member-block:first-child {
+            margin-top: clamp(-96px, -9vh, -36px);
           }
 
           .about-mobile-member {
