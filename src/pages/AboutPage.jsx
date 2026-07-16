@@ -473,6 +473,7 @@ export default function AboutPage() {
 
         .soap-card h2 {
           margin: 0 0 16px;
+          color: #000;
           font-size: clamp(1.6rem, 4vw, 2.4rem);
           line-height: 1.1;
         }
