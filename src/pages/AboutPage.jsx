@@ -267,30 +267,35 @@ export default function AboutPage() {
         .about-floor-text {
           position: absolute;
           left: clamp(24px, 4vw, 72px);
-          top: clamp(10px, 3.4vh, 48px);
+          right: calc(min(56vw, 540px) + 24px + clamp(24px, 4vw, 64px));
+          top: clamp(8px, 2vh, 22px);
+          bottom: clamp(8px, 1.6vh, 18px);
           z-index: 1;
-          width: min(48vw, 820px);
-          max-width: calc(100vw - min(56vw, 540px) - 120px);
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          width: auto;
+          max-width: none;
           pointer-events: none;
           user-select: none;
         }
 
         .about-desktop-title {
-          max-width: min(48vw, 640px);
+          max-width: 100%;
           color: #EADA24;
           font-family: Griffy, serif;
-          font-size: clamp(2rem, 4.6vw, 4.5rem);
-          line-height: 0.9;
+          font-size: clamp(1.65rem, min(3.8vw, 4.6vh), 3.1rem);
+          line-height: 0.86;
           letter-spacing: 0;
           text-shadow: 5px 5px #1E22AA, -3px -2px #DA291C;
         }
 
         .about-desktop-copy {
           width: 100%;
-          margin: clamp(10px, 1.6vh, 18px) 0 0;
+          margin: clamp(5px, 0.9vh, 10px) 0 0;
           color: #fff4b8;
-          font-size: clamp(0.95rem, 1.45vw, 1.55rem);
-          line-height: 1.14;
+          font-size: clamp(0.62rem, min(1.28vw, 1.68vh), 1.06rem);
+          line-height: 1.08;
           text-align: left;
           white-space: pre-line;
           text-wrap: pretty;
@@ -362,8 +367,7 @@ export default function AboutPage() {
           }
 
           .about-floor-text {
-            width: min(40vw, 760px);
-            max-width: calc(100vw - min(56vw, 540px) - 150px);
+            right: calc(min(56vw, 540px) + 24px + clamp(32px, 5vw, 80px));
           }
         }
 
