@@ -365,7 +365,7 @@ export default function AboutPage() {
           width: 100%;
           margin: clamp(5px, 0.9vh, 10px) 0 0;
           color: #fff4b8;
-          font-size: clamp(0.86rem, min(1.52vw, 2.24vh), 1.42rem);
+          font-size: clamp(0.78rem, min(1.34vw, 1.98vh), 1.22rem);
           line-height: 1.08;
           text-align: left;
           white-space: pre-line;
@@ -632,7 +632,6 @@ export default function AboutPage() {
           }
 
           .about-mobile-member-card p {
-            font-size: 0.88rem;
             font-weight: 700;
           }
 
