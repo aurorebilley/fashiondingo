@@ -214,14 +214,14 @@ export default function HomePage({ setPage, playing }) {
           height: 27px;
         }
         body:has(.home-page) .winamp {
-          width: 230px;
-          min-height: 88px;
+          width: min(292px, calc(100vw - 28px));
+          min-height: 96px;
           right: 14px;
           bottom: 14px;
           left: auto;
           top: auto;
           overflow: hidden;
-          padding: 14px 10px 12px 76px;
+          padding: 16px 12px 14px 98px;
           border: 1px solid rgba(73, 78, 91, .9);
           border-radius: 30px 40px 40px 30px / 44px 34px 34px 44px;
           background:
@@ -303,7 +303,7 @@ export default function HomePage({ setPage, playing }) {
           position: relative;
           z-index: 1;
           min-height: 44px;
-          margin: 0;
+          margin: 3px 0 0;
           padding: 10px 8px 7px;
           border: 4px solid #111319;
           border-radius: 6px;
@@ -335,17 +335,19 @@ export default function HomePage({ setPage, playing }) {
         }
         body:has(.home-page) .winamp-buttons {
           position: absolute;
-          left: 8px;
-          top: 9px;
+          left: 11px;
+          top: 10px;
           z-index: 1;
-          width: 60px;
-          height: 70px;
+          width: 78px;
+          height: 78px;
           padding: 0;
         }
         body:has(.home-page) .winamp-buttons button {
           position: absolute;
-          min-width: 26px;
-          min-height: 25px;
+          width: 28px;
+          min-width: 28px;
+          height: 28px;
+          min-height: 28px;
           border: 1px solid rgba(56,60,70,.8);
           border-radius: 999px;
           background:
@@ -359,20 +361,22 @@ export default function HomePage({ setPage, playing }) {
         }
         body:has(.home-page) .winamp-buttons button:nth-child(1) {
           left: 0;
-          bottom: 0;
+          bottom: 2px;
         }
         body:has(.home-page) .winamp-buttons button:nth-child(2) {
-          left: 14px;
+          left: 20px;
           top: 20px;
-          min-width: 36px;
-          min-height: 36px;
+          width: 38px;
+          min-width: 38px;
+          height: 38px;
+          min-height: 38px;
           margin-top: 0;
           color: #303640;
           z-index: 2;
         }
         body:has(.home-page) .winamp-buttons button:nth-child(3) {
           right: 0;
-          top: 0;
+          top: 2px;
         }
         .desktop-room { width: 100vw; height: 100vh; min-height: 100vh; position: relative; overflow: hidden; }
         .home-dancer-shadow {
@@ -513,9 +517,9 @@ export default function HomePage({ setPage, playing }) {
             width: calc(100vw - 20px);
             right: 10px;
             bottom: 10px;
-            min-height: 82px;
+            min-height: 92px;
             display: block;
-            padding: 12px 10px 10px 72px;
+            padding: 14px 10px 12px 94px;
           }
           body:has(.home-page) .winamp.is-mini {
             width: calc(100vw - 20px);
@@ -529,28 +533,40 @@ export default function HomePage({ setPage, playing }) {
           body:has(.home-page) .track {
             min-width: 0;
             min-height: 40px;
-            margin: 0;
+            margin: 4px 0 0;
             padding: 6px 8px;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
           }
           body:has(.home-page) .winamp-buttons {
-            left: 8px;
-            top: 7px;
-            width: 56px;
-            height: 66px;
+            left: 10px;
+            top: 8px;
+            width: 76px;
+            height: 76px;
             padding: 0;
           }
           body:has(.home-page) .winamp-buttons button {
-            min-width: 25px;
-            min-height: 24px;
+            width: 27px;
+            min-width: 27px;
+            height: 27px;
+            min-height: 27px;
+          }
+          body:has(.home-page) .winamp-buttons button:nth-child(1) {
+            left: 0;
+            bottom: 2px;
           }
           body:has(.home-page) .winamp-buttons button:nth-child(2) {
-            left: 13px;
-            top: 19px;
-            min-width: 34px;
-            min-height: 34px;
+            left: 20px;
+            top: 20px;
+            width: 36px;
+            min-width: 36px;
+            height: 36px;
+            min-height: 36px;
+          }
+          body:has(.home-page) .winamp-buttons button:nth-child(3) {
+            right: 0;
+            top: 2px;
           }
         }
         @media (min-width: 901px) and (max-height: 760px) {
