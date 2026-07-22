@@ -630,6 +630,10 @@ export default function AboutPage() {
             padding: clamp(24px, 7vw, 40px);
           }
 
+          .about-mobile-member-card p {
+            font-weight: 700;
+          }
+
           .about-table-foreground {
             display: none;
           }
