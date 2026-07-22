@@ -94,6 +94,12 @@ export default function AboutPage() {
         return;
       }
 
+      if (selectedDesktopMember) {
+        copy.style.fontSize = "";
+        setCopyFontSize(null);
+        return;
+      }
+
       const titleStyles = window.getComputedStyle(title);
       const copyStyles = window.getComputedStyle(copy);
       const titleFontSize = parseFloat(titleStyles.fontSize) || 48;
@@ -141,7 +147,7 @@ export default function AboutPage() {
 
       window.removeEventListener("resize", scheduleFit);
     };
-  }, [desktopCopy, desktopTitle]);
+  }, [desktopCopy, desktopTitle, selectedDesktopMember]);
 
   return (
     <section
