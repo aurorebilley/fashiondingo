@@ -622,6 +622,7 @@ export default function AboutPage() {
             height: auto;
             object-fit: contain;
             user-select: none;
+            filter: drop-shadow(0 16px 18px rgba(23, 16, 49, 0.45));
           }
 
           .about-mobile-member-card {
