@@ -632,6 +632,7 @@ export default function AboutPage() {
           }
 
           .about-mobile-member-card p {
+            font-size: 0.88rem;
             font-weight: 700;
           }
 
