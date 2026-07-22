@@ -158,6 +158,13 @@ export default function HomePage({ setPage, playing }) {
         </div>
       </section>
       <style>{`
+        @font-face {
+          font-family: "FashionDingoDigital";
+          src: url("/font/digital/DS-DIGII.TTF") format("truetype");
+          font-weight: 400;
+          font-style: italic;
+          font-display: swap;
+        }
         .home-page {
           width: 100vw;
           height: 100vh;
@@ -259,8 +266,9 @@ export default function HomePage({ setPage, playing }) {
           position: relative;
           z-index: 1;
           gap: 6px;
-          min-height: 24px;
-          padding: 0 0 4px 37px;
+          min-height: 0;
+          height: 0;
+          padding: 0;
           background: transparent;
           color: rgba(48, 52, 62, .78);
           font-size: 9px;
@@ -270,25 +278,10 @@ export default function HomePage({ setPage, playing }) {
           letter-spacing: 0;
         }
         body:has(.home-page) .winamp-top span {
-          min-width: 0;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
+          display: none;
         }
         body:has(.home-page) .winamp-top button {
-          flex: 0 0 auto;
-          min-width: 22px;
-          min-height: 20px;
-          border: 1px solid rgba(61,65,76,.72);
-          border-radius: 999px;
-          background:
-            radial-gradient(circle at 32% 25%, rgba(255,255,255,.95), transparent 27%),
-            linear-gradient(145deg, #f4f5f8 0%, #a8afbb 47%, #f2f4f7 100%);
-          color: #424753;
-          box-shadow:
-            inset 1px 1px 2px rgba(255,255,255,.95),
-            inset -2px -2px 3px rgba(72,77,89,.32),
-            0 1px 2px rgba(0,0,0,.28);
+          display: none;
         }
         body:has(.home-page) .winamp-top button:hover,
         body:has(.home-page) .winamp-buttons button:hover {
@@ -321,8 +314,10 @@ export default function HomePage({ setPage, playing }) {
             inset 0 0 9px rgba(0,12,80,.7),
             0 0 8px rgba(58,177,255,.44),
             0 2px 2px rgba(0,0,0,.24);
+          font-family: "FashionDingoDigital", "Courier New", Courier, monospace;
           font-size: 10px;
-          font-weight: 700;
+          font-weight: 400;
+          font-style: italic;
           line-height: 1.05;
           letter-spacing: 0;
           text-shadow: 0 0 4px rgba(255,255,255,.8), 1px 1px 0 rgba(0,0,90,.52);
