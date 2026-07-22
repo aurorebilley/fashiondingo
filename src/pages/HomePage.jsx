@@ -214,13 +214,14 @@ export default function HomePage({ setPage, playing }) {
           height: 27px;
         }
         body:has(.home-page) .winamp {
-          width: 188px;
+          width: 230px;
+          min-height: 88px;
           right: 14px;
           bottom: 14px;
           left: auto;
           top: auto;
           overflow: hidden;
-          padding: 6px 8px 8px;
+          padding: 14px 10px 12px 76px;
           border: 1px solid rgba(73, 78, 91, .9);
           border-radius: 30px 40px 40px 30px / 44px 34px 34px 44px;
           background:
@@ -260,6 +261,7 @@ export default function HomePage({ setPage, playing }) {
         }
         body:has(.home-page) .winamp.is-mini {
           width: 156px;
+          min-height: auto;
           padding: 5px 8px;
         }
         body:has(.home-page) .winamp-top {
@@ -300,9 +302,9 @@ export default function HomePage({ setPage, playing }) {
         body:has(.home-page) .track {
           position: relative;
           z-index: 1;
-          min-height: 34px;
-          margin: 0 2px 7px 38px;
-          padding: 7px 7px 5px;
+          min-height: 44px;
+          margin: 0;
+          padding: 10px 8px 7px;
           border: 4px solid #111319;
           border-radius: 6px;
           background:
@@ -315,7 +317,7 @@ export default function HomePage({ setPage, playing }) {
             0 0 8px rgba(58,177,255,.44),
             0 2px 2px rgba(0,0,0,.24);
           font-family: "FashionDingoDigital", "Courier New", Courier, monospace;
-          font-size: 10px;
+          font-size: 12px;
           font-weight: 400;
           font-style: italic;
           line-height: 1.05;
@@ -332,14 +334,16 @@ export default function HomePage({ setPage, playing }) {
           pointer-events: none;
         }
         body:has(.home-page) .winamp-buttons {
-          position: relative;
+          position: absolute;
+          left: 8px;
+          top: 9px;
           z-index: 1;
-          gap: 5px;
-          padding: 0 4px 0 37px;
-          align-items: center;
-          justify-content: center;
+          width: 60px;
+          height: 70px;
+          padding: 0;
         }
         body:has(.home-page) .winamp-buttons button {
+          position: absolute;
           min-width: 26px;
           min-height: 25px;
           border: 1px solid rgba(56,60,70,.8);
@@ -353,11 +357,22 @@ export default function HomePage({ setPage, playing }) {
             inset -2px -2px 4px rgba(59,64,76,.34),
             0 1px 2px rgba(0,0,0,.25);
         }
+        body:has(.home-page) .winamp-buttons button:nth-child(1) {
+          left: 0;
+          bottom: 0;
+        }
         body:has(.home-page) .winamp-buttons button:nth-child(2) {
-          min-width: 31px;
-          min-height: 30px;
-          margin-top: -2px;
+          left: 14px;
+          top: 20px;
+          min-width: 36px;
+          min-height: 36px;
+          margin-top: 0;
           color: #303640;
+          z-index: 2;
+        }
+        body:has(.home-page) .winamp-buttons button:nth-child(3) {
+          right: 0;
+          top: 0;
         }
         .desktop-room { width: 100vw; height: 100vh; min-height: 100vh; position: relative; overflow: hidden; }
         .home-dancer-shadow {
@@ -498,34 +513,44 @@ export default function HomePage({ setPage, playing }) {
             width: calc(100vw - 20px);
             right: 10px;
             bottom: 10px;
-            display: grid;
-            grid-template-columns: auto max-content;
-            align-items: center;
+            min-height: 82px;
+            display: block;
+            padding: 12px 10px 10px 72px;
           }
           body:has(.home-page) .winamp.is-mini {
             width: calc(100vw - 20px);
-            grid-template-columns: 1fr;
+            min-height: auto;
           }
           body:has(.home-page) .winamp-top {
-            grid-column: 1 / -1;
-            min-height: 23px;
-            padding-left: 44px;
+            min-height: 0;
+            height: 0;
+            padding: 0;
           }
           body:has(.home-page) .track {
             min-width: 0;
-            margin: 0 5px 0 44px;
+            min-height: 40px;
+            margin: 0;
             padding: 6px 8px;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
           }
           body:has(.home-page) .winamp-buttons {
-            padding: 0 6px 0 4px;
-            justify-content: flex-end;
+            left: 8px;
+            top: 7px;
+            width: 56px;
+            height: 66px;
+            padding: 0;
           }
           body:has(.home-page) .winamp-buttons button {
-            min-width: 26px;
+            min-width: 25px;
             min-height: 24px;
+          }
+          body:has(.home-page) .winamp-buttons button:nth-child(2) {
+            left: 13px;
+            top: 19px;
+            min-width: 34px;
+            min-height: 34px;
           }
         }
         @media (min-width: 901px) and (max-height: 760px) {
