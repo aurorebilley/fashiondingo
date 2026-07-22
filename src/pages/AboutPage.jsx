@@ -365,7 +365,7 @@ export default function AboutPage() {
           width: 100%;
           margin: clamp(5px, 0.9vh, 10px) 0 0;
           color: #fff4b8;
-          font-size: clamp(0.78rem, min(1.34vw, 1.98vh), 1.22rem);
+          font-size: clamp(0.7rem, min(1.16vw, 1.72vh), 1.05rem);
           line-height: 1.08;
           text-align: left;
           white-space: pre-line;
