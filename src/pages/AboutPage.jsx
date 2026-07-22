@@ -302,9 +302,9 @@ export default function AboutPage() {
 
         .about-member {
           display: block;
-          width: clamp(124px, 14vw, 230px);
+          width: clamp(136px, 15.2vw, 250px);
           max-width: 100%;
-          max-height: min(30vh, 250px);
+          max-height: min(33vh, 270px);
           height: auto;
           object-fit: contain;
           user-select: none;

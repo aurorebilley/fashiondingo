@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Pixel Berry";
+  src: url("/font/pixel/Pixel_Berry_08_84_Ltd_Edition.TTF") format("truetype");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   color: #171031;
   background: #BBC7D6;
@@ -13,7 +21,7 @@ body {
   margin: 0;
   min-height: 100vh;
   overflow-x: hidden;
-  font-family: Atma, "Trebuchet MS", cursive;
+  font-family: "Pixel Berry", "Trebuchet MS", cursive;
   background:
     radial-gradient(circle at 12% 20%, rgba(255,148,37,.55), transparent 20%),
     radial-gradient(circle at 78% 15%, rgba(117,59,189,.45), transparent 22%),

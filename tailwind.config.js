@@ -21,7 +21,7 @@ export default {
       },
       fontFamily: {
         title: ["Griffy", "serif"],
-        body: ["Atma", "Trebuchet MS", "Comic Sans MS", "cursive"]
+        body: ["Pixel Berry", "Trebuchet MS", "Comic Sans MS", "cursive"]
       },
       boxShadow: {
         glow: "0 0 0 3px #EADA24, 0 0 18px #1E22AA, 8px 8px 0 #DA291C"
