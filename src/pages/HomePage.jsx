@@ -212,35 +212,157 @@ export default function HomePage({ setPage, playing }) {
           bottom: 14px;
           left: auto;
           top: auto;
-          border-width: 3px;
-          box-shadow: 4px 4px 0 #753BBD;
+          overflow: hidden;
+          padding: 6px 8px 8px;
+          border: 1px solid rgba(73, 78, 91, .9);
+          border-radius: 30px 40px 40px 30px / 44px 34px 34px 44px;
+          background:
+            radial-gradient(circle at 18% 24%, rgba(255,255,255,.96) 0 9px, transparent 10px),
+            linear-gradient(145deg, rgba(255,255,255,.9) 0%, rgba(213,217,226,.96) 20%, rgba(137,144,157,.98) 49%, rgba(236,239,245,.98) 78%, rgba(162,168,180,.98) 100%);
+          color: #eaf7ff;
+          box-shadow:
+            inset 0 2px 3px rgba(255,255,255,.95),
+            inset 0 -6px 10px rgba(61,65,75,.32),
+            0 6px 14px rgba(0,0,0,.24),
+            2px 3px 0 rgba(30,34,170,.42);
+          font-family: "Courier New", Courier, monospace;
+          isolation: isolate;
+        }
+        body:has(.home-page) .winamp::before {
+          content: "";
+          position: absolute;
+          inset: 4px 5px auto 8px;
+          z-index: -1;
+          height: 28px;
+          border-radius: 999px 999px 45% 45%;
+          background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,0));
+          pointer-events: none;
+        }
+        body:has(.home-page) .winamp::after {
+          content: "";
+          position: absolute;
+          right: -12px;
+          top: 9px;
+          bottom: 9px;
+          z-index: -1;
+          width: 46px;
+          border-left: 1px solid rgba(45,48,57,.42);
+          border-radius: 50%;
+          background: linear-gradient(90deg, rgba(255,255,255,.18), rgba(80,84,94,.18));
+          pointer-events: none;
         }
         body:has(.home-page) .winamp.is-mini {
           width: 156px;
+          padding: 5px 8px;
         }
         body:has(.home-page) .winamp-top {
-          padding: 4px 6px;
-          font-size: 12px;
+          position: relative;
+          z-index: 1;
+          gap: 6px;
+          min-height: 24px;
+          padding: 0 0 4px 37px;
+          background: transparent;
+          color: rgba(48, 52, 62, .78);
+          font-size: 9px;
+          line-height: 1;
+          text-shadow: 0 1px 0 rgba(255,255,255,.85);
+          text-transform: uppercase;
+          letter-spacing: 0;
+        }
+        body:has(.home-page) .winamp-top span {
+          min-width: 0;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
         body:has(.home-page) .winamp-top button {
+          flex: 0 0 auto;
           min-width: 22px;
           min-height: 20px;
+          border: 1px solid rgba(61,65,76,.72);
+          border-radius: 999px;
+          background:
+            radial-gradient(circle at 32% 25%, rgba(255,255,255,.95), transparent 27%),
+            linear-gradient(145deg, #f4f5f8 0%, #a8afbb 47%, #f2f4f7 100%);
+          color: #424753;
+          box-shadow:
+            inset 1px 1px 2px rgba(255,255,255,.95),
+            inset -2px -2px 3px rgba(72,77,89,.32),
+            0 1px 2px rgba(0,0,0,.28);
+        }
+        body:has(.home-page) .winamp-top button:hover,
+        body:has(.home-page) .winamp-buttons button:hover {
+          filter: brightness(1.07);
+        }
+        body:has(.home-page) .winamp-top button:active,
+        body:has(.home-page) .winamp-buttons button:active {
+          transform: translateY(1px);
+          box-shadow:
+            inset 2px 2px 4px rgba(48,52,62,.4),
+            inset -1px -1px 2px rgba(255,255,255,.78);
         }
         body:has(.home-page) .eq {
           display: none;
         }
         body:has(.home-page) .track {
-          padding: 7px 8px 4px;
-          font-size: 12px;
-          line-height: 1.1;
+          position: relative;
+          z-index: 1;
+          min-height: 34px;
+          margin: 0 2px 7px 38px;
+          padding: 7px 7px 5px;
+          border: 4px solid #111319;
+          border-radius: 6px;
+          background:
+            linear-gradient(180deg, rgba(255,255,255,.38), rgba(255,255,255,0) 34%),
+            linear-gradient(180deg, #5ed2ff 0%, #176fe8 48%, #082e9b 100%);
+          color: #eefbff;
+          box-shadow:
+            inset 0 0 0 1px rgba(255,255,255,.18),
+            inset 0 0 9px rgba(0,12,80,.7),
+            0 0 8px rgba(58,177,255,.44),
+            0 2px 2px rgba(0,0,0,.24);
+          font-size: 10px;
+          font-weight: 700;
+          line-height: 1.05;
+          letter-spacing: 0;
+          text-shadow: 0 0 4px rgba(255,255,255,.8), 1px 1px 0 rgba(0,0,90,.52);
+        }
+        body:has(.home-page) .track::after {
+          content: "";
+          position: absolute;
+          inset: 3px 4px auto;
+          height: 7px;
+          border-radius: 999px;
+          background: rgba(255,255,255,.38);
+          pointer-events: none;
         }
         body:has(.home-page) .winamp-buttons {
+          position: relative;
+          z-index: 1;
           gap: 5px;
-          padding: 6px;
+          padding: 0 4px 0 37px;
+          align-items: center;
+          justify-content: center;
         }
         body:has(.home-page) .winamp-buttons button {
-          min-width: 27px;
+          min-width: 26px;
           min-height: 25px;
+          border: 1px solid rgba(56,60,70,.8);
+          border-radius: 999px;
+          background:
+            radial-gradient(circle at 35% 24%, rgba(255,255,255,.98), transparent 28%),
+            linear-gradient(145deg, #f9fafc 0%, #bbc2ce 42%, #7d8491 58%, #eef1f5 100%);
+          color: #4a4f5a;
+          box-shadow:
+            inset 1px 1px 2px rgba(255,255,255,.96),
+            inset -2px -2px 4px rgba(59,64,76,.34),
+            0 1px 2px rgba(0,0,0,.25);
+        }
+        body:has(.home-page) .winamp-buttons button:nth-child(2) {
+          min-width: 31px;
+          min-height: 30px;
+          margin-top: -2px;
+          color: #303640;
         }
         .desktop-room { width: 100vw; height: 100vh; min-height: 100vh; position: relative; overflow: hidden; }
         .home-dancer-shadow {
@@ -391,16 +513,19 @@ export default function HomePage({ setPage, playing }) {
           }
           body:has(.home-page) .winamp-top {
             grid-column: 1 / -1;
+            min-height: 23px;
+            padding-left: 44px;
           }
           body:has(.home-page) .track {
             min-width: 0;
+            margin: 0 5px 0 44px;
             padding: 6px 8px;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
           }
           body:has(.home-page) .winamp-buttons {
-            padding: 5px 6px;
+            padding: 0 6px 0 4px;
             justify-content: flex-end;
           }
           body:has(.home-page) .winamp-buttons button {
