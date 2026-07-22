@@ -225,7 +225,12 @@ export default function HomePage({ setPage, playing }) {
           border: 1px solid rgba(73, 78, 91, .9);
           border-radius: 30px 40px 40px 30px / 44px 34px 34px 44px;
           background:
+            radial-gradient(circle at 13% 22%, rgba(84,89,101,.8) 0 2px, rgba(255,255,255,.72) 3px, rgba(121,128,140,.82) 4px, transparent 5px),
+            radial-gradient(circle at 11% 38%, rgba(84,89,101,.8) 0 2px, rgba(255,255,255,.72) 3px, rgba(121,128,140,.82) 4px, transparent 5px),
+            radial-gradient(circle at 12% 55%, rgba(84,89,101,.8) 0 2px, rgba(255,255,255,.72) 3px, rgba(121,128,140,.82) 4px, transparent 5px),
+            radial-gradient(circle at 17% 76%, rgba(84,89,101,.8) 0 2px, rgba(255,255,255,.72) 3px, rgba(121,128,140,.82) 4px, transparent 5px),
             radial-gradient(circle at 18% 24%, rgba(255,255,255,.96) 0 9px, transparent 10px),
+            repeating-linear-gradient(101deg, rgba(255,255,255,.16) 0 1px, rgba(86,91,103,.09) 1px 2px, transparent 2px 6px),
             linear-gradient(145deg, rgba(255,255,255,.9) 0%, rgba(213,217,226,.96) 20%, rgba(137,144,157,.98) 49%, rgba(236,239,245,.98) 78%, rgba(162,168,180,.98) 100%);
           color: #eaf7ff;
           box-shadow:
@@ -239,11 +244,19 @@ export default function HomePage({ setPage, playing }) {
         body:has(.home-page) .winamp::before {
           content: "";
           position: absolute;
-          inset: 4px 5px auto 8px;
+          inset: 5px 9px auto 92px;
           z-index: -1;
-          height: 28px;
-          border-radius: 999px 999px 45% 45%;
-          background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,0));
+          height: 78px;
+          border: 1px solid rgba(0,0,0,.65);
+          border-radius: 12px 18px 18px 12px;
+          background:
+            linear-gradient(180deg, rgba(255,255,255,.12), transparent 34%),
+            linear-gradient(90deg, #07080c 0%, #17191f 11%, #08090d 88%, #252832 100%);
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,.22),
+            inset 0 -2px 4px rgba(0,0,0,.72),
+            0 1px 1px rgba(255,255,255,.28),
+            0 2px 3px rgba(0,0,0,.36);
           pointer-events: none;
         }
         body:has(.home-page) .winamp::after {
@@ -256,7 +269,9 @@ export default function HomePage({ setPage, playing }) {
           width: 46px;
           border-left: 1px solid rgba(45,48,57,.42);
           border-radius: 50%;
-          background: linear-gradient(90deg, rgba(255,255,255,.18), rgba(80,84,94,.18));
+          background:
+            radial-gradient(circle at 42% 50%, rgba(255,255,255,.58), rgba(255,255,255,.18) 38%, rgba(88,94,106,.2) 68%),
+            linear-gradient(90deg, rgba(255,255,255,.18), rgba(80,84,94,.18));
           pointer-events: none;
         }
         body:has(.home-page) .winamp.is-mini {
@@ -315,6 +330,8 @@ export default function HomePage({ setPage, playing }) {
             inset 0 0 0 1px rgba(255,255,255,.18),
             inset 0 0 9px rgba(0,12,80,.7),
             0 0 8px rgba(58,177,255,.44),
+            0 -7px 0 -5px #2b2d33,
+            0 7px 0 -5px #2b2d33,
             0 2px 2px rgba(0,0,0,.24);
           font-family: "FashionDingoDigital", "Courier New", Courier, monospace;
           font-size: 12px;
@@ -327,10 +344,11 @@ export default function HomePage({ setPage, playing }) {
         body:has(.home-page) .track::after {
           content: "";
           position: absolute;
-          inset: 3px 4px auto;
-          height: 7px;
+          inset: 3px 5px auto;
+          height: 8px;
           border-radius: 999px;
-          background: rgba(255,255,255,.38);
+          background:
+            linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.5), rgba(255,255,255,0));
           pointer-events: none;
         }
         body:has(.home-page) .winamp-buttons {
@@ -341,6 +359,26 @@ export default function HomePage({ setPage, playing }) {
           width: 78px;
           height: 78px;
           padding: 0;
+          border-radius: 999px;
+          background:
+            radial-gradient(circle at 50% 50%, rgba(255,255,255,.28) 0 20px, rgba(116,123,137,.18) 21px 28px, transparent 29px),
+            radial-gradient(circle at 36% 28%, rgba(255,255,255,.5), transparent 42%),
+            linear-gradient(145deg, rgba(223,227,234,.74), rgba(121,128,141,.52));
+          box-shadow:
+            inset 1px 2px 3px rgba(255,255,255,.64),
+            inset -3px -4px 7px rgba(52,57,68,.28),
+            0 1px 2px rgba(0,0,0,.18);
+        }
+        body:has(.home-page) .winamp-buttons::before {
+          content: "";
+          position: absolute;
+          inset: 9px;
+          border-radius: 999px;
+          border: 1px solid rgba(58,63,74,.42);
+          box-shadow:
+            inset 0 1px 2px rgba(255,255,255,.58),
+            0 0 0 1px rgba(255,255,255,.28);
+          pointer-events: none;
         }
         body:has(.home-page) .winamp-buttons button {
           position: absolute;
